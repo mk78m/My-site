@@ -1,0 +1,2165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <title>Neon Syndicate NFT</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet">
+  <style>
+    html,body {height:100%;margin:0;padding:0;overflow:hidden;}
+    body {
+      font-family:'Orbitron',sans-serif;
+      background: #000;
+      color: #fff;
+      min-height:100vh;
+      overflow-x:hidden;
+      height:100vh;
+      width:100vw;
+      overflow:hidden;
+    }
+    .bg-grad {
+      position:fixed;z-index:0;top:0;left:0;width:100vw;height:100vh;
+      pointer-events:none;
+      background: radial-gradient(circle at 20% 30%,#a855f7cc 0,transparent 60%),
+                  radial-gradient(circle at 80% 70%,#06b6d4cc 0,transparent 60%),
+                  radial-gradient(circle at 50% 90%,#3b82f6cc 0,transparent 70%);
+      filter: blur(80px) brightness(0.7);
+      animation: pulse 6s infinite alternate;
+    }
+    @keyframes pulse {0%{opacity:0.7;}100%{opacity:1;}}
+    .particles {position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:1;pointer-events:none;}
+    nav {
+      position:fixed;top:0;left:0;width:100%;z-index:10;display:flex;justify-content:center;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);background:rgba(0,0,0,0.3);border-bottom:1px solid #3b82f6cc;
+    }
+    nav ul {display:flex;gap:2vw;list-style:none;padding:1em 0;margin:0;}
+    nav a {
+      color:#fff;text-decoration:none;font-size:1.1em;padding:0.5em 1em;border-radius:2em;transition:box-shadow .2s,background .2s;
+    }
+    nav a:hover {
+      box-shadow:0 0 12px #a855f7,0 0 24px #06b6d4; background:rgba(58,0,128,0.2);
+    }
+    section {
+      min-height:100vh;display:flex;align-items:center;justify-content:center;position:relative;z-index:2;
+      scroll-snap-align:start;
+      transition:opacity .8s,transform .8s;
+    }
+    .card {
+      background:rgba(20,20,30,0.6);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+      border:1.5px solid #a855f7cc;
+      border-radius:2em;
+      box-shadow:0 0 32px #06b6d4cc,0 0 8px #a855f7cc inset;
+      padding:2em 2.5em;max-width:90vw;width:420px;text-align:center;
+      margin:2em 0;transition:box-shadow .2s;
+    }
+    .card:hover {box-shadow:0 0 48px #a855f7,0 0 24px #06b6d4;}
+    .header-cinematic {
+      font-size:2.8em;letter-spacing:0.08em;text-shadow:0 0 24px #a855f7,0 0 48px #06b6d4;
+      margin-bottom:0.5em;
+      animation: fadeZoom 2s;
+    }
+    @keyframes fadeZoom {0%{opacity:0;transform:scale(1.2);}100%{opacity:1;transform:scale(1);}}
+    .btn {
+      background:linear-gradient(90deg,#a855f7,#06b6d4 80%);
+      color:#fff;border:none;padding:0.8em 2em;border-radius:2em;font-size:1em;
+      box-shadow:0 0 16px #06b6d4cc;cursor:pointer;transition:transform .2s,box-shadow .2s;
+    }
+    .btn:hover {transform:scale(1.07);box-shadow:0 0 32px #a855f7,0 0 24px #06b6d4;}
+    .gallery {display:flex;gap:1em;flex-wrap:wrap;justify-content:center;}
+    .gallery img {width:120px;height:120px;object-fit:cover;border-radius:1em;border:2px solid #06b6d4cc;box-shadow:0 0 16px #a855f7cc;transition:transform .2s;}
+    .gallery img:hover {transform:scale(1.1) rotate(-2deg);box-shadow:0 0 32px #a855f7,0 0 24px #06b6d4;}
+    .roadmap {text-align:left;max-width:420px;margin:0 auto;}
+    .roadmap li {margin:1em 0;}
+    .faq {text-align:left;max-width:420px;margin:0 auto;}
+    .faq dt {font-weight:bold;margin-top:1em;}
+    .faq dd {margin:0 0 1em 0.5em;}
+    @media (max-width:600px) {
+      .card {padding:1em 0.5em;width:98vw;}
+      .header-cinematic {font-size:1.5em;}
+      nav ul {gap:1vw;}
+    }
+    ::-webkit-scrollbar {width:0;background:transparent;}
+    html {scroll-behavior:smooth;}
+    .hero-bg {
+      position:absolute;top:0;left:0;width:100vw;height:100vh;overflow:hidden;z-index:0;
+    }
+    .hero-gradient {
+      position:absolute;top:0;left:0;width:100vw;height:100vh;z-index:0;pointer-events:none;
+    }
+    .hero-center {
+      position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:center;height:100vh;width:100vw;gap:1.2em;
+    }
+    .hero-img-wrap {
+      margin-top:7vh;margin-bottom:1.2em;box-shadow:0 0 64px #a855f7,0 0 128px #06b6d4,0 0 32px #ff8800cc; border-radius:50%;padding:1.2em;background:rgba(20,20,30,0.5);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center;}
+    .hero-img {
+      width:220px;height:220px;object-fit:cover;border-radius:50%;border:4px solid #a855f7;box-shadow:0 0 32px #ff8800,0 0 24px #06b6d4cc;animation: heroImgPulse 2.5s infinite alternate;
+    }
+    @keyframes heroImgPulse {0%{box-shadow:0 0 32px #ff8800,0 0 24px #06b6d4cc;}100%{box-shadow:0 0 64px #a855f7,0 0 48px #06b6d4;}}
+    .hero-title {
+      font-size:2.5em;letter-spacing:0.08em;text-shadow:0 0 24px #a855f7,0 0 48px #06b6d4,0 0 16px #ff8800; margin-bottom:0.2em; text-align:center;
+    }
+    .neon-flicker {animation: flicker 2.5s infinite alternate;}
+    @keyframes flicker {0%,19%,21%,23%,25%,54%,56%,100% {opacity:1;filter:brightness(1.2);}20%,22%,24%,55% {opacity:0.7;filter:brightness(1.6);}}
+    .hero-typewriter {
+      min-height:2.2em;font-size:1.2em;color:#fff;text-shadow:0 0 12px #a855f7,0 0 24px #06b6d4,0 0 8px #ff8800;opacity:0.92;margin-bottom:1.2em;text-align:center;
+    }
+    .hero-cta {
+      background:linear-gradient(90deg,#a855f7,#ff8800 60%,#06b6d4 100%);color:#fff;font-size:1.1em;padding:1em 2.2em;box-shadow:0 0 24px #a855f7,0 0 32px #06b6d4,0 0 24px #ff8800;border:none;border-radius:2em;margin-bottom:1.5em;transition:transform .2s,box-shadow .2s;cursor:pointer;animation: ctaPulse 2s infinite alternate;
+    }
+    .hero-cta:hover {transform:scale(1.07);box-shadow:0 0 48px #a855f7,0 0 32px #06b6d4,0 0 32px #ff8800;}
+    @keyframes ctaPulse {0%{box-shadow:0 0 24px #a855f7,0 0 32px #06b6d4,0 0 24px #ff8800;}100%{box-shadow:0 0 48px #a855f7,0 0 48px #06b6d4,0 0 48px #ff8800;}}
+    .scroll-indicator {position:absolute;bottom:4vh;left:50%;transform:translateX(-50%);z-index:3;}
+    .scroll-indicator span {display:block;width:32px;height:32px;border-bottom:4px solid #a855f7;border-right:4px solid #06b6d4;transform:rotate(45deg);margin:0 auto;animation:scrollArrow 1.2s infinite alternate;box-shadow:0 0 12px #a855f7,0 0 16px #06b6d4;}
+    @keyframes scrollArrow {0%{transform:translateY(0) rotate(45deg);}100%{transform:translateY(12px) rotate(45deg);}}
+    @media (max-width:600px) {
+      .hero-title {font-size:1.3em;}
+      .hero-img {width:120px;height:120px;}
+    }
+    .arabic-calligraphy {
+      position:absolute;bottom:12vh;left:50%;transform:translateX(-50%);font-size:4em;opacity:0.13;letter-spacing:0.2em;
+      color:#a855f7;text-shadow:0 0 32px #06b6d4,0 0 64px #a855f7;
+      font-family:'Amiri',serif;pointer-events:none;user-select:none;-webkit-user-select:none;
+      white-space:nowrap;
+      animation: callifade 8s infinite alternate;
+    }
+    @keyframes callifade {0%{opacity:0.13;}100%{opacity:0.22;}}
+    .hero-card {
+      background:rgba(0,0,0,0.7);box-shadow:0 0 64px #a855f7,0 0 128px #06b6d4;
+      position:relative;z-index:2;margin-top:8vh;
+    }
+    .neon-flicker {
+      color:#fff;text-shadow:0 0 24px #a855f7,0 0 48px #06b6d4,0 0 2px #fff;
+      animation: flicker 2.5s infinite alternate;
+    }
+    @keyframes flicker {
+      0%,19%,21%,23%,25%,54%,56%,100% {opacity:1;filter:brightness(1.2);}
+      20%,22%,24%,55% {opacity:0.7;filter:brightness(1.6);}
+    }
+    .hero-btn {font-size:1.1em;padding:1em 2.2em;box-shadow:0 0 24px #a855f7,0 0 32px #06b6d4;}
+    .sand-particles {position:absolute;top:0;left:0;width:100vw;height:100vh;z-index:1;pointer-events:none;}
+    .about-bg {
+      position:absolute;top:0;left:0;width:100vw;height:100vh;z-index:0;overflow:hidden;
+      background:linear-gradient(180deg,rgba(0,0,0,0.92) 60%,rgba(59,130,246,0.08) 100%);
+    }
+    .camel-tracks {
+      position:absolute;bottom:0;left:0;width:100vw;height:100vh;z-index:1;pointer-events:none;
+    }
+    .about-card {
+      position:relative;z-index:2;max-width:440px;margin:0 auto;
+      background:rgba(20,20,30,0.55);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+      border-radius:2.2em;
+      border:2.5px solid transparent;
+      box-shadow:0 0 48px #a855f7cc,0 0 24px #06b6d4cc inset;
+      padding:2.5em 2.5em 2em 2.5em;text-align:center;
+      transition:box-shadow .3s,border .3s;
+      border-image:linear-gradient(90deg,#a855f7,#06b6d4 80%) 1;
+      animation: borderGlow 2.5s infinite alternate;
+    }
+    .about-card:hover {
+      box-shadow:0 0 64px #a855f7,0 0 48px #06b6d4; border-width:3.5px;
+    }
+    @keyframes borderGlow {
+      0%{border-color:#a855f7;}100%{border-color:#06b6d4;}
+    }
+    .about-title {
+      font-size:1.7em;margin-top:0.5em;margin-bottom:0.7em;text-shadow:0 0 16px #a855f7,0 0 24px #06b6d4;
+    }
+    .about-text {
+      font-size:1.13em;opacity:0.92;line-height:1.7;
+    }
+    .milk-drop {
+      position:absolute;top:-38px;left:50%;transform:translateX(-50%);
+      animation: milkDrip 2.2s infinite cubic-bezier(.4,0,.2,1);
+      z-index:3;
+      filter:drop-shadow(0 0 12px #fff8) drop-shadow(0 0 24px #a855f7cc);
+    }
+    @keyframes milkDrip {
+      0%{transform:translateX(-50%) translateY(-18px) scaleY(0.9);opacity:0.7;}
+      30%{opacity:1;}
+      60%{transform:translateX(-50%) translateY(0) scaleY(1.1);opacity:1;}
+      100%{transform:translateX(-50%) translateY(-18px) scaleY(0.9);opacity:0.7;}
+    }
+    @media (max-width:600px) {
+      .about-card {padding:1.2em 0.5em;max-width:98vw;}
+      .about-title {font-size:1.1em;}
+    }
+    .lore-panels {
+      position:relative;width:100vw;min-height:100vh;overflow:hidden;z-index:2;display:flex;flex-direction:column;align-items:stretch;scroll-snap-type:y mandatory;
+    }
+    .lore-panel {
+      position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;flex-direction:column;scroll-snap-align:start;transition:opacity .8s,transform .8s;opacity:0.5;transform:translateY(60px) scale(0.97);
+    }
+    .lore-panel.active {
+      opacity:1;transform:translateY(0) scale(1.01);z-index:3;
+    }
+    .lore-bg {
+      position:absolute;top:0;left:0;width:100vw;height:100vh;z-index:0;pointer-events:none;overflow:hidden;
+    }
+    .lore-bg.dunes {
+      background:linear-gradient(180deg,#0a0a1a 60%,#3b82f6 100%);
+    }
+    .lore-bg.neon-signs {
+      background:linear-gradient(180deg,#0a0a1a 60%,#a855f7 100%);
+    }
+    .lore-bg.codex {
+      background:linear-gradient(180deg,#0a0a1a 60%,#06b6d4 100%);
+    }
+    .lore-bg.curse {
+      background:linear-gradient(180deg,#0a0a1a 60%,#fff 100%);
+    }
+    .lore-content {
+      position:relative;z-index:2;background:rgba(20,20,30,0.55);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-radius:1.5em;padding:2em 2.5em;box-shadow:0 0 32px #a855f7cc,0 0 8px #06b6d4cc inset;text-align:center;max-width:420px;margin:0 auto;}
+    .lore-content h2 {font-size:1.5em;margin-bottom:0.7em;text-shadow:0 0 16px #a855f7,0 0 24px #06b6d4;}
+    .lore-content p {font-size:1.1em;opacity:0.92;line-height:1.7;}
+    @media (max-width:600px) {
+      .lore-content {padding:1.2em 0.5em;max-width:98vw;}
+      .lore-content h2 {font-size:1.1em;}
+    }
+    .gallery-filters {
+      display:flex;gap:1em;justify-content:center;margin-bottom:1.5em;z-index:3;position:relative;
+    }
+    .gallery-filter {
+      background:rgba(20,20,30,0.7);color:#fff;border:none;padding:0.7em 1.5em;border-radius:2em;font-size:1em;cursor:pointer;transition:box-shadow .2s,background .2s;
+      box-shadow:0 0 8px #a855f7cc;
+    }
+    .gallery-filter.active, .gallery-filter:hover {
+      background:linear-gradient(90deg,#a855f7,#06b6d4 80%);box-shadow:0 0 16px #a855f7,0 0 24px #06b6d4;
+    }
+    .gallery-grid {
+      display:flex;flex-direction:row;gap:2em;overflow-x:auto;overflow-y:hidden;padding:1em 2vw 2em 2vw;scroll-snap-type:x mandatory;cursor:grab;user-select:none;-webkit-user-select:none;scrollbar-width:none;-ms-overflow-style:none;
+    }
+    .gallery-grid::-webkit-scrollbar {display:none;}
+    .gallery-card {
+      background:rgba(20,20,30,0.7);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+      border-radius:1.5em;box-shadow:0 0 24px #06b6d4cc,0 0 8px #a855f7cc inset;
+      min-width:200px;max-width:200px;min-height:260px;position:relative;scroll-snap-align:center;transition:transform .3s cubic-bezier(.4,2,.2,1),box-shadow .2s;transform-style:preserve-3d;perspective:800px;
+      overflow:hidden;cursor:pointer;
+    }
+    .gallery-card img {width:100%;border-radius:1.2em 1.2em 0 0;display:block;}
+    .gallery-card .gallery-overlay {
+      position:absolute;top:0;left:0;width:100%;height:100%;background:linear-gradient(180deg,rgba(168,85,247,0.92) 0,rgba(6,182,212,0.82) 100%);
+      color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;opacity:0;transition:opacity .3s;z-index:2;padding:1.2em;text-shadow:0 0 12px #000,0 0 24px #a855f7;
+      font-size:1.1em;
+    }
+    .gallery-card:hover, .gallery-card:focus {
+      transform:rotateY(16deg) scale(1.06) translateY(-8px);box-shadow:0 0 48px #a855f7,0 0 32px #06b6d4;
+      z-index:4;
+    }
+    .gallery-card:hover .gallery-overlay, .gallery-card:focus .gallery-overlay {
+      opacity:1;
+    }
+    .gallery-card.legend {
+      border:2.5px solid #fff;box-shadow:0 0 32px #fff,0 0 32px #a855f7cc inset,0 0 24px #06b6d4cc;
+      animation: legendGlow 2s infinite alternate;
+    }
+    @keyframes legendGlow {0%{box-shadow:0 0 32px #fff,0 0 32px #a855f7cc inset,0 0 24px #06b6d4cc;}100%{box-shadow:0 0 64px #a855f7,0 0 48px #06b6d4;}}
+    .gallery-title {font-size:1.2em;font-weight:bold;margin-bottom:0.5em;}
+    .gallery-desc {font-size:1em;opacity:0.92;}
+    @media (max-width:600px) {
+      .gallery-grid {gap:1em;padding:1em 0.5em 2em 0.5em;}
+      .gallery-card {min-width:160px;max-width:160px;}
+    }
+    .market-bg {
+      position:absolute;top:0;left:0;width:100vw;height:100vh;z-index:0;overflow:hidden;pointer-events:none;display:flex;align-items:center;justify-content:center;
+    }
+    .eth-bg {position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);opacity:0.18;z-index:0;pointer-events:none;}
+    .eth-pulse {animation: ethPulse 2.5s infinite alternate;}
+    @keyframes ethPulse {0%{opacity:0.18;}100%{opacity:0.38;filter:drop-shadow(0 0 32px #a855f7);}}
+    .market-filters {
+      display:flex;gap:1em;justify-content:center;margin-bottom:1.5em;z-index:3;position:relative;
+    }
+    .market-filter {
+      background:rgba(20,20,30,0.7);color:#fff;border:none;padding:0.7em 1.5em;border-radius:2em;font-size:1em;cursor:pointer;transition:box-shadow .2s,background .2s;
+      box-shadow:0 0 8px #a855f7cc;
+    }
+    .market-filter.active, .market-filter:hover {
+      background:linear-gradient(90deg,#a855f7,#06b6d4 80%);box-shadow:0 0 16px #a855f7,0 0 24px #06b6d4;
+    }
+    .market-grid {
+      display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:2em;z-index:2;position:relative;
+    }
+    .market-card {
+      background:rgba(20,20,30,0.7);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+      border-radius:1.5em;box-shadow:0 0 24px #06b6d4cc,0 0 8px #a855f7cc inset;
+      overflow:hidden;position:relative;display:flex;flex-direction:column;align-items:center;transition:box-shadow .2s;
+    }
+    .market-card img {width:100%;border-radius:1.2em 1.2em 0 0;display:block;}
+    .market-info {padding:1em 0.5em 0.5em 0.5em;text-align:center;width:100%;}
+    .market-name {font-size:1.15em;font-weight:bold;margin-bottom:0.3em;}
+    .market-badge {display:inline-block;padding:0.3em 1em;border-radius:1em;font-size:0.95em;font-weight:bold;margin-bottom:0.5em;box-shadow:0 0 8px #a855f7cc;}
+    .market-badge.legendary {background:linear-gradient(90deg,#fff,#a855f7);color:#3b82f6;box-shadow:0 0 16px #fff,0 0 24px #a855f7cc;}
+    .market-badge.epic {background:linear-gradient(90deg,#a855f7,#06b6d4);color:#fff;}
+    .market-badge.rare {background:linear-gradient(90deg,#06b6d4,#3b82f6);color:#fff;}
+    .market-badge.common {background:linear-gradient(90deg,#222,#3b82f6);color:#fff;}
+    .market-price {
+      background:linear-gradient(90deg,#a855f7,#06b6d4 80%);
+      color:#fff;font-size:1.1em;font-weight:bold;padding:0.7em 1.5em;border-radius:1.2em;box-shadow:0 0 16px #a855f7,0 0 24px #06b6d4;position:absolute;top:1em;right:1em;transition:box-shadow .2s,transform .2s;z-index:2;overflow:hidden;
+      cursor:pointer;
+    }
+    .market-card:hover .market-price {
+      box-shadow:0 0 32px #fff,0 0 48px #a855f7;transform:scale(1.08);animation: priceRipple 0.7s;
+    }
+    @keyframes priceRipple {0%{filter:brightness(1.2);}50%{filter:brightness(2) blur(2px);}100%{filter:brightness(1.2);}}
+    .market-buy {
+      margin:1.2em 0 1em 0;display:inline-block;background:linear-gradient(90deg,#a855f7,#06b6d4 80%);color:#fff;padding:0.8em 2em;border-radius:2em;font-size:1em;box-shadow:0 0 16px #06b6d4cc;cursor:pointer;text-decoration:none;transition:transform .2s,box-shadow .2s;
+    }
+    .market-buy:hover {transform:scale(1.07);box-shadow:0 0 32px #a855f7,0 0 24px #06b6d4;}
+    @media (max-width:600px) {
+      .market-grid {gap:1em;}
+      .market-card {min-width:160px;max-width:98vw;}
+    }
+    .roadmap-bg {
+      position:absolute;top:0;left:0;width:100vw;height:100vh;z-index:0;overflow:hidden;pointer-events:none;
+    }
+    .roadmap-canvas {
+      position:absolute;top:0;left:0;width:100vw;height:100vh;z-index:0;pointer-events:none;
+    }
+    .star-goal {
+      position:absolute;top:6vh;left:50%;transform:translateX(-50%);width:32px;height:32px;z-index:2;
+      background:radial-gradient(circle,#fff 0 30%,#a855f7 60%,transparent 100%);
+      border-radius:50%;box-shadow:0 0 32px #fff,0 0 64px #a855f7;
+      animation: starPulse 2s infinite alternate;
+    }
+    @keyframes starPulse {0%{box-shadow:0 0 32px #fff,0 0 64px #a855f7;}100%{box-shadow:0 0 64px #fff,0 0 128px #a855f7;}}
+    .roadmap-timeline {
+      position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;gap:2.5em;margin-top:8vh;margin-bottom:4vh;
+    }
+    .roadmap-phase {
+      display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;
+      background:rgba(20,20,30,0.7);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+      border-radius:1.5em;box-shadow:0 0 24px #06b6d4cc,0 0 8px #a855f7cc inset;
+      padding:1.2em 2.2em;min-width:220px;max-width:90vw;text-align:center;
+      border:2.5px solid #a855f7cc;transition:box-shadow .2s,border .2s;
+      animation: phaseGlow 2.5s infinite alternate;
+    }
+    .roadmap-phase[data-phase="5"] {border-color:#fff;box-shadow:0 0 32px #fff,0 0 32px #a855f7cc inset,0 0 24px #06b6d4cc;}
+    @keyframes phaseGlow {0%{border-color:#a855f7;}100%{border-color:#06b6d4;}}
+    .roadmap-icon {
+      font-size:2.2em;margin-bottom:0.5em;filter:drop-shadow(0 0 12px #a855f7cc) drop-shadow(0 0 24px #06b6d4cc);animation: iconFloat 2.2s infinite alternate;
+    }
+    @keyframes iconFloat {0%{transform:translateY(-8px);}100%{transform:translateY(8px);}}
+    .roadmap-desc {font-size:1.1em;opacity:0.92;line-height:1.5;text-shadow:0 0 12px #a855f7,0 0 24px #06b6d4;}
+    .roadmap-arrow {
+      font-size:1.5em;color:#a855f7;animation: arrowStep 1.2s infinite alternate;filter:drop-shadow(0 0 8px #a855f7cc);
+      margin-bottom:-1.2em;
+    }
+    @keyframes arrowStep {0%{opacity:0.7;transform:translateY(0);}100%{opacity:1;transform:translateY(8px);}}
+    .roadmap-phase:after {
+      content:'';position:absolute;left:50%;top:100%;width:2px;height:32px;background:linear-gradient(180deg,#a855f7,transparent);transform:translateX(-50%);z-index:1;opacity:0.5;
+    }
+    .roadmap-phase:last-child:after {display:none;}
+    .roadmap-phase .sparkle {
+      position:absolute;top:10%;left:50%;width:12px;height:12px;background:radial-gradient(circle,#fff 0 60%,#a855f7 100%,transparent 100%);border-radius:50%;opacity:0.7;animation: sparkleAnim 1.2s infinite alternate;
+    }
+    @keyframes sparkleAnim {0%{opacity:0.7;transform:scale(1);}100%{opacity:1;transform:scale(1.3) rotate(20deg);}}
+    .roadmap-phase .glitch {
+      position:absolute;top:50%;left:50%;width:32px;height:8px;background:linear-gradient(90deg,#fff,#a855f7,#06b6d4,transparent);opacity:0.18;transform:translate(-50%,-50%) skewX(20deg);animation: glitchAnim 0.4s infinite alternate;
+    }
+    @keyframes glitchAnim {0%{left:48%;opacity:0.18;}100%{left:52%;opacity:0.32;}}
+    @media (max-width:600px) {
+      .roadmap-timeline {gap:1.2em;}
+      .roadmap-phase {padding:0.7em 0.5em;min-width:120px;}
+    }
+    .join-bg {
+      position:absolute;top:0;left:0;width:100vw;height:100vh;z-index:0;overflow:hidden;pointer-events:none;background:linear-gradient(180deg,#0a0a1a 80%,#3b82f6 100%);
+    }
+    .camel-stamp {
+      position:absolute;top:18vh;left:50%;transform:translateX(-50%);z-index:1;pointer-events:none;
+    }
+    .camel-horizon {
+      position:absolute;bottom:0;left:0;width:100vw;height:22vh;z-index:2;pointer-events:none;
+    }
+    .join-card {
+      position:relative;z-index:2;max-width:420px;margin:0 auto;background:rgba(20,20,30,0.7);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-radius:2em;box-shadow:0 0 32px #06b6d4cc,0 0 8px #a855f7cc inset;padding:2.5em 2.5em 2em 2.5em;text-align:center;margin-top:8vh;
+    }
+    .discord-btn {
+      background:linear-gradient(90deg,#a855f7,#06b6d4 80%);color:#fff;font-size:1.1em;padding:1em 2.2em;box-shadow:0 0 24px #a855f7,0 0 32px #06b6d4;border:none;border-radius:2em;margin-bottom:1.5em;transition:transform .2s,box-shadow .2s;cursor:pointer;
+    }
+    .discord-btn:hover {transform:scale(1.07);box-shadow:0 0 32px #a855f7,0 0 24px #06b6d4;}
+    .join-form {display:flex;gap:0.5em;justify-content:center;margin-bottom:1.2em;}
+    .join-email {
+      flex:1;background:rgba(0,0,0,0.5);border:2px solid #a855f7cc;border-radius:2em;padding:0.8em 1.2em;color:#fff;font-size:1em;outline:none;box-shadow:0 0 12px #a855f7cc inset,0 0 8px #06b6d4cc inset;transition:border .2s,box-shadow .2s;
+    }
+    .join-email:focus {border:2.5px solid #06b6d4;box-shadow:0 0 24px #a855f7,0 0 16px #06b6d4;}
+    .join-btn {background:linear-gradient(90deg,#a855f7,#06b6d4 80%);color:#fff;padding:0.8em 2em;border-radius:2em;font-size:1em;box-shadow:0 0 16px #06b6d4cc;cursor:pointer;border:none;transition:transform .2s,box-shadow .2s;}
+    .join-btn:hover {transform:scale(1.07);box-shadow:0 0 32px #a855f7,0 0 24px #06b6d4;}
+    .join-form.submitted .join-email {border-color:#3b82f6;box-shadow:0 0 24px #3b82f6,0 0 16px #06b6d4;}
+    .join-tag {margin-top:0.7em;font-size:1em;color:#a855f7;text-shadow:0 0 8px #a855f7,0 0 16px #06b6d4;}
+    .faq-accordion {
+      max-width:420px;margin:0 auto;display:flex;flex-direction:column;gap:1.2em;z-index:2;position:relative;
+    }
+    .faq-item {border-radius:1.2em;overflow:hidden;box-shadow:0 0 16px #a855f7cc,0 0 8px #06b6d4cc inset;background:rgba(20,20,30,0.7);margin-bottom:0.2em;}
+    .faq-question {
+      width:100%;background:none;border:none;outline:none;color:#fff;font-size:1.13em;text-align:left;padding:1.1em 1.5em;cursor:pointer;display:flex;align-items:center;gap:0.7em;transition:box-shadow .2s,background .2s;
+      box-shadow:0 2px 0 0 #a855f7cc inset;position:relative;
+    }
+    .faq-question:hover, .faq-item.open .faq-question {
+      background:linear-gradient(90deg,#a855f7 0,#06b6d4 100%);box-shadow:0 0 24px #a855f7,0 0 32px #06b6d4,0 2px 0 0 #fff inset;
+      color:#fff;text-shadow:0 0 8px #fff,0 0 16px #a855f7;
+    }
+    .faq-question:after {
+      content:'';display:block;position:absolute;left:1.5em;bottom:0;width:calc(100% - 3em);height:3px;background:linear-gradient(90deg,#a855f7,#06b6d4);opacity:0;transition:opacity .3s;}
+    .faq-item.open .faq-question:after {opacity:1;}
+    .hoofprint {font-size:1.2em;filter:drop-shadow(0 0 6px #a855f7cc);}
+    .faq-answer {
+      max-height:0;overflow:hidden;transition:max-height 0.5s cubic-bezier(.4,2,.2,1),padding 0.3s;background:none;padding:0 1.5em;opacity:0;
+    }
+    .faq-item.open .faq-answer {
+      max-height:200px;opacity:1;padding:1.2em 1.5em;background:linear-gradient(90deg,rgba(168,85,247,0.22) 0,rgba(6,182,212,0.18) 100%);box-shadow:0 0 24px #a855f7cc inset,0 0 16px #06b6d4cc inset;border-radius:0 0 1.2em 1.2em;margin-top:-0.2em;color:#fff;text-shadow:0 0 8px #fff,0 0 16px #a855f7;
+    }
+    .section-scroll {
+      height:100vh;
+      width:100vw;
+      overflow:auto;
+      position:relative;
+      scroll-behavior:smooth;
+    }
+    /* Lore Reveal Section */
+    #lore-reveal {background:rgba(10,10,26,0.98);display:flex;align-items:center;justify-content:center;position:relative;}
+    .lore-timeline {position:relative;width:100vw;max-width:900px;margin:0 auto;display:flex;flex-direction:column;align-items:center;justify-content:center;}
+    .lore-holo-lines {position:absolute;top:0;left:0;width:100%;height:100%;z-index:1;pointer-events:none;}
+    .lore-cards {display:flex;gap:2.5em;z-index:2;margin-top:7vh;}
+    .lore-card {background:rgba(20,20,30,0.7);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-radius:1.5em;box-shadow:0 0 24px #06b6d4cc,0 0 8px #a855f7cc inset;min-width:180px;max-width:180px;min-height:260px;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:box-shadow .3s,background .3s;cursor:pointer;overflow:hidden;}
+    .lore-card img {width:120px;height:120px;object-fit:cover;border-radius:50%;margin-top:1.2em;box-shadow:0 0 24px #a855f7cc;}
+    .lore-card-name {margin:1.2em 0 1.2em 0;font-size:1.1em;color:#fff;text-shadow:0 0 8px #a855f7,0 0 16px #06b6d4;}
+    .lore-card-quote {position:absolute;top:0;left:0;width:100%;height:100%;background:rgba(10,10,26,0.98);display:flex;align-items:center;justify-content:center;z-index:3;opacity:0;pointer-events:none;transition:opacity .4s;flex-direction:column;}
+    .lore-card.show-quote .lore-card-quote {opacity:1;pointer-events:auto;}
+    .lore-card-quote-text {font-size:1.1em;color:#fff;background:linear-gradient(90deg,rgba(168,85,247,0.22) 0,rgba(6,182,212,0.18) 100%);box-shadow:0 0 24px #a855f7cc inset,0 0 16px #06b6d4cc inset;border-radius:1em;padding:1.2em 1.5em;text-shadow:0 0 8px #fff,0 0 16px #a855f7;animation:typewriterQuote 1.2s steps(30) 1;}
+    @keyframes typewriterQuote {from{width:0;}to{width:100%;}}
+    .lore-ripples {position:absolute;bottom:0;left:0;width:100%;height:40px;z-index:0;pointer-events:none;}
+    /* Carousel */
+    #featured-nfts {background:rgba(10,10,26,0.98);display:flex;align-items:center;justify-content:center;position:relative;}
+    .carousel-container {width:100vw;max-width:900px;overflow-x:auto;overflow-y:hidden;}
+    .carousel-track {display:flex;gap:2em;padding:2em 0;}
+    .carousel-card {background:rgba(20,20,30,0.7);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-radius:1.5em;box-shadow:0 0 24px #06b6d4cc,0 0 8px #a855f7cc inset;min-width:200px;max-width:200px;min-height:260px;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:transform .3s cubic-bezier(.4,2,.2,1),box-shadow .2s;transform-style:preserve-3d;perspective:800px;overflow:hidden;cursor:pointer;}
+    .carousel-card img {width:120px;height:120px;object-fit:cover;border-radius:50%;margin-top:1.2em;box-shadow:0 0 24px #a855f7cc;}
+    .carousel-card-title {margin:1.2em 0 1.2em 0;font-size:1.1em;color:#fff;text-shadow:0 0 8px #a855f7,0 0 16px #06b6d4;}
+    .carousel-card:hover {transform:rotateY(16deg) scale(1.06) translateY(-8px);box-shadow:0 0 48px #a855f7,0 0 32px #06b6d4;z-index:4;}
+    .carousel-popup {display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(10,10,26,0.92);z-index:100;align-items:center;justify-content:center;}
+    .carousel-popup.active {display:flex;}
+    .popup-content {background:rgba(20,20,30,0.95);border-radius:2em;box-shadow:0 0 32px #a855f7,0 0 64px #06b6d4;padding:2em;display:flex;flex-direction:column;align-items:center;max-width:90vw;max-height:90vh;}
+    .popup-close {position:absolute;top:1.2em;right:2em;font-size:2em;color:#fff;cursor:pointer;}
+    .popup-title {font-size:1.3em;color:#fff;margin:1em 0 0.5em 0;text-shadow:0 0 8px #a855f7,0 0 16px #06b6d4;}
+    .popup-lore {font-size:1.1em;color:#fff;text-align:center;opacity:0.92;}
+    .popup-content img {width:220px;height:220px;object-fit:cover;border-radius:50%;margin-bottom:1.2em;box-shadow:0 0 32px #a855f7,0 0 24px #06b6d4;}
+    /* Footer */
+    .site-footer {background:linear-gradient(90deg,#23232b 0,#18181f 100%);padding:2em 0 1em 0;text-align:center;color:#fff;box-shadow:0 0 32px #a855f7cc inset,0 0 24px #06b6d4cc inset;}
+    .footer-links {margin-bottom:1em;}
+    .footer-links a {color:#fff;text-decoration:none;margin:0 0.5em;font-size:1.1em;transition:text-shadow .2s;}
+    .footer-links a:hover {text-shadow:0 0 8px #a855f7,0 0 16px #06b6d4;}
+    .footer-social {margin-bottom:1em;}
+    .footer-icon {display:inline-block;width:32px;height:32px;margin:0 0.5em;background-size:cover;filter:drop-shadow(0 0 8px #a855f7cc);transition:filter .2s;}
+    .footer-icon.twitter {background-image:url('https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/twitter.svg');}
+    .footer-icon.discord {background-image:url('https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/discord.svg');}
+    .footer-icon.opensea {background-image:url('https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/opensea.svg');}
+    .footer-icon.instagram {background-image:url('https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg');}
+    .footer-icon:hover {filter:drop-shadow(0 0 16px #a855f7) drop-shadow(0 0 24px #06b6d4);}
+    .footer-quote {font-size:1.1em;color:#a855f7;text-shadow:0 0 8px #a855f7,0 0 16px #06b6d4;}
+    /* Prophecy of Milk */
+    #prophecy {background:linear-gradient(180deg,#0a0a1a 80%,#3b82f6 100%);display:flex;align-items:center;justify-content:center;position:relative;}
+    .prophecy-bg {position:relative;width:100vw;height:100vh;display:flex;align-items:center;justify-content:center;}
+    .prophecy-light {position:absolute;top:0;left:50%;transform:translateX(-50%);width:220px;height:320px;background:radial-gradient(ellipse at center,#fff8 0 60%,transparent 100%);filter:blur(12px);z-index:1;animation: prophecyLight 2.5s infinite alternate;}
+    @keyframes prophecyLight {0%{opacity:0.7;}100%{opacity:1;}}
+    .prophecy-tablet {position:relative;z-index:2;background:linear-gradient(120deg,#222 60%,#3b82f6 100%);border-radius:1.2em;box-shadow:0 0 32px #a855f7,0 0 64px #06b6d4;padding:2.5em 2em;min-width:340px;max-width:90vw;text-align:center;border:3px solid #a855f7cc;}
+    .prophecy-text {font-size:1.15em;color:#fff;text-shadow:0 0 8px #a855f7,0 0 16px #06b6d4;letter-spacing:0.04em;min-height:3em;}
+    /* Timeline of the Dynasty */
+    #dynasty-timeline {background:linear-gradient(180deg,#18181f 80%,#a855f7 100%);display:flex;align-items:center;justify-content:center;position:relative;}
+    .timeline-container {width:100vw;max-width:900px;margin:0 auto;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;}
+    .timeline-bar {width:80vw;max-width:700px;height:6px;background:linear-gradient(90deg,#a855f7,#06b6d4 80%);border-radius:3px;box-shadow:0 0 16px #a855f7,0 0 24px #06b6d4;margin:3em 0 2em 0;position:relative;}
+    .timeline-points {display:flex;justify-content:space-between;width:80vw;max-width:700px;position:absolute;top:2.2em;left:0;right:0;z-index:2;}
+    .timeline-point {position:relative;display:flex;flex-direction:column;align-items:center;cursor:pointer;z-index:3;}
+    .timeline-point span {margin-top:1.5em;color:#fff;text-shadow:0 0 8px #a855f7,0 0 16px #06b6d4;font-size:1em;}
+    .timeline-point:before {content:'';display:block;width:28px;height:28px;border-radius:50%;background:linear-gradient(90deg,#a855f7,#06b6d4 80%);box-shadow:0 0 16px #a855f7,0 0 24px #06b6d4;transition:box-shadow .3s,background .3s;position:absolute;top:-1.5em;left:50%;transform:translateX(-50%);}
+    .timeline-point.active:before {background:linear-gradient(90deg,#fff,#a855f7);box-shadow:0 0 32px #fff,0 0 32px #a855f7cc;}
+    .timeline-point:hover:before {box-shadow:0 0 32px #fff,0 0 32px #a855f7cc;}
+    .timeline-lore {margin-top:4em;min-height:2.5em;font-size:1.13em;color:#fff;text-shadow:0 0 8px #a855f7,0 0 16px #06b6d4;letter-spacing:0.04em;text-align:center;}
+    /* Milk Test */
+    #milk-test {background:linear-gradient(180deg,#0a0a1a 80%,#3b82f6 100%);display:flex;align-items:center;justify-content:center;position:relative;}
+    .milk-chest-wrap {display:flex;flex-direction:column;align-items:center;justify-content:center;width:100vw;height:100vh;}
+    .milk-chest {position:relative;width:260px;height:160px;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:2;}
+    .chest-lid {position:absolute;top:0;left:0;width:100%;height:60px;background:linear-gradient(90deg,#a855f7,#06b6d4 80%);border-radius:1.2em 1.2em 0 0;box-shadow:0 0 24px #a855f7,0 0 32px #06b6d4;transition:transform .4s;z-index:2;}
+    .milk-chest.open .chest-lid {transform:translateY(-40px) rotateX(40deg);}
+    .chest-body {position:absolute;bottom:0;left:0;width:100%;height:110px;background:linear-gradient(90deg,#222,#3b82f6);border-radius:0 0 1.2em 1.2em;box-shadow:0 0 24px #a855f7,0 0 32px #06b6d4;z-index:1;}
+    .chest-text {position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);color:#fff;font-size:1.1em;text-shadow:0 0 8px #a855f7,0 0 16px #06b6d4;z-index:3;pointer-events:none;}
+    .milk-quiz {margin-top:2.5em;max-width:340px;width:100%;}
+    .milk-quiz-question {background:rgba(20,20,30,0.7);border-radius:1em;padding:1.2em 1em;margin-bottom:1em;color:#fff;text-shadow:0 0 8px #a855f7,0 0 16px #06b6d4;box-shadow:0 0 16px #a855f7cc,0 0 8px #06b6d4cc inset;}
+    .milk-quiz-options {display:flex;flex-direction:column;gap:0.7em;margin-top:1em;}
+    .milk-quiz-option {background:linear-gradient(90deg,#a855f7,#06b6d4 80%);color:#fff;border:none;border-radius:2em;padding:0.7em 1.5em;font-size:1em;cursor:pointer;box-shadow:0 0 8px #a855f7cc;transition:box-shadow .2s,background .2s;}
+    .milk-quiz-option:hover {background:linear-gradient(90deg,#fff,#a855f7);box-shadow:0 0 16px #fff,0 0 24px #a855f7cc;}
+    .milk-quiz-result {margin-top:1em;font-size:1.1em;color:#fff;text-shadow:0 0 8px #a855f7,0 0 16px #06b6d4;}
+    .milk-quiz-success {color:#06b6d4;}
+    .milk-quiz-fail {color:#ff8800;}
+    #home {overflow-y:auto;overflow-x:hidden;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;height:100vh;width:100vw;scroll-behavior:smooth;}
+    .hero-center {min-height:100vh;}
+    .home-panel {width:100vw;max-width:100vw;display:flex;align-items:center;justify-content:center;min-height:80vh;padding:4vh 0;position:relative;z-index:2;}
+    .prophecy-panel {background:linear-gradient(180deg,#0a0a1a 80%,#3b82f6 100%);}
+    .timeline-panel {background:linear-gradient(180deg,#18181f 80%,#a855f7 100%);}
+    .milktest-panel {background:linear-gradient(180deg,#0a0a1a 80%,#3b82f6 100%);}
+    /* Remove old prophecy/timeline/milk-test section wrappers, now inside Home */
+    .prophecy-bg {position:relative;width:100vw;min-height:60vh;display:flex;align-items:center;justify-content:center;}
+    .btn.back-btn {
+      position:absolute;top:12vh;left:3vw;z-index:10;background:linear-gradient(90deg,#06b6d4,#a855f7 80%);font-size:1.1em;padding:0.8em 2.2em;box-shadow:0 0 16px #06b6d4,0 0 24px #a855f7;border-radius:2em;transition:transform .2s,box-shadow .2s;font-weight:bold;letter-spacing:0.04em;text-transform:uppercase;}
+    .btn.back-btn:hover {transform:scale(1.07);box-shadow:0 0 32px #a855f7,0 0 24px #06b6d4;}
+    .fullscreen-bg {
+      position:fixed;
+      top:0;left:0;width:100vw;height:100vh;
+      min-height:100vh;min-width:100vw;
+      z-index:20;
+      display:flex;align-items:center;justify-content:center;
+      overflow:auto;
+    }
+    .prophecy-panel.fullscreen-bg {background:linear-gradient(180deg,#0a0a1a 80%,#3b82f6 100%);}
+    .timeline-panel.fullscreen-bg {background:linear-gradient(180deg,#18181f 80%,#a855f7 100%);}
+    .milktest-panel.fullscreen-bg {background:linear-gradient(180deg,#0a0a1a 80%,#3b82f6 100%);}
+    .next-btn {margin-top:2.5em;}
+    .home-panel {position:relative;}
+    .neon-timeline {gap:3vw;}
+    .neon-phase {transition:transform .2s,box-shadow .2s;outline:none;}
+    .neon-phase .neon-icon {
+      font-size:2.2em;
+      margin-bottom:0.3em;
+      text-shadow:0 0 16px #a855f7,0 0 32px #06b6d4,0 0 8px #fff;
+      filter:drop-shadow(0 0 8px #a855f7) drop-shadow(0 0 16px #06b6d4);
+      transition:filter .2s;
+    }
+    .neon-phase.active .neon-icon,
+    .neon-phase:focus .neon-icon,
+    .neon-phase:hover .neon-icon {
+      filter:drop-shadow(0 0 24px #fff) drop-shadow(0 0 32px #a855f7) drop-shadow(0 0 32px #06b6d4);
+      text-shadow:0 0 32px #fff,0 0 32px #a855f7;
+    }
+    .neon-phase.active,
+    .neon-phase:focus,
+    .neon-phase:hover {
+      transform:scale(1.12) translateY(-8px);
+      box-shadow:0 0 32px #a855f7,0 0 24px #06b6d4;
+      z-index:5;
+    }
+    .neon-modal-bg {
+      position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:1000;
+      background:rgba(10,10,26,0.92);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center;animation:fadeInBg .4s;
+    }
+    @keyframes fadeInBg {from{opacity:0;}to{opacity:1;}}
+    .neon-modal {
+      background:rgba(20,20,30,0.85);border-radius:2em;box-shadow:0 0 48px #a855f7,0 0 32px #06b6d4,0 0 24px #fff8;
+      padding:2.5em 2em 2em 2em;max-width:90vw;width:380px;text-align:center;position:relative;animation:modalPop .5s cubic-bezier(.4,2,.2,1);
+      border:2.5px solid #a855f7cc;
+    }
+    @keyframes modalPop {from{transform:scale(0.8);opacity:0;}to{transform:scale(1);opacity:1;}}
+    .neon-modal-close {
+      position:absolute;top:1.2em;right:1.2em;background:none;border:none;color:#fff;font-size:2em;cursor:pointer;z-index:2;text-shadow:0 0 16px #a855f7,0 0 24px #06b6d4;transition:color .2s;}
+    .neon-modal-close:hover {color:#a855f7;}
+    .neon-modal img {width:180px;height:180px;object-fit:cover;border-radius:50%;margin-bottom:1.2em;box-shadow:0 0 32px #a855f7,0 0 24px #06b6d4;}
+    .neon-modal-title {font-size:1.3em;color:#fff;text-shadow:0 0 16px #a855f7,0 0 24px #06b6d4;margin-bottom:0.7em;}
+    .neon-modal-story {font-size:1.1em;color:#fff;opacity:0.93;text-shadow:0 0 8px #a855f7,0 0 16px #06b6d4;line-height:1.6;}
+    @media (max-width:600px) {
+      .neon-modal {padding:1.2em 0.5em;width:98vw;}
+      .neon-modal img {width:110px;height:110px;}
+      .neon-modal-title {font-size:1em;}
+    }
+    .spark-timeline-container {
+      width:100vw;max-width:900px;margin:0 auto;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;
+    }
+    .timeline-main-title {
+      font-size:2.1em;text-align:center;margin-bottom:2.2em;letter-spacing:0.08em;text-shadow:0 0 24px #a855f7,0 0 48px #06b6d4,0 0 16px #ff8800;
+    }
+    .spark-timeline {
+      display:flex;flex-direction:row;justify-content:space-between;align-items:stretch;gap:2vw;width:100%;max-width:900px;position:relative;
+      margin-bottom:2em;
+    }
+    .spark-timeline-item {
+      background:rgba(20,20,30,0.7);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+      border-radius:1.7em;box-shadow:0 0 32px #a855f7cc,0 0 8px #06b6d4cc inset;
+      padding:2em 1.2em 1.5em 1.2em;text-align:center;flex:1;display:flex;flex-direction:column;align-items:center;position:relative;transition:box-shadow .3s,transform .2s;
+      border:2.5px solid #a855f7cc;
+      min-width:0;
+    }
+    .spark-timeline-item:hover {
+      box-shadow:0 0 48px #a855f7,0 0 32px #06b6d4,0 0 24px #fff8;transform:scale(1.04);
+      z-index:2;
+    }
+    .spark-timeline-img {
+      margin-bottom:1.1em;position:relative;z-index:2;
+    }
+    .spark-timeline-img img {
+      width:100px;height:100px;object-fit:cover;border-radius:50%;box-shadow:0 0 32px #a855f7,0 0 24px #06b6d4,0 0 16px #fff8;transition:box-shadow .2s;
+      background:#18181f;
+    }
+    .spark-timeline-title {
+      font-size:1.18em;font-weight:bold;margin-bottom:0.7em;color:#fff;text-shadow:0 0 16px #a855f7,0 0 24px #06b6d4;
+    }
+    .spark-timeline-text {
+      font-size:1.08em;color:#fff;opacity:0.93;text-shadow:0 0 8px #a855f7,0 0 16px #06b6d4;line-height:1.6;
+    }
+    .spark-timeline-item:before {
+      content:'';display:block;position:absolute;top:0;left:50%;transform:translateX(-50%) translateY(-60%);
+      width:18px;height:18px;border-radius:50%;background:radial-gradient(circle,#fff 0 60%,#a855f7 100%,transparent 100%);
+      box-shadow:0 0 24px #a855f7,0 0 32px #06b6d4;opacity:0.7;animation:sparkleAnim 1.2s infinite alternate;
+    }
+    @keyframes sparkleAnim {0%{opacity:0.7;transform:scale(1);}100%{opacity:1;transform:scale(1.3) rotate(20deg);}}
+    .spark-timeline-item:not(:last-child):after {
+      content:'';position:absolute;top:50%;right:-1vw;width:calc(2vw + 16px);height:4px;background:linear-gradient(90deg,#a855f7,#06b6d4 80%);box-shadow:0 0 16px #a855f7,0 0 24px #06b6d4;z-index:1;transform:translateY(-50%);
+    }
+    @media (max-width:900px) {
+      .spark-timeline {gap:1vw;}
+      .spark-timeline-item {padding:1.2em 0.5em;}
+    }
+    @media (max-width:700px) {
+      .spark-timeline {flex-direction:column;gap:2em;}
+      .spark-timeline-item:not(:last-child):after {
+        content:'';position:absolute;left:50%;top:100%;right:auto;width:4px;height:2.5em;background:linear-gradient(180deg,#a855f7,#06b6d4 80%);box-shadow:0 0 16px #a855f7,0 0 24px #06b6d4;z-index:1;transform:translateX(-50%);
+      }
+      .spark-timeline-item:before {left:50%;top:0;transform:translateX(-50%) translateY(-60%);}
+    }
+    .tarot-bg {
+      position:relative;
+      width:100vw;height:100vh;display:flex;align-items:center;justify-content:center;
+      background:linear-gradient(120deg,#18181f 60%,#a855f7 100%);
+      overflow:hidden;
+    }
+    .prophecy-bg-img {
+      position:absolute;top:0;left:0;width:100vw;height:100vh;object-fit:cover;opacity:0.18;z-index:1;filter:blur(2px) grayscale(0.2) brightness(0.8);
+      pointer-events:none;
+      mix-blend-mode:lighten;
+    }
+    .prophecy-content {
+      position:relative;z-index:2;display:flex;flex-direction:row;align-items:center;justify-content:center;width:100vw;max-width:900px;gap:3vw;
+    }
+    .prophecy-card {
+      background:rgba(20,20,30,0.72);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+      border-radius:2.2em;box-shadow:0 0 48px #a855f7cc,0 0 24px #06b6d4cc inset,0 0 32px #fff8;
+      border:2.5px solid #a855f7cc;
+      padding:2.8em 2.2em;max-width:420px;text-align:left;display:flex;flex-direction:column;align-items:flex-start;animation: tarotFadeIn 1.2s;
+    }
+    @keyframes tarotFadeIn {from{opacity:0;transform:translateY(40px) scale(0.97);}to{opacity:1;transform:translateY(0) scale(1);}}
+    .prophecy-text {
+      font-size:1.18em;color:#fff;text-shadow:0 0 16px #a855f7,0 0 24px #06b6d4,0 0 8px #fff8;
+      letter-spacing:0.04em;line-height:1.7;
+    }
+    .prophecy-seer {
+      display:flex;align-items:center;justify-content:center;
+      min-width:180px;max-width:260px;width:32vw;
+      filter:drop-shadow(0 0 32px #a855f7) drop-shadow(0 0 24px #06b6d4);
+      animation: tarotSeerIn 1.4s;
+    }
+    .prophecy-seer img {
+      width:100%;max-width:220px;min-width:120px;height:auto;border-radius:1.5em;box-shadow:0 0 48px #a855f7,0 0 32px #06b6d4,0 0 24px #fff8;object-fit:cover;background:#18181f;
+      border:2.5px solid #a855f7cc;
+    }
+    @keyframes tarotSeerIn {from{opacity:0;transform:translateX(60px) scale(0.95);}to{opacity:1;transform:translateX(0) scale(1);}}
+    @media (max-width:900px) {
+      .prophecy-content {gap:1vw;}
+      .prophecy-card {padding:1.5em 0.7em;}
+    }
+    @media (max-width:700px) {
+      .prophecy-content {flex-direction:column-reverse;gap:2em;}
+      .prophecy-seer {max-width:180px;}
+      .prophecy-card {max-width:98vw;align-items:center;text-align:center;}
+    }
+    .lore-root {
+      width:100vw;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;
+    }
+    .lore-prologue {
+      width:100vw;min-height:100vh;display:flex;align-items:center;justify-content:center;position:relative;z-index:2;
+    }
+    .lore-bg-anim.sand-night {
+      position:absolute;top:0;left:0;width:100vw;height:100vh;z-index:1;pointer-events:none;
+      background:radial-gradient(ellipse at 60% 80%,#a855f7 0 10%,transparent 80%),linear-gradient(180deg,#18181f 80%,#3b82f6 100%);
+      animation: sandNightAnim 8s infinite alternate;
+    }
+    @keyframes sandNightAnim {0%{filter:brightness(0.9);}100%{filter:brightness(1.1) blur(2px);}}
+    .lore-prologue-content {
+      position:relative;z-index:2;max-width:600px;background:rgba(20,20,30,0.7);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-radius:2em;box-shadow:0 0 32px #a855f7cc,0 0 8px #06b6d4cc inset;padding:3em 2em;text-align:center;display:flex;flex-direction:column;align-items:center;
+    }
+    .lore-title {font-size:2em;letter-spacing:0.08em;text-shadow:0 0 24px #a855f7,0 0 48px #06b6d4;margin-bottom:1em;}
+    .lore-prologue-text {font-size:1.18em;color:#fff;text-shadow:0 0 12px #a855f7,0 0 24px #06b6d4;line-height:1.7;margin-bottom:2em;}
+    .lore-chapters-scroll {display:flex;flex-direction:row;overflow-x:auto;gap:2vw;padding:2em 0;width:100vw;max-width:900px;scroll-snap-type:x mandatory;}
+    .lore-chapter-panel {background:rgba(20,20,30,0.7);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-radius:2em;box-shadow:0 0 32px #a855f7cc,0 0 8px #06b6d4cc inset;min-width:340px;max-width:340px;min-height:420px;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;scroll-snap-align:center;position:relative;padding:2em 1.2em;margin:0 1vw;}
+    .lore-chapter-img {margin-bottom:1.2em;}
+    .lore-chapter-img img {width:100%;max-width:320px;border-radius:1.2em;box-shadow:0 0 24px #a855f7,0 0 16px #06b6d4;}
+    .lore-chapter-content {width:100%;text-align:left;}
+    .lore-chapter-content h3 {font-size:1.2em;margin-bottom:0.7em;text-shadow:0 0 16px #a855f7,0 0 24px #06b6d4;}
+    .lore-chapter-content p {font-size:1.08em;color:#fff;opacity:0.93;text-shadow:0 0 8px #a855f7,0 0 16px #06b6d4;line-height:1.6;}
+    .lore-next-btn, .lore-prev-btn {margin:1.2em 0.5em 0 0.5em;}
+    .lore-season {width:100vw;max-width:900px;margin:0 auto 2em auto;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;z-index:2;}
+    .lore-season .lore-title {margin-bottom:0.5em;}
+    @media (max-width:900px) {
+      .lore-chapters-scroll {gap:1vw;}
+      .lore-chapter-panel {min-width:90vw;max-width:98vw;}
+    }
+    .lore-characters {width:100vw;max-width:900px;margin:0 auto 2em auto;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;z-index:2;}
+    .character-scroll-cards {display:flex;flex-direction:row;overflow-x:auto;gap:2vw;padding:2em 0;width:100vw;max-width:900px;scroll-snap-type:x mandatory;}
+    .character-card {background:rgba(20,20,30,0.7);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-radius:1.5em;box-shadow:0 0 24px #06b6d4cc,0 0 8px #a855f7cc inset;min-width:180px;max-width:180px;min-height:260px;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:box-shadow .3s,background .3s;cursor:pointer;overflow:hidden;scroll-snap-align:center;}
+    .character-card img {width:120px;height:120px;object-fit:cover;border-radius:50%;margin-top:1.2em;box-shadow:0 0 24px #a855f7cc;}
+    .character-name {margin:1.2em 0 0.5em 0;font-size:1.1em;color:#fff;text-shadow:0 0 8px #a855f7,0 0 16px #06b6d4;}
+    .character-role {font-size:1em;color:#06b6d4;text-shadow:0 0 8px #a855f7,0 0 16px #06b6d4;}
+    .character-hover-dialog {display:none;position:absolute;bottom:1.2em;left:50%;transform:translateX(-50%);background:rgba(20,20,30,0.92);border-radius:1em;padding:1em 1.2em;box-shadow:0 0 16px #a855f7cc,0 0 8px #06b6d4cc inset;color:#fff;font-size:1em;text-align:center;z-index:3;white-space:pre-line;}
+    .character-card:hover .character-hover-dialog {display:block;}
+    @media (max-width:900px) {
+      .character-scroll-cards {gap:1vw;}
+      .character-card {min-width:90vw;max-width:98vw;}
+    }
+    .lore-back-btn {
+      position:absolute;top:3vh;left:3vw;z-index:10;background:linear-gradient(90deg,#06b6d4,#a855f7 80%);font-size:1.1em;padding:0.8em 2.2em;box-shadow:0 0 16px #06b6d4,0 0 24px #a855f7;border-radius:2em;transition:transform .2s,box-shadow .2s;font-weight:bold;letter-spacing:0.04em;text-transform:uppercase;}
+    .lore-back-btn:hover {transform:scale(1.07);box-shadow:0 0 32px #a855f7,0 0 24px #06b6d4;}
+    .lore-season-header {display:flex;align-items:center;justify-content:space-between;width:100%;margin-bottom:1.2em;}
+    .character-pack-btn {background:linear-gradient(90deg,#a855f7,#06b6d4 80%);color:#fff;font-size:1em;padding:0.7em 1.5em;box-shadow:0 0 16px #a855f7,0 0 24px #06b6d4;border:none;border-radius:2em;transition:transform .2s,box-shadow .2s;cursor:pointer;}
+    .character-pack-btn:hover {transform:scale(1.07);box-shadow:0 0 32px #a855f7,0 0 24px #06b6d4;}
+    .enhanced-scroll {scroll-behavior:smooth;overflow-x:auto;overflow-y:hidden;gap:2vw;display:flex;flex-direction:row;align-items:stretch;}
+    .lore-chapter-panel {transition:box-shadow .3s,transform .2s,opacity .3s;opacity:1;}
+    .lore-chapter-panel[style*='display:none'] {opacity:0;pointer-events:none;position:absolute;z-index:-1;}
+    .lore-nav-arrows {display:flex;gap:1em;margin-top:1.2em;justify-content:center;}
+    .lore-chapter-content {display:flex;flex-direction:column;align-items:flex-start;}
+    @media (max-width:900px) {
+      .lore-season-header {flex-direction:column;gap:1em;align-items:flex-start;}
+      .enhanced-scroll {gap:1vw;}
+    }
+    @media (max-width:700px) {
+      .lore-season-header {flex-direction:column;gap:1em;align-items:center;}
+      .enhanced-scroll {flex-direction:column;overflow-x:hidden;overflow-y:auto;}
+      .lore-chapter-panel {min-width:98vw;max-width:98vw;}
+    }
+    .prologue-wide-card {
+      max-width:900px;
+      min-width:420px;
+      width:70vw;
+      min-height:unset;
+      padding:2.5em 3.5em 2.5em 3.5em;
+      margin:6vh auto 0 auto;
+      border-radius:2.5em;
+      box-shadow:0 0 64px #a855f7,0 0 128px #06b6d4,0 0 32px #ff8800cc;
+      display:flex;flex-direction:column;align-items:center;justify-content:center;
+    }
+    @media (max-width:900px) {
+      .prologue-wide-card {width:96vw;padding:1.5em 0.7em;}
+    }
+    .staggered-scroll {
+      gap:3vw;
+      padding-top:2em;
+      padding-bottom:2em;
+      justify-content:center;
+    }
+    .lore-chapter-panel {
+      margin-top:0;
+      margin-bottom:0;
+      box-shadow:0 0 32px #a855f7cc,0 0 8px #06b6d4cc inset,0 8px 32px 0 rgba(0,0,0,0.12);
+      position:relative;
+      z-index:2;
+      min-width:340px;
+      max-width:340px;
+      min-height:420px;
+      transition:transform .3s cubic-bezier(.4,2,.2,1),box-shadow .2s;
+    }
+    .lore-chapter-panel:not(:first-child) {
+      margin-left:-40px;
+      transform:translateY(18px) scale(0.98);
+      z-index:1;
+    }
+    .lore-chapter-panel[style*='display:flex'] {
+      z-index:3;
+      transform:translateY(0) scale(1.03);
+      box-shadow:0 0 64px #a855f7,0 0 48px #06b6d4,0 0 32px #ff8800cc;
+    }
+    .lore-back-btn-chapter {
+      position:absolute;top:1.2em;left:1.2em;z-index:10;background:linear-gradient(90deg,#06b6d4,#a855f7 80%);font-size:1em;padding:0.5em 1.5em;box-shadow:0 0 12px #06b6d4,0 0 16px #a855f7;border-radius:2em;transition:transform .2s,box-shadow .2s;font-weight:bold;letter-spacing:0.04em;text-transform:uppercase;}
+    .lore-back-btn-chapter:hover {transform:scale(1.07);box-shadow:0 0 24px #a855f7,0 0 16px #06b6d4;}
+    .lore-chapter-panel {
+      min-width: 420px;
+      max-width: 480px;
+      min-height: 520px;
+      /* سایر استایل‌ها */
+    }
+    .lore-chapter-img img {
+      max-width: 400px;
+      min-height: 220px;
+    }
+    @media (max-width:900px) {
+      .lore-chapter-panel { min-width: 98vw; max-width: 98vw; }
+      .lore-chapter-img img { max-width: 98vw; }
+    }
+    .prologue-wide-card {
+      width: 80vw;
+      min-height: 220px;
+      max-width: 1100px;
+      padding: 2.5em 4em 2.5em 4em;
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-grad"></div>
+  <canvas class="particles"></canvas>
+  <nav>
+    <ul>
+      <li><a href="#home">Home</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#lore">Lore</a></li>
+      <li><a href="#gallery">Gallery</a></li>
+      <li><a href="#market">Marketplace</a></li>
+      <li><a href="#roadmap">Roadmap</a></li>
+      <li><a href="#join">Join</a></li>
+      <li><a href="#faq">FAQ</a></li>
+    </ul>
+  </nav>
+  <main style="position:relative;z-index:2;height:100vh;width:100vw;overflow:hidden;">
+    <section id="home" class="section-scroll">
+      <div class="hero-bg">
+        <canvas class="hero-gradient"></canvas>
+        <canvas class="sand-particles"></canvas>
+      </div>
+      <div class="hero-center home-panel" id="hero-panel">
+        <div class="hero-img-wrap">
+          <img src="1.jpg" alt="Sheikh Al-Laban" class="hero-img" />
+        </div>
+        <div class="hero-title neon-flicker">Sheikh Al-Laban: The Milk Dynasty Begins</div>
+        <div class="hero-typewriter" id="hero-typewriter"></div>
+        <button class="btn hero-cta" onclick="showHomePanel('prophecy-panel')">Explore The Dynasty</button>
+        <div class="scroll-indicator"><span></span></div>
+      </div>
+      <!-- Prophecy of Milk Panel -->
+      <div class="home-panel prophecy-panel fullscreen-bg" id="prophecy-panel" style="display:none">
+        <button class="btn back-btn" onclick="showHomePanel('hero-panel')">Back</button>
+        <div class="prophecy-bg tarot-bg">
+          <img class="prophecy-bg-img" src="2.jpg" alt="Desert Fortune Teller" />
+          <div class="prophecy-content">
+            <div class="prophecy-card">
+              <div class="prophecy-text" id="prophecy-text">
+                The sands spoke, and I listened.<br>
+                A camel shall rise not for water, but for power.<br>
+                Born of milk, hardened by betrayal,<br>
+                His humps will carry the weight of a forgotten kingdom.<br>
+                When the neon winds blow,<br>
+                And the dunes light up like cities in the sky,<br>
+                He shall return — not as a beast… but as a king
+              </div>
+            </div>
+            <div class="prophecy-seer">
+              <img src="2.jpg" alt="The Camel Seer" />
+            </div>
+          </div>
+        </div>
+        <button class="btn hero-cta next-btn" onclick="showHomePanel('timeline-panel')">Next</button>
+      </div>
+      <!-- Timeline of the Dynasty Panel -->
+      <div class="home-panel timeline-panel fullscreen-bg" id="timeline-panel" style="display:none">
+        <button class="btn back-btn" onclick="showHomePanel('prophecy-panel')">Back</button>
+        <div class="spark-timeline-container">
+          <h2 class="timeline-main-title">Timeline of the Dynasty</h2>
+          <div class="spark-timeline">
+            <div class="spark-timeline-item">
+              <div class="spark-timeline-img"><img src="https://placehold.co/120x120?text=Birth" alt="Birth" /></div>
+              <div class="spark-timeline-title">Birth: The Milk That Started It All</div>
+              <div class="spark-timeline-text">In the stillness of the desert night, a camel was born under the crescent moon. He wasn't like the others. While others suckled on tradition, he drank ambition—straight from a golden bottle of milk.</div>
+            </div>
+            <div class="spark-timeline-item">
+              <div class="spark-timeline-img"><img src="https://placehold.co/120x120?text=Childhood" alt="Childhood" /></div>
+              <div class="spark-timeline-title">Childhood: Sand Between His Hooves</div>
+              <div class="spark-timeline-text">He grew among shifting sands and whispering winds. The dunes were his playground, but so were the secrets buried beneath. He asked questions no camel dared ask. His eyes were curious, and his silence louder than roars.</div>
+            </div>
+            <div class="spark-timeline-item">
+              <div class="spark-timeline-img"><img src="https://placehold.co/120x120?text=Youth" alt="Youth" /></div>
+              <div class="spark-timeline-title">Youth: Betrayal & Brilliance</div>
+              <div class="spark-timeline-text">As he matured, jealousy brewed in the herd. He built tools from bones, traded sand for tech, and whispered ideas to passing caravans. But envy brought betrayal, and betrayal made him disappear… for a time.</div>
+            </div>
+            <div class="spark-timeline-item">
+              <div class="spark-timeline-img"><img src="https://placehold.co/120x120?text=Now" alt="Now" /></div>
+              <div class="spark-timeline-title">Now: Power in Every Hump</div>
+              <div class="spark-timeline-text">He returned with neon in his eyes and circuits in his saddle. He speaks in codes, deals in crypto, and rules in silence. They call him "Sheikh Al-Laban," a legend in motion. Not a memory — a movement.</div>
+            </div>
+          </div>
+        </div>
+        <button class="btn hero-cta next-btn" onclick="showHomePanel('milktest-panel')">Next</button>
+      </div>
+      <!-- Milk Test Panel -->
+      <div class="home-panel milktest-panel fullscreen-bg" id="milktest-panel" style="display:none">
+        <button class="btn back-btn" onclick="showHomePanel('timeline-panel')">Back</button>
+        <div class="milk-chest-wrap">
+          <div class="milk-chest" id="milk-chest">
+            <div class="chest-lid"></div>
+            <div class="chest-body"></div>
+            <div class="chest-text">Only the Worthy May Enter...</div>
+          </div>
+          <div class="milk-quiz" id="milk-quiz"></div>
+        </div>
+      </div>
+    </section>
+    <section id="about" class="section-scroll">
+      <div class="about-bg">
+        <canvas class="camel-tracks"></canvas>
+      </div>
+      <div class="card about-card">
+        <div class="milk-drop">
+          <svg width="38" height="54" viewBox="0 0 38 54" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M19 2 Q22 16 32 32 Q38 44 19 52 Q0 44 6 32 Q16 16 19 2 Z" fill="#fff" opacity="0.92"/>
+          </svg>
+        </div>
+        <h2 class="about-title">What is The Camel Syndicate?</h2>
+        <p class="about-text">
+          The Camel Syndicate is a story-driven NFT collection blending humor, mystery, and deep lore. Each NFT is a key to a world of betrayal, wealth, milk, and cryptic desert codes. Join the journey where every drop of milk and every hoofprint tells a tale.
+        </p>
+      </div>
+    </section>
+    <section id="lore" class="section-scroll">
+      <div class="lore-root">
+        <!-- Back to Home Button -->
+        <button class="btn lore-back-btn" onclick="window.location.hash='#home'">← Back to Home</button>
+        <!-- Prologue -->
+        <div class="lore-prologue lore-chapter active">
+          <div class="lore-bg-anim sand-night"></div>
+          <div class="lore-prologue-content prologue-wide-card">
+            <h2 class="lore-title neon-flicker">🌒 Prologue: A Grain of Milk in the Desert</h2>
+            <div class="lore-prologue-text">
+              <span>
+                They say legends are born from swords and fire.<br>
+                But in our story, it all started with… a bottle of milk.<br><br>
+                Long before neon towers pierced the skies and crypto ruled the dunes, there was a whisper — not in the wind, but in the breath of an old camel.<br>
+                A whisper that promised both salvation and chaos.<br>
+                A prophecy so ancient, even time itself forgot the date.<br><br>
+                In a desert forgotten by GPS and mercy alike, beneath sandstorms that bite harder than taxes, one tribe carried a secret so heavy it bent the humps of fate.<br>
+                And now, dear wanderer of the web, you stand at the edge of that forgotten truth.<br><br>
+                Are you ready to drink from the flask of legend?<br>
+                Or will you choke on the cream of destiny?<br><br>
+                <b>Your journey begins here.</b>
+              </span>
+            </div>
+            <button class="btn lore-next-btn" onclick="showLoreChapter('season1-0')">Next Chapter</button>
+          </div>
+        </div>
+        <!-- Season 1: The Prophecy Beneath the Sand -->
+        <div class="lore-season" id="season1" style="display:none">
+          <div class="lore-season-header">
+            <h2 class="lore-title">🏛️ Season 1: The Prophecy Beneath the Sand</h2>
+            <button class="btn character-pack-btn" onclick="showLoreChapter('character-scroll')">👁️ View Character Pack</button>
+          </div>
+          <div class="lore-chapters-scroll enhanced-scroll staggered-scroll">
+            <div class="lore-chapter-panel" id="season1-0">
+              <button class="btn lore-back-btn-chapter" onclick="showLoreChapter('prologue')">← Back</button>
+              <div class="lore-chapter-img"><img src="https://placehold.co/400x220?text=Chapter+1" alt="Chapter 1" /></div>
+              <div class="lore-chapter-content">
+                <h3>Chapter 1: The Whisper</h3>
+                <p>Placeholder cinematic text for Chapter 1...</p>
+                <div class="lore-nav-arrows">
+                  <button class="btn view-more-btn" data-chapter-id="season1-0">View More</button>
+                  <button class="btn lore-next-btn" onclick="showLoreChapter('season1-1')">Next Chapter →</button>
+                </div>
+              </div>
+            </div>
+            <div class="lore-chapter-panel" id="season1-1" style="display:none">
+              <button class="btn lore-back-btn-chapter" onclick="showLoreChapter('season1-0')">← Back</button>
+              <div class="lore-chapter-img"><img src="https://placehold.co/400x220?text=Chapter+2" alt="Chapter 2" /></div>
+              <div class="lore-chapter-content">
+                <h3>Chapter 2: The Golden Bottle</h3>
+                <p>Placeholder cinematic text for Chapter 2...</p>
+                <div class="lore-nav-arrows">
+                  <button class="btn view-more-btn" data-chapter-id="season1-1">View More</button>
+                  <button class="btn lore-prev-btn" onclick="showLoreChapter('season1-0')">← Previous</button>
+                  <button class="btn lore-next-btn" onclick="showLoreChapter('season1-2')">Next Chapter →</button>
+                </div>
+              </div>
+            </div>
+            <div class="lore-chapter-panel" id="season1-2" style="display:none">
+              <button class="btn lore-back-btn-chapter" onclick="showLoreChapter('season1-1')">← Back</button>
+              <div class="lore-chapter-img"><img src="https://placehold.co/400x220?text=Chapter+3" alt="Chapter 3" /></div>
+              <div class="lore-chapter-content">
+                <h3>Chapter 3: The Neon Birth</h3>
+                <p>Placeholder cinematic text for Chapter 3...</p>
+                <div class="lore-nav-arrows">
+                  <button class="btn view-more-btn" data-chapter-id="season1-2">View More</button>
+                  <button class="btn lore-prev-btn" onclick="showLoreChapter('season1-1')">← Previous</button>
+                  <button class="btn lore-next-btn" onclick="showLoreChapter('season1-3')">Next Chapter →</button>
+                </div>
+              </div>
+            </div>
+            <div class="lore-chapter-panel" id="season1-3" style="display:none">
+              <button class="btn lore-back-btn-chapter" onclick="showLoreChapter('season1-2')">← Back</button>
+              <div class="lore-chapter-img"><img src="https://placehold.co/400x220?text=Chapter+4" alt="Chapter 4" /></div>
+              <div class="lore-chapter-content">
+                <h3>Chapter 4: The First Betrayal</h3>
+                <p>Placeholder cinematic text for Chapter 4...</p>
+                <div class="lore-nav-arrows">
+                  <button class="btn view-more-btn" data-chapter-id="season1-3">View More</button>
+                  <button class="btn lore-prev-btn" onclick="showLoreChapter('season1-2')">← Previous</button>
+                  <button class="btn lore-next-btn" onclick="showLoreChapter('season1-4')">Next Chapter →</button>
+                </div>
+              </div>
+            </div>
+            <div class="lore-chapter-panel" id="season1-4" style="display:none">
+              <button class="btn lore-back-btn-chapter" onclick="showLoreChapter('season1-3')">← Back</button>
+              <div class="lore-chapter-img"><img src="https://placehold.co/400x220?text=Chapter+5" alt="Chapter 5" /></div>
+              <div class="lore-chapter-content">
+                <h3>Chapter 5: The Milk Oath</h3>
+                <p>Placeholder cinematic text for Chapter 5...</p>
+                <div class="lore-nav-arrows">
+                  <button class="btn view-more-btn" data-chapter-id="season1-4">View More</button>
+                  <button class="btn lore-prev-btn" onclick="showLoreChapter('season1-3')">← Previous</button>
+                  <button class="btn lore-next-btn" onclick="showLoreChapter('season2-0')">Next Season →</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Season 2: The Fall of the Milky Crown -->
+        <div class="lore-season" id="season2" style="display:none">
+          <div class="lore-season-header">
+            <h2 class="lore-title">Season 2: The Fall of the Milky Crown</h2>
+          </div>
+          <div class="lore-chapters-scroll enhanced-scroll staggered-scroll">
+            <div class="lore-chapter-panel" id="season2-0">
+              <button class="btn lore-back-btn-chapter" onclick="showLoreChapter('season1-4')">← Back</button>
+              <div class="lore-chapter-img"><img src="https://placehold.co/400x220?text=Chapter+1" alt="Chapter 1" /></div>
+              <div class="lore-chapter-content">
+                <h3>Chapter 1: Shadows Over the Dunes</h3>
+                <p>Placeholder dark text for Chapter 1...</p>
+                <div class="lore-nav-arrows">
+                  <button class="btn view-more-btn" data-chapter-id="season2-0">View More</button>
+                  <button class="btn lore-next-btn" onclick="showLoreChapter('season2-1')">Next Chapter →</button>
+                </div>
+              </div>
+            </div>
+            <div class="lore-chapter-panel" id="season2-1" style="display:none">
+              <button class="btn lore-back-btn-chapter" onclick="showLoreChapter('season2-0')">← Back</button>
+              <div class="lore-chapter-img"><img src="https://placehold.co/400x220?text=Chapter+2" alt="Chapter 2" /></div>
+              <div class="lore-chapter-content">
+                <h3>Chapter 2: The Enemy Emerges</h3>
+                <p>Placeholder dark text for Chapter 2...</p>
+                <div class="lore-nav-arrows">
+                  <button class="btn view-more-btn" data-chapter-id="season2-1">View More</button>
+                  <button class="btn lore-prev-btn" onclick="showLoreChapter('season2-0')">← Previous</button>
+                  <button class="btn lore-next-btn" onclick="showLoreChapter('season2-2')">Next Chapter →</button>
+                </div>
+              </div>
+            </div>
+            <div class="lore-chapter-panel" id="season2-2" style="display:none">
+              <button class="btn lore-back-btn-chapter" onclick="showLoreChapter('season2-1')">← Back</button>
+              <div class="lore-chapter-img"><img src="https://placehold.co/400x220?text=Chapter+3" alt="Chapter 3" /></div>
+              <div class="lore-chapter-content">
+                <h3>Chapter 3: The Broken Crown</h3>
+                <p>Placeholder dark text for Chapter 3...</p>
+                <div class="lore-nav-arrows">
+                  <button class="btn view-more-btn" data-chapter-id="season2-2">View More</button>
+                  <button class="btn lore-prev-btn" onclick="showLoreChapter('season2-1')">← Previous</button>
+                  <button class="btn lore-next-btn" onclick="showLoreChapter('season2-3')">Next Chapter →</button>
+                </div>
+              </div>
+            </div>
+            <div class="lore-chapter-panel" id="season2-3" style="display:none">
+              <button class="btn lore-back-btn-chapter" onclick="showLoreChapter('season2-2')">← Back</button>
+              <div class="lore-chapter-img"><img src="https://placehold.co/400x220?text=Chapter+4" alt="Chapter 4" /></div>
+              <div class="lore-chapter-content">
+                <h3>Chapter 4: Exile</h3>
+                <p>Placeholder dark text for Chapter 4...</p>
+                <div class="lore-nav-arrows">
+                  <button class="btn view-more-btn" data-chapter-id="season2-3">View More</button>
+                  <button class="btn lore-prev-btn" onclick="showLoreChapter('season2-2')">← Previous</button>
+                  <button class="btn lore-next-btn" onclick="showLoreChapter('season2-4')">Next Chapter →</button>
+                </div>
+              </div>
+            </div>
+            <div class="lore-chapter-panel" id="season2-4" style="display:none">
+              <button class="btn lore-back-btn-chapter" onclick="showLoreChapter('season2-3')">← Back</button>
+              <div class="lore-chapter-img"><img src="https://placehold.co/400x220?text=Chapter+5" alt="Chapter 5" /></div>
+              <div class="lore-chapter-content">
+                <h3>Chapter 5: The Last Drop</h3>
+                <p>Placeholder dark text for Chapter 5...</p>
+                <div class="lore-nav-arrows">
+                  <button class="btn view-more-btn" data-chapter-id="season2-4">View More</button>
+                  <button class="btn lore-prev-btn" onclick="showLoreChapter('season2-3')">← Previous</button>
+                  <button class="btn lore-next-btn" onclick="showLoreChapter('season3-0')">Next Season →</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Season 3: The Rise of the Herd -->
+        <div class="lore-season" id="season3" style="display:none">
+          <div class="lore-season-header">
+            <h2 class="lore-title">Season 3: The Rise of the Herd</h2>
+          </div>
+          <div class="lore-chapters-scroll enhanced-scroll staggered-scroll">
+            <div class="lore-chapter-panel" id="season3-0">
+              <button class="btn lore-back-btn-chapter" onclick="showLoreChapter('season2-4')">← Back</button>
+              <div class="lore-chapter-img"><img src="https://placehold.co/400x220?text=Chapter+1" alt="Chapter 1" /></div>
+              <div class="lore-chapter-content">
+                <h3>Chapter 1: The Return</h3>
+                <p>Placeholder epic/comic text for Chapter 1...</p>
+                <div class="lore-nav-arrows">
+                  <button class="btn view-more-btn" data-chapter-id="season3-0">View More</button>
+                  <button class="btn lore-next-btn" onclick="showLoreChapter('season3-1')">Next Chapter →</button>
+                </div>
+              </div>
+            </div>
+            <div class="lore-chapter-panel" id="season3-1" style="display:none">
+              <button class="btn lore-back-btn-chapter" onclick="showLoreChapter('season3-0')">← Back</button>
+              <div class="lore-chapter-img"><img src="https://placehold.co/400x220?text=Chapter+2" alt="Chapter 2" /></div>
+              <div class="lore-chapter-content">
+                <h3>Chapter 2: The Gathering</h3>
+                <p>Placeholder epic/comic text for Chapter 2...</p>
+                <div class="lore-nav-arrows">
+                  <button class="btn view-more-btn" data-chapter-id="season3-1">View More</button>
+                  <button class="btn lore-prev-btn" onclick="showLoreChapter('season3-0')">← Previous</button>
+                  <button class="btn lore-next-btn" onclick="showLoreChapter('season3-2')">Next Chapter →</button>
+                </div>
+              </div>
+            </div>
+            <div class="lore-chapter-panel" id="season3-2" style="display:none">
+              <button class="btn lore-back-btn-chapter" onclick="showLoreChapter('season3-1')">← Back</button>
+              <div class="lore-chapter-img"><img src="https://placehold.co/400x220?text=Chapter+3" alt="Chapter 3" /></div>
+              <div class="lore-chapter-content">
+                <h3>Chapter 3: The Battle of the Dunes</h3>
+                <p>Placeholder epic/comic text for Chapter 3...</p>
+                <div class="lore-nav-arrows">
+                  <button class="btn view-more-btn" data-chapter-id="season3-2">View More</button>
+                  <button class="btn lore-prev-btn" onclick="showLoreChapter('season3-1')">← Previous</button>
+                  <button class="btn lore-next-btn" onclick="showLoreChapter('season3-3')">Next Chapter →</button>
+                </div>
+              </div>
+            </div>
+            <div class="lore-chapter-panel" id="season3-3" style="display:none">
+              <button class="btn lore-back-btn-chapter" onclick="showLoreChapter('season3-2')">← Back</button>
+              <div class="lore-chapter-img"><img src="https://placehold.co/400x220?text=Chapter+4" alt="Chapter 4" /></div>
+              <div class="lore-chapter-content">
+                <h3>Chapter 4: The Laughing Camel</h3>
+                <p>Placeholder epic/comic text for Chapter 4...</p>
+                <div class="lore-nav-arrows">
+                  <button class="btn view-more-btn" data-chapter-id="season3-3">View More</button>
+                  <button class="btn lore-prev-btn" onclick="showLoreChapter('season3-2')">← Previous</button>
+                  <button class="btn lore-next-btn" onclick="showLoreChapter('season3-4')">Next Chapter →</button>
+                </div>
+              </div>
+            </div>
+            <div class="lore-chapter-panel" id="season3-4" style="display:none">
+              <button class="btn lore-back-btn-chapter" onclick="showLoreChapter('season3-3')">← Back</button>
+              <div class="lore-chapter-img"><img src="https://placehold.co/400x220?text=Chapter+5" alt="Chapter 5" /></div>
+              <div class="lore-chapter-content">
+                <h3>Chapter 5: The New Dawn</h3>
+                <p>Placeholder epic/comic text for Chapter 5...</p>
+                <div class="lore-nav-arrows">
+                  <button class="btn view-more-btn" data-chapter-id="season3-4">View More</button>
+                  <button class="btn lore-prev-btn" onclick="showLoreChapter('season3-3')">← Previous</button>
+                  <button class="btn lore-next-btn" onclick="showLoreChapter('character-scroll')">Characters</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Character Scroll -->
+        <div class="lore-characters" id="character-scroll" style="display:none">
+          <h2 class="lore-title">Character Scroll</h2>
+          <div class="character-scroll-cards">
+            <div class="character-card hero">
+              <img src="https://placehold.co/120x120?text=Hero" alt="Hero" />
+              <div class="character-name">Sheikh Al-Laban</div>
+              <div class="character-role">Hero</div>
+              <div class="character-hover-dialog">"Milk is thicker than water, but code is thicker than both."</div>
+            </div>
+            <div class="character-card villain">
+              <img src="https://placehold.co/120x120?text=Villain" alt="Villain" />
+              <div class="character-name">The Sand Saboteur</div>
+              <div class="character-role">Villain</div>
+              <div class="character-hover-dialog">"You'll never decode the dunes!"</div>
+            </div>
+            <div class="character-card prophet">
+              <img src="https://placehold.co/120x120?text=Prophet" alt="Prophet" />
+              <div class="character-name">Old Camel Seer</div>
+              <div class="character-role">Prophet</div>
+              <div class="character-hover-dialog">"The sands remember all."</div>
+            </div>
+            <div class="character-card merchant">
+              <img src="https://placehold.co/120x120?text=Merchant" alt="Merchant" />
+              <div class="character-name">Bazaar Whisperer</div>
+              <div class="character-role">Merchant</div>
+              <div class="character-hover-dialog">"Best deals east of the oasis!"</div>
+            </div>
+            <div class="character-card rebel">
+              <img src="https://placehold.co/120x120?text=Rebel" alt="Rebel" />
+              <div class="character-name">Dune Trickster</div>
+              <div class="character-role">Rebel</div>
+              <div class="character-hover-dialog">"Rules are for the thirsty."</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section id="lore-reveal" class="section-scroll">
+      <div class="lore-timeline">
+        <div class="lore-holo-lines"></div>
+        <div class="lore-cards">
+          <div class="lore-card" data-quote=""The desert is my kingdom, and milk is my crown."" data-audio="">
+            <img src="1.jpg" alt="Sheikh Al-Laban" />
+            <div class="lore-card-name">Sheikh Al-Laban</div>
+          </div>
+          <div class="lore-card" data-quote="The dunes remember every secret."" data-audio="">
+            <img src="https://placehold.co/160x160/ff8800/fff?text=Prince+of+the+Dunes" alt="Prince of the Dunes" />
+            <div class="lore-card-name">Prince of the Dunes</div>
+          </div>
+          <div class="lore-card" data-quote="A cup of tea can change the fate of a tribe."" data-audio="">
+            <img src="https://placehold.co/160x160/06b6d4/fff?text=Al-Chaayi" alt="Al-Chaayi" />
+            <div class="lore-card-name">Al-Chaayi</div>
+          </div>
+        </div>
+        <div class="lore-ripples"></div>
+      </div>
+    </section>
+    <section id="featured-nfts" class="section-scroll">
+      <div class="carousel-container">
+        <div class="carousel-track">
+          <div class="carousel-card" data-name="Sheikh Al-Laban" data-img="1.jpg" data-lore="The enigmatic founder of the Milk Dynasty." data-360="1.jpg">
+            <img src="1.jpg" alt="Sheikh Al-Laban" />
+            <div class="carousel-card-title">Sheikh Al-Laban</div>
+          </div>
+          <div class="carousel-card" data-name="Prince of the Dunes" data-img="https://placehold.co/180x180/ff8800/fff?text=Prince+of+the+Dunes" data-lore="Heir to the shifting sands." data-360="https://placehold.co/180x180/ff8800/fff?text=Prince+of+the+Dunes">
+            <img src="https://placehold.co/180x180/ff8800/fff?text=Prince+of+the+Dunes" alt="Prince of the Dunes" />
+            <div class="carousel-card-title">Prince of the Dunes</div>
+          </div>
+          <div class="carousel-card" data-name="Al-Chaayi" data-img="https://placehold.co/180x180/06b6d4/fff?text=Al-Chaayi" data-lore="The tea master of the desert." data-360="https://placehold.co/180x180/06b6d4/fff?text=Al-Chaayi">
+            <img src="https://placehold.co/180x180/06b6d4/fff?text=Al-Chaayi" alt="Al-Chaayi" />
+            <div class="carousel-card-title">Al-Chaayi</div>
+          </div>
+        </div>
+      </div>
+      <div class="carousel-popup" id="carousel-popup">
+        <div class="popup-content">
+          <span class="popup-close" onclick="closePopup()">&times;</span>
+          <img id="popup-img" src="" alt="" />
+          <div class="popup-title" id="popup-title"></div>
+          <div class="popup-lore" id="popup-lore"></div>
+        </div>
+      </div>
+    </section>
+    <footer class="site-footer">
+      <div class="footer-links">
+        <a href="#home">Home</a> |
+        <a href="#market">Marketplace</a> |
+        <a href="#roadmap">Roadmap</a> |
+        <a href="#lore-reveal">Story</a> |
+        <a href="#faq">FAQ</a> |
+        <a href="#join">Contact</a>
+      </div>
+      <div class="footer-social">
+        <a href="#" class="footer-icon twitter" title="Twitter"></a>
+        <a href="#" class="footer-icon discord" title="Discord"></a>
+        <a href="#" class="footer-icon opensea" title="OpenSea"></a>
+        <a href="#" class="footer-icon instagram" title="Instagram"></a>
+      </div>
+      <div class="footer-quote">"aaaaaaaa..." — Sheikh Al-Laban</div>
+    </footer>
+    <section id="gallery" class="section-scroll">
+      <div class="gallery-filters">
+        <button class="gallery-filter active" data-filter="all">All</button>
+        <button class="gallery-filter" data-filter="leaders">Leaders</button>
+        <button class="gallery-filter" data-filter="traders">Traders</button>
+        <button class="gallery-filter" data-filter="legends">Legends</button>
+        <button class="gallery-filter" data-filter="workers">Workers</button>
+      </div>
+      <div class="gallery-grid">
+        <div class="gallery-card legend" data-type="leaders legends">
+          <img src="https://placehold.co/180x180/3b82f6/fff?text=Sheikh+Al-Laban" alt="Sheikh Al-Laban" />
+          <div class="gallery-overlay"><div class="gallery-title">Sheikh Al-Laban</div><div class="gallery-desc">The enigmatic leader who united the tribes with milk and code.</div></div>
+        </div>
+        <div class="gallery-card" data-type="traders">
+          <img src="https://placehold.co/180x180/06b6d4/fff?text=The+Sand+Coder" alt="The Sand Coder" />
+          <div class="gallery-overlay"><div class="gallery-title">The Sand Coder</div><div class="gallery-desc">A mysterious trader, master of desert algorithms and secret deals.</div></div>
+        </div>
+        <div class="gallery-card legend" data-type="legends leaders">
+          <img src="https://placehold.co/180x180/a855f7/fff?text=The+Milk+Queen" alt="The Milk Queen" />
+          <div class="gallery-overlay"><div class="gallery-title">The Milk Queen</div><div class="gallery-desc">Her milk is legend, her power eternal. She rules the oasis of secrets.</div></div>
+        </div>
+        <div class="gallery-card" data-type="workers">
+          <img src="https://placehold.co/180x180/222/fff?text=The+Dune+Hauler" alt="The Dune Hauler" />
+          <div class="gallery-overlay"><div class="gallery-title">The Dune Hauler</div><div class="gallery-desc">A tireless worker, carrying the weight of the Syndicate across the sands.</div></div>
+        </div>
+        <div class="gallery-card" data-type="traders">
+          <img src="https://placehold.co/180x180/06b6d4/fff?text=The+Spice+Broker" alt="The Spice Broker" />
+          <div class="gallery-overlay"><div class="gallery-title">The Spice Broker</div><div class="gallery-desc">Knows every grain of spice and every secret deal in the desert.</div></div>
+        </div>
+        <div class="gallery-card legend" data-type="legends">
+          <img src="https://placehold.co/180x180/fff/3b82f6?text=The+Gray+Camel" alt="The Gray Camel" />
+          <div class="gallery-overlay"><div class="gallery-title">The Gray Camel</div><div class="gallery-desc">A legendary figure, shrouded in myth and feared by all.</div></div>
+        </div>
+      </div>
+    </section>
+    <section id="market" class="section-scroll">
+      <div class="market-bg">
+        <svg class="eth-bg" width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <g class="eth-pulse">
+            <polygon points="60,10 100,60 60,110 20,60" fill="#3b82f6" opacity="0.18"/>
+            <polygon points="60,20 90,60 60,100 30,60" fill="#fff" opacity="0.13"/>
+            <polygon points="60,30 80,60 60,90 40,60" fill="#a855f7" opacity="0.22"/>
+          </g>
+        </svg>
+      </div>
+      <div class="market-filters">
+        <button class="market-filter active" data-filter="rare">Most Rare</button>
+        <button class="market-filter" data-filter="low">Lowest Price</button>
+        <button class="market-filter" data-filter="new">Newest</button>
+      </div>
+      <div class="market-grid">
+        <div class="market-card" data-rarity="legendary" data-price="2.5" data-date="2024-06-01">
+          <img src="https://placehold.co/180x180/3b82f6/fff?text=Sheikh+Al-Laban" alt="Sheikh Al-Laban" />
+          <div class="market-info">
+            <div class="market-name">Sheikh Al-Laban</div>
+            <span class="market-badge legendary">Legendary</span>
+          </div>
+          <div class="market-price"><span>2.5 ETH</span></div>
+          <a class="market-buy" href="#" target="_blank">Buy on OpenSea</a>
+        </div>
+        <div class="market-card" data-rarity="rare" data-price="1.2" data-date="2024-06-03">
+          <img src="https://placehold.co/180x180/06b6d4/fff?text=The+Sand+Coder" alt="The Sand Coder" />
+          <div class="market-info">
+            <div class="market-name">The Sand Coder</div>
+            <span class="market-badge rare">Rare</span>
+          </div>
+          <div class="market-price"><span>1.2 ETH</span></div>
+          <a class="market-buy" href="#" target="_blank">Buy on OpenSea</a>
+        </div>
+        <div class="market-card" data-rarity="epic" data-price="1.8" data-date="2024-06-02">
+          <img src="https://placehold.co/180x180/a855f7/fff?text=The+Milk+Queen" alt="The Milk Queen" />
+          <div class="market-info">
+            <div class="market-name">The Milk Queen</div>
+            <span class="market-badge epic">Epic</span>
+          </div>
+          <div class="market-price"><span>1.8 ETH</span></div>
+          <a class="market-buy" href="#" target="_blank">Buy on OpenSea</a>
+        </div>
+        <div class="market-card" data-rarity="common" data-price="0.5" data-date="2024-06-04">
+          <img src="https://placehold.co/180x180/222/fff?text=The+Dune+Hauler" alt="The Dune Hauler" />
+          <div class="market-info">
+            <div class="market-name">The Dune Hauler</div>
+            <span class="market-badge common">Common</span>
+          </div>
+          <div class="market-price"><span>0.5 ETH</span></div>
+          <a class="market-buy" href="#" target="_blank">Buy on OpenSea</a>
+        </div>
+        <div class="market-card" data-rarity="rare" data-price="1.1" data-date="2024-06-05">
+          <img src="https://placehold.co/180x180/06b6d4/fff?text=The+Spice+Broker" alt="The Spice Broker" />
+          <div class="market-info">
+            <div class="market-name">The Spice Broker</div>
+            <span class="market-badge rare">Rare</span>
+          </div>
+          <div class="market-price"><span>1.1 ETH</span></div>
+          <a class="market-buy" href="#" target="_blank">Buy on OpenSea</a>
+        </div>
+        <div class="market-card" data-rarity="legendary" data-price="3.1" data-date="2024-06-06">
+          <img src="https://placehold.co/180x180/fff/3b82f6?text=The+Gray+Camel" alt="The Gray Camel" />
+          <div class="market-info">
+            <div class="market-name">The Gray Camel</div>
+            <span class="market-badge legendary">Legendary</span>
+          </div>
+          <div class="market-price"><span>3.1 ETH</span></div>
+          <a class="market-buy" href="#" target="_blank">Buy on OpenSea</a>
+        </div>
+      </div>
+    </section>
+    <section id="roadmap" class="section-scroll">
+      <div class="roadmap-bg">
+        <canvas class="roadmap-canvas"></canvas>
+        <div class="star-goal"></div>
+      </div>
+      <div class="roadmap-timeline">
+        <div class="roadmap-phase" data-phase="1">
+          <div class="roadmap-icon"><span>🌵</span></div>
+          <div class="roadmap-desc">Phase 1: First NFT Drop</div>
+        </div>
+        <div class="roadmap-arrow"><span>👣</span></div>
+        <div class="roadmap-phase" data-phase="2">
+          <div class="roadmap-icon"><span>📜</span></div>
+          <div class="roadmap-desc">Phase 2: Lore Expansion</div>
+        </div>
+        <div class="roadmap-arrow"><span>👣</span></div>
+        <div class="roadmap-phase" data-phase="3">
+          <div class="roadmap-icon"><span>🕵️‍♂️</span></div>
+          <div class="roadmap-desc">Phase 3: Secret Character Reveal</div>
+        </div>
+        <div class="roadmap-arrow"><span>👣</span></div>
+        <div class="roadmap-phase" data-phase="4">
+          <div class="roadmap-icon"><span>🔥</span></div>
+          <div class="roadmap-desc">Phase 4: Community Rituals</div>
+        </div>
+        <div class="roadmap-arrow"><span>👣</span></div>
+        <div class="roadmap-phase" data-phase="5">
+          <div class="roadmap-icon"><span>✨</span></div>
+          <div class="roadmap-desc">Phase 5: [Redacted]</div>
+        </div>
+      </div>
+    </section>
+    <section id="join" class="section-scroll">
+      <div class="join-bg">
+        <svg class="camel-stamp" width="180" height="120" viewBox="0 0 180 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <ellipse cx="90" cy="60" rx="80" ry="48" fill="url(#holo)" opacity="0.13"/>
+          <path d="M30 100 Q60 60 90 80 Q110 60 130 70 Q150 50 170 70" stroke="#a855f7" stroke-width="6" fill="none" filter="url(#glow)"/>
+          <defs>
+            <radialGradient id="holo" cx="0.5" cy="0.5" r="0.5" fx="0.5" fy="0.5">
+              <stop offset="0%" stop-color="#a855f7"/>
+              <stop offset="100%" stop-color="#06b6d4"/>
+            </radialGradient>
+            <filter id="glow">
+              <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+              <feMerge>
+                <feMergeNode in="coloredBlur"/>
+                <feMergeNode in="SourceGraphic"/>
+              </feMerge>
+            </filter>
+          </defs>
+        </svg>
+        <canvas class="camel-horizon"></canvas>
+      </div>
+      <div class="card join-card">
+        <button class="btn discord-btn" onclick="window.open('https://discord.com','_blank')">Join the Desert Network</button>
+        <form class="join-form" onsubmit="event.preventDefault();this.classList.add('submitted');">
+          <input class="join-email" type="email" placeholder="Your email..." required />
+          <button class="btn join-btn" type="submit">Subscribe</button>
+        </form>
+        <div class="join-tag">Get the next prophecy before others.</div>
+      </div>
+    </section>
+    <section id="faq" class="section-scroll">
+      <div class="faq-accordion">
+        <div class="faq-item">
+          <button class="faq-question"><span class="hoofprint">🐪</span> What is Neon Syndicate?</button>
+          <div class="faq-answer">A mysterious NFT universe inspired by cyberpunk and desert noir.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question"><span class="hoofprint">🐪</span> How do I mint?</button>
+          <div class="faq-answer">Minting opens soon. Stay tuned on Discord and newsletter.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question"><span class="hoofprint">🐪</span> Where can I trade?</button>
+          <div class="faq-answer">Our marketplace launches in Q3.</div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <!-- Modal for Chapter Details: move to end of <body> for global accessibility -->
+  <div id="chapter-modal-bg" class="neon-modal-bg" style="display:none;z-index:9999;position:fixed;top:0;left:0;width:100vw;height:100vh;align-items:center;justify-content:center;">
+    <div class="neon-modal" id="chapter-modal" style="max-width:700px;width:90vw;max-height:90vh;overflow-y:auto;display:flex;flex-direction:column;align-items:center;">
+      <button class="neon-modal-close" id="chapter-modal-close" aria-label="Close">×</button>
+      <div class="chapter-modal-image-area" id="chapter-modal-image-area" style="width:100%;display:flex;justify-content:center;gap:1em;flex-wrap:wrap;margin-bottom:1.2em;"></div>
+      <div class="chapter-modal-title" id="chapter-modal-title" style="font-size:1.3em;font-weight:bold;color:#fff;text-shadow:0 0 16px #a855f7,0 0 24px #06b6d4;margin-bottom:0.7em;text-align:center;"></div>
+      <div class="chapter-modal-story" id="chapter-modal-story" style="font-size:1.13em;line-height:1.7;text-align:justify;color:#fff;opacity:0.95;text-shadow:0 0 8px #a855f7,0 0 16px #06b6d4;"></div>
+    </div>
+  </div>
+  <script>
+    // Parallax + fade/zoom/slide (only for Home->About transition)
+    let sections=[...document.querySelectorAll('section')];
+    window.addEventListener('scroll',()=>{
+      let y=window.scrollY;
+      // Only Home->About cinematic effect
+      let homeSec=document.getElementById('home');
+      let about=document.getElementById('about');
+      let h=window.innerHeight;
+      if(y<h*0.9){
+        let t=y/h;
+        homeSec.style.opacity=1-t*1.2;
+        homeSec.style.transform=`scale(${1-t*0.08})`;
+        about.style.opacity=Math.max(0.2,t*1.2);
+        about.style.transform=`scale(${0.95+t*0.05})`;
+      } else {
+        homeSec.style.opacity=0;
+        about.style.opacity=1;
+        homeSec.style.transform='';
+        about.style.transform='';
+      }
+    });
+    // Ambient particles
+    const c=document.querySelector('.particles'),ctx=c.getContext('2d');let w,h,ps=[];function resize(){w=window.innerWidth;h=window.innerHeight;c.width=w;c.height=h;}window.addEventListener('resize',resize);resize();for(let i=0;i<60;i++)ps.push({x:Math.random()*w,y:Math.random()*h,r:Math.random()*2+1,s:Math.random()*1+0.5,a:Math.random()*360});function draw(){ctx.clearRect(0,0,w,h);ps.forEach(p=>{ctx.save();ctx.globalAlpha=0.12+0.12*Math.sin(Date.now()/700+p.a);ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,2*Math.PI);ctx.fillStyle=`hsl(${200+60*Math.sin(p.a)},100%,60%)`;ctx.shadowColor='#a855f7';ctx.shadowBlur=12;ctx.fill();ctx.restore();p.x+=Math.sin(p.a)*p.s*0.2;p.y+=Math.cos(p.a)*p.s*0.2;p.a+=0.01;if(p.x<0)p.x=w;if(p.x>w)p.x=0;if(p.y<0)p.y=h;if(p.y>h)p.y=0;});if(Math.random()<0.01){ctx.save();ctx.globalAlpha=0.3;ctx.fillStyle='#a855f7';ctx.fillRect(Math.random()*w,Math.random()*h,Math.random()*80+20,2);ctx.restore();}requestAnimationFrame(draw);}draw();
+    // Sand particles for hero
+    const sandCanvas=document.querySelector('.sand-particles'),sandCtx=sandCanvas.getContext('2d');let sw,sh,sands=[];function sandResize(){sw=window.innerWidth;sh=window.innerHeight;sandCanvas.width=sw;sandCanvas.height=sh;}window.addEventListener('resize',sandResize);sandResize();for(let i=0;i<80;i++)sands.push({x:Math.random()*sw,y:Math.random()*sh,r:Math.random()*1.2+0.3,s:Math.random()*0.7+0.2,a:Math.random()*360});function sandDraw(){sandCtx.clearRect(0,0,sw,sh);sands.forEach(p=>{sandCtx.save();sandCtx.globalAlpha=0.09+0.09*Math.sin(Date.now()/900+p.a);sandCtx.beginPath();sandCtx.arc(p.x,p.y,p.r,0,2*Math.PI);sandCtx.fillStyle='#ffe4b3';sandCtx.shadowColor='#fff8e1';sandCtx.shadowBlur=6; sandCtx.fill();sandCtx.restore();p.x+=Math.sin(p.a)*p.s*0.1;p.y+=Math.cos(p.a)*p.s*0.1;p.a+=0.008;if(p.x<0)p.x=sw;if(p.x>sw)p.x=0;if(p.y<0)p.y=sh;if(p.y>sh)p.y=0;});requestAnimationFrame(sandDraw);}sandDraw();
+    // Home->About transition: slow zoom-out+fade
+    const about=document.getElementById('about');window.addEventListener('scroll',()=>{let y=window.scrollY;let h=window.innerHeight;let homeSec=document.getElementById('home');if(y<h*0.9){let t=y/h;homeSec.style.opacity=1-t*1.2;homeSec.style.transform=`scale(${1-t*0.08})`;about.style.opacity=Math.max(0.2,t*1.2);about.style.transform=`scale(${0.95+t*0.05})`;}});
+    // Modern neon abstract background for hero (no lines, just orbs and gradients)
+    const heroCanvas=document.querySelector('.hero-abstract'),heroCtx=heroCanvas.getContext('2d');let hw,hh;function heroResize(){hw=window.innerWidth;hh=window.innerHeight;heroCanvas.width=hw;heroCanvas.height=hh;}window.addEventListener('resize',heroResize);heroResize();let orbs=[];for(let i=0;i<8;i++)orbs.push({x:Math.random()*hw,y:Math.random()*hh,r:60+Math.random()*80,c:[168,85,247,0.13+Math.random()*0.13],dx:(Math.random()-0.5)*0.2,dy:(Math.random()-0.5)*0.2});function drawHeroBg(){heroCtx.clearRect(0,0,hw,hh);orbs.forEach((o,i)=>{let grad=heroCtx.createRadialGradient(o.x,o.y,o.r*0.2,o.x,o.y,o.r);grad.addColorStop(0,`rgba(${o.c[0]},${o.c[1]},${o.c[2]},${o.c[3]})`);grad.addColorStop(1,'transparent');heroCtx.save();heroCtx.globalAlpha=0.7+0.3*Math.sin(Date.now()/2000+i);heroCtx.beginPath();heroCtx.arc(o.x,o.y,o.r,0,2*Math.PI);heroCtx.fillStyle=grad;heroCtx.shadowColor='#a855f7';heroCtx.shadowBlur=32;heroCtx.fill();heroCtx.restore();o.x+=o.dx;o.y+=o.dy;if(o.x<0)o.x=hw;if(o.x>hw)o.x=0;if(o.y<0)o.y=hh;if(o.y>hh)o.y=0;});for(let i=0;i<60;i++){let r=1.5+Math.sin(Date.now()/700+i)*0.7;let x=hw*Math.abs(Math.sin(i*0.13+Date.now()/4000));let y=hh*Math.abs(Math.cos(i*0.11+Date.now()/3000));heroCtx.save();heroCtx.globalAlpha=0.13+0.13*Math.sin(Date.now()/900+i);heroCtx.beginPath();heroCtx.arc(x,y,r,0,2*Math.PI);heroCtx.fillStyle='#3b82f6';heroCtx.shadowColor='#a855f7';heroCtx.shadowBlur=12;heroCtx.fill();heroCtx.restore();}requestAnimationFrame(drawHeroBg);}drawHeroBg();
+    // Audio: subtle, looping Arabic music + wind/sand
+    const music=document.getElementById('arabic-music');music.volume=0.13;music.controls=false;music.setAttribute('controls',false);music.style.display='none';
+    const wind=document.getElementById('wind-sound');wind.volume=0.11;wind.controls=false;wind.setAttribute('controls',false);wind.style.display='none';
+    // Holographic camel tracks animation
+    const tracksCanvas=document.querySelector('.camel-tracks'),tracksCtx=tracksCanvas.getContext('2d');let tw,th;function tracksResize(){tw=window.innerWidth;th=window.innerHeight;tracksCanvas.width=tw;tracksCanvas.height=th;}window.addEventListener('resize',tracksResize);tracksResize();let tracks=[];for(let i=0;i<18;i++){let f=i/18;tracks.push({x:tw/2+Math.sin(f*2.5)*tw*0.18,y:th*0.7-f*th*0.38,op:0.18+0.7*(1-f),s:1.1-f*0.5});}function drawTracks(){tracksCtx.clearRect(0,0,tw,th);tracks.forEach((t,i)=>{tracksCtx.save();let grad=tracksCtx.createRadialGradient(t.x,t.y,2,t.x,t.y,18);grad.addColorStop(0,'rgba(168,85,247,0.18)');grad.addColorStop(1,'rgba(6,182,212,0.04)');tracksCtx.globalAlpha=t.op*Math.abs(Math.sin(Date.now()/2000+i));tracksCtx.beginPath();tracksCtx.ellipse(t.x,t.y,18*t.s,8*t.s,0,0,2*Math.PI);tracksCtx.fillStyle=grad;tracksCtx.shadowColor='#a855f7';tracksCtx.shadowBlur=18;tracksCtx.fill();tracksCtx.restore();});requestAnimationFrame(drawTracks);}drawTracks();
+    // Lore panels scroll/fade/swipe logic
+    const lorePanels=[...document.querySelectorAll('.lore-panel')];
+    function updateLorePanels(){
+      let y=window.scrollY;
+      let h=window.innerHeight;
+      lorePanels.forEach((panel,i)=>{
+        let top=panel.offsetTop;
+        let t=(y+h/2-top)/h;
+        if(t>0&&t<1.2){panel.classList.add('active');}else{panel.classList.remove('active');}
+        panel.style.opacity=Math.max(0.3,1-Math.abs(t-0.5)*1.2);
+        panel.style.transform=`translateY(${(1-t)*60}px) scale(${0.97+Math.max(0,t)*0.04})`;
+      });
+    }
+    window.addEventListener('scroll',updateLorePanels);updateLorePanels();
+    // Parallax backgrounds for lore panels
+    function parallaxLore(){
+      let y=window.scrollY;
+      lorePanels.forEach((panel,i)=>{
+        let bg=panel.querySelector('.lore-bg');
+        if(bg){bg.style.transform=`translateY(${y*0.08*(i+1)}px)`;}
+      });
+      requestAnimationFrame(parallaxLore);
+    }parallaxLore();
+    // Ambient sounds fade in/out on scroll
+    const loreWind=document.getElementById('lore-wind');
+    const loreWhisper=document.getElementById('lore-whisper');
+    const loreCamel=document.getElementById('lore-camel');
+    function updateLoreAudio(){
+      let y=window.scrollY;
+      let h=window.innerHeight;
+      let p0=document.querySelector('.lore-panel[data-panel="0"]');
+      let p1=document.querySelector('.lore-panel[data-panel="1"]');
+      let p2=document.querySelector('.lore-panel[data-panel="2"]');
+      let p3=document.querySelector('.lore-panel[data-panel="3"]');
+      function fade(el,vol){el.volume=Math.max(0,Math.min(1,vol));}
+      fade(loreWind,Math.max(0,1-Math.abs((window.scrollY-p0.offsetTop)/h)));
+      fade(loreWhisper,Math.max(0,1-Math.abs((window.scrollY-p2.offsetTop)/h)));
+      fade(loreCamel,Math.max(0,1-Math.abs((window.scrollY-p3.offsetTop)/h)));
+    }
+    window.addEventListener('scroll',updateLoreAudio);updateLoreAudio();
+    // Sand-blowing swipe transition to Lore
+    const lore=document.getElementById('lore');let aboutSec=document.getElementById('about');window.addEventListener('scroll',()=>{let y=window.scrollY;let h=window.innerHeight;let aboutTop=aboutSec.offsetTop;if(y>aboutTop-h*0.2&&y<aboutTop+h*0.8){let t=(y-aboutTop+h*0.2)/h;aboutSec.style.boxShadow=`0 0 ${32+64*t}px #a855f7,0 0 ${24+48*t}px #06b6d4`;lore.style.opacity=Math.max(0.2,t*1.2);lore.style.transform=`translateX(${(1-t)*60}px) scale(${0.95+t*0.05})`;}});
+    // Gallery filter logic
+    const galleryFilters=[...document.querySelectorAll('.gallery-filter')];
+    const galleryCards=[...document.querySelectorAll('.gallery-card')];
+    galleryFilters.forEach(btn=>{
+      btn.addEventListener('click',()=>{
+        galleryFilters.forEach(b=>b.classList.remove('active'));
+        btn.classList.add('active');
+        let f=btn.dataset.filter;
+        galleryCards.forEach(card=>{
+          if(f==='all'||card.dataset.type.includes(f)){
+            card.style.display='';
+          }else{
+            card.style.display='none';
+          }
+        });
+      });
+    });
+    // Gallery horizontal scroll with mouse drag/swipe
+    const galleryGrid=document.querySelector('.gallery-grid');
+    let isDown=false,startX,scrollLeft;
+    galleryGrid.addEventListener('mousedown',e=>{isDown=true;galleryGrid.classList.add('dragging');startX=e.pageX-galleryGrid.offsetLeft;scrollLeft=galleryGrid.scrollLeft;});
+    galleryGrid.addEventListener('mouseleave',()=>{isDown=false;galleryGrid.classList.remove('dragging');});
+    galleryGrid.addEventListener('mouseup',()=>{isDown=false;galleryGrid.classList.remove('dragging');});
+    galleryGrid.addEventListener('mousemove',e=>{if(!isDown)return;e.preventDefault();const x=e.pageX-galleryGrid.offsetLeft;const walk=(x-startX)*1.2;galleryGrid.scrollLeft=scrollLeft-walk;});
+    // Touch support
+    let touchStartX=0,touchScrollLeft=0;
+    galleryGrid.addEventListener('touchstart',e=>{touchStartX=e.touches[0].pageX;touchScrollLeft=galleryGrid.scrollLeft;});
+    galleryGrid.addEventListener('touchmove',e=>{const x=e.touches[0].pageX;const walk=(x-touchStartX)*1.2;galleryGrid.scrollLeft=touchScrollLeft-walk;});
+    // Marketplace filter logic
+    const marketFilters=[...document.querySelectorAll('.market-filter')];
+    const marketCards=[...document.querySelectorAll('.market-card')];
+    marketFilters.forEach(btn=>{
+      btn.addEventListener('click',()=>{
+        marketFilters.forEach(b=>b.classList.remove('active'));
+        btn.classList.add('active');
+        let f=btn.dataset.filter;
+        let sorted=[...marketCards];
+        if(f==='rare')sorted.sort((a,b)=>{
+          const rarities=['common','rare','epic','legendary'];
+          return rarities.indexOf(a.dataset.rarity)-rarities.indexOf(b.dataset.rarity);
+        });
+        else if(f==='low')sorted.sort((a,b)=>parseFloat(a.dataset.price)-parseFloat(b.dataset.price));
+        else if(f==='new')sorted.sort((a,b)=>new Date(b.dataset.date)-new Date(a.dataset.date));
+        sorted.forEach(card=>card.parentNode.appendChild(card));
+      });
+    });
+    // Roadmap sand dunes path, sparkles, glitches
+    const roadmapCanvas=document.querySelector('.roadmap-canvas'),roadmapCtx=roadmapCanvas.getContext('2d');let rw,rh;function roadmapResize(){rw=window.innerWidth;rh=window.innerHeight;roadmapCanvas.width=rw;roadmapCanvas.height=rh;}window.addEventListener('resize',roadmapResize);roadmapResize();function drawRoadmapPath(){roadmapCtx.clearRect(0,0,rw,rh);roadmapCtx.save();roadmapCtx.beginPath();roadmapCtx.moveTo(rw/2,rh*0.92);let y=rh*0.92;for(let i=1;i<=5;i++){let t=i/5;let x=rw/2+Math.sin(t*2.5)*rw*0.09;let ny=rh*0.92-t*rh*0.78+Math.sin(Date.now()/1200+i)*8;roadmapCtx.lineTo(x,ny);y=ny;}roadmapCtx.strokeStyle='rgba(168,85,247,0.38)';roadmapCtx.lineWidth=8;roadmapCtx.shadowColor='#a855f7';roadmapCtx.shadowBlur=24;roadmapCtx.stroke();roadmapCtx.restore();for(let i=0;i<5;i++){let t=i/5;let x=rw/2+Math.sin(t*2.5)*rw*0.09;let y=rh*0.92-t*rh*0.78+Math.sin(Date.now()/1200+i)*8;roadmapCtx.save();roadmapCtx.beginPath();roadmapCtx.arc(x,y,18,0,2*Math.PI);roadmapCtx.fillStyle='rgba(168,85,247,0.22)';roadmapCtx.shadowColor='#fff';roadmapCtx.shadowBlur=18;roadmapCtx.fill();roadmapCtx.restore();if(i<4){for(let s=0;s<6;s++){let fx=x+(s+1)*((rw/2-x)/7)+Math.random()*8-4;let fy=y-(s+1)*((y-(rh*0.92-(i+1)*rh*0.78/5))/7)+Math.random()*8-4;roadmapCtx.save();roadmapCtx.globalAlpha=0.18+0.12*Math.sin(Date.now()/400+s);roadmapCtx.beginPath();roadmapCtx.arc(fx,fy,3,0,2*Math.PI);roadmapCtx.fillStyle='#fff';roadmapCtx.shadowColor='#a855f7';roadmapCtx.shadowBlur=8;roadmapCtx.fill();roadmapCtx.restore();}}}for(let s=0;s<8;s++){let sx=Math.random()*rw,sy=Math.random()*rh*0.9;roadmapCtx.save();roadmapCtx.globalAlpha=0.13+0.13*Math.sin(Date.now()/900+s);roadmapCtx.beginPath();roadmapCtx.arc(sx,sy,2+Math.random()*2,0,2*Math.PI);roadmapCtx.fillStyle='#fff';roadmapCtx.shadowColor='#a855f7';roadmapCtx.shadowBlur=12;roadmapCtx.fill();roadmapCtx.restore();}if(Math.random()<0.04){let gx=rw/2+Math.random()*80-40,gy=rh*0.2+Math.random()*40-20;roadmapCtx.save();roadmapCtx.globalAlpha=0.18+0.18*Math.random();roadmapCtx.fillStyle='#fff';roadmapCtx.fillRect(gx,gy,Math.random()*32+8,2);roadmapCtx.restore();}}requestAnimationFrame(drawRoadmapPath);drawRoadmapPath();
+    // Add sparkles and glitches to phases
+    document.querySelectorAll('.roadmap-phase').forEach(phase=>{
+      let sparkle=document.createElement('div');sparkle.className='sparkle';phase.appendChild(sparkle);
+      let glitch=document.createElement('div');glitch.className='glitch';phase.appendChild(glitch);
+    });
+    // Camel silhouettes animation on horizon
+    const camelHorizon=document.querySelector('.camel-horizon'),camelHCtx=camelHorizon.getContext('2d');let chw,chh;function camelHResize(){chw=window.innerWidth;chh=camelHorizon.height=camelHorizon.offsetHeight;camelHorizon.width=chw;}window.addEventListener('resize',camelHResize);camelHResize();let camels=[];for(let i=0;i<5;i++)camels.push({x:Math.random()*chw,y:chh*0.7+Math.random()*chh*0.2,s:0.7+Math.random()*0.5,dx:0.12+Math.random()*0.08});function drawCamels(){camelHCtx.clearRect(0,0,chw,chh);camels.forEach(c=>{camelHCtx.save();camelHCtx.globalAlpha=0.22+0.18*Math.sin(Date.now()/900+c.x);camelHCtx.translate(c.x,c.y);camelHCtx.scale(c.s,c.s);camelHCtx.beginPath();camelHCtx.moveTo(0,0);camelHCtx.lineTo(12,-8);camelHCtx.lineTo(24,0);camelHCtx.lineTo(32,-6);camelHCtx.lineTo(40,0);camelHCtx.lineTo(48,-10);camelHCtx.lineTo(56,0);camelHCtx.lineTo(64,-7);camelHCtx.lineTo(72,0);camelHCtx.lineTo(80,-6);camelHCtx.lineTo(88,0);camelHCtx.lineTo(96,-8);camelHCtx.lineTo(104,0);camelHCtx.lineTo(112,-7);camelHCtx.lineTo(120,0);camelHCtx.lineTo(128,-6);camelHCtx.lineTo(136,0);camelHCtx.lineTo(144,-8);camelHCtx.lineTo(152,0);camelHCtx.lineTo(160,-7);camelHCtx.lineTo(168,0);camelHCtx.lineTo(176,-6);camelHCtx.lineTo(184,0);camelHCtx.lineTo(192,-8);camelHCtx.lineTo(200,0);camelHCtx.lineTo(208,-7);camelHCtx.lineTo(216,0);camelHCtx.lineTo(224,-6);camelHCtx.lineTo(232,0);camelHCtx.lineTo(240,-8);camelHCtx.lineTo(248,0);camelHCtx.lineTo(256,-7);camelHCtx.lineTo(264,0);camelHCtx.lineTo(272,-6);camelHCtx.lineTo(280,0);camelHCtx.lineTo(288,-8);camelHCtx.lineTo(296,0);camelHCtx.lineTo(304,-7);camelHCtx.lineTo(312,0);camelHCtx.lineTo(320,-6);camelHCtx.lineTo(328,0);camelHCtx.lineTo(336,-8);camelHCtx.lineTo(344,0);camelHCtx.lineTo(352,-7);camelHCtx.lineTo(360,0);camelHCtx.lineTo(368,-6);camelHCtx.lineTo(376,0);camelHCtx.lineTo(384,-8);camelHCtx.lineTo(392,0);camelHCtx.lineTo(400,-7);camelHCtx.lineTo(408,0);camelHCtx.lineTo(416,-6);camelHCtx.lineTo(424,0);camelHCtx.lineTo(432,-8);camelHCtx.lineTo(440,0);camelHCtx.lineTo(448,-7);camelHCtx.lineTo(456,0);camelHCtx.lineTo(464,-6);camelHCtx.lineTo(472,0);camelHCtx.lineTo(480,-8);camelHCtx.lineTo(488,0);camelHCtx.lineTo(496,-7);camelHCtx.lineTo(504,0);camelHCtx.lineTo(512,-6);camelHCtx.lineTo(520,0);camelHCtx.lineTo(528,-8);camelHCtx.lineTo(536,0);camelHCtx.lineTo(544,-7);camelHCtx.lineTo(552,0);camelHCtx.lineTo(560,-6);camelHCtx.lineTo(568,0);camelHCtx.lineTo(576,-8);camelHCtx.lineTo(584,0);camelHCtx.lineTo(592,-7);camelHCtx.lineTo(600,0);camelHCtx.lineTo(608,-6);camelHCtx.lineTo(616,0);camelHCtx.lineTo(624,-8);camelHCtx.lineTo(632,0);camelHCtx.lineTo(640,-7);camelHCtx.lineTo(648,0);camelHCtx.lineTo(656,-6);camelHCtx.lineTo(664,0);camelHCtx.lineTo(672,-8);camelHCtx.lineTo(680,0);camelHCtx.lineTo(688,-7);camelHCtx.lineTo(696,0);camelHCtx.lineTo(704,-6);camelHCtx.lineTo(712,0);camelHCtx.lineTo(720,-8);camelHCtx.lineTo(728,0);camelHCtx.lineTo(736,-7);camelHCtx.lineTo(744,0);camelHCtx.lineTo(752,-6);camelHCtx.lineTo(760,0);camelHCtx.lineTo(768,-8);camelHCtx.lineTo(776,0);camelHCtx.lineTo(784,-7);camelHCtx.lineTo(792,0);camelHCtx.lineTo(800,-6);camelHCtx.lineTo(808,0);camelHCtx.lineTo(816,-8);camelHCtx.lineTo(824,0);camelHCtx.lineTo(832,-7);camelHCtx.lineTo(840,0);camelHCtx.lineTo(848,-6);camelHCtx.lineTo(856,0);camelHCtx.lineTo(864,-8);camelHCtx.lineTo(872,0);camelHCtx.lineTo(880,-7);camelHCtx.lineTo(888,0);camelHCtx.lineTo(896,-6);camelHCtx.lineTo(904,0);camelHCtx.lineTo(912,-8);camelHCtx.lineTo(920,0);camelHCtx.lineTo(928,-7);camelHCtx.lineTo(936,0);camelHCtx.lineTo(944,-6);camelHCtx.lineTo(952,0);camelHCtx.lineTo(960,-8);camelHCtx.lineTo(968,0);camelHCtx.lineTo(976,-7);camelHCtx.lineTo(984,0);camelHCtx.lineTo(992,-6);camelHCtx.lineTo(1000,0);camelHCtx.closePath();camelHCtx.fillStyle='#fff';camelHCtx.globalAlpha=0.13+0.13*Math.sin(Date.now()/900+c.x);camelHCtx.shadowColor='#a855f7';camelHCtx.shadowBlur=12;camelHCtx.fill();camelHCtx.restore();c.x+=c.dx;c.x%=chw;if(c.x<0)c.x+=chw;});requestAnimationFrame(drawCamels);}drawCamels();
+    // FAQ accordion logic
+    document.querySelectorAll('.faq-question').forEach(btn=>{
+      btn.addEventListener('click',()=>{
+        const item=btn.parentElement;
+        if(item.classList.contains('open')){item.classList.remove('open');}
+        else {
+          document.querySelectorAll('.faq-item').forEach(i=>i.classList.remove('open'));
+          item.classList.add('open');
+        }
+      });
+    });
+    // Show scrollbars (default browser scroll)
+    document.body.style.overflowY='auto';document.body.style.scrollbarWidth='auto';
+    // Make all sections scrollable if content overflows
+    document.querySelectorAll('section').forEach(sec=>{
+      sec.style.overflow='auto';
+      sec.style.maxHeight='none';
+    });
+    // Remove global scroll, only allow scroll inside each section
+    document.body.style.overflow='hidden';
+    document.documentElement.style.overflow='hidden';
+    // Each section is now independently scrollable
+    // Animated cyber-desert gradient background for hero
+    const gradCanvas=document.querySelector('.hero-gradient'),gradCtx=gradCanvas.getContext('2d');let gw,gh;function gradResize(){gw=window.innerWidth;gh=window.innerHeight;gradCanvas.width=gw;gradCanvas.height=gh;}window.addEventListener('resize',gradResize);gradResize();function drawGrad(){let t=Date.now()/1200;let g=gradCtx.createLinearGradient(0,0,gw,gh);g.addColorStop(0,`hsl(${260+20*Math.sin(t)},80%,18%)`);g.addColorStop(0.4,`hsl(${30+30*Math.cos(t/2)},100%,40%)`);g.addColorStop(0.7,`hsl(${200+30*Math.sin(t/1.5)},100%,30%)`);g.addColorStop(1,`hsl(${260+20*Math.cos(t)},80%,12%)`);gradCtx.fillStyle=g;gradCtx.fillRect(0,0,gw,gh);requestAnimationFrame(drawGrad);}drawGrad();
+    // Typewriter effect for hero subtext
+    const typeText="Where camels conquer kingdoms... and milk becomes power.";
+    let typeIdx=0;function typeWriter(){const el=document.getElementById('hero-typewriter');if(typeIdx<=typeText.length){el.textContent=typeText.slice(0,typeIdx);typeIdx++;setTimeout(typeWriter,38);}else{setTimeout(()=>{typeIdx=0;typeWriter();},2200);}}typeWriter();
+    // Lore Reveal Section: sliding cards, typewriter quote, holographic lines, neon ripples
+    const loreCards=document.querySelectorAll('.lore-card');
+    loreCards.forEach(card=>{
+      card.addEventListener('mouseenter',()=>{
+        if(card.querySelector('.lore-card-quote')) return;
+        const quote=card.dataset.quote;
+        const quoteDiv=document.createElement('div');
+        quoteDiv.className='lore-card-quote';
+        const quoteText=document.createElement('div');
+        quoteText.className='lore-card-quote-text';
+        quoteDiv.appendChild(quoteText);
+        card.appendChild(quoteDiv);
+        card.classList.add('show-quote');
+        let idx=0;
+        function typeQ(){
+          if(idx<=quote.length){quoteText.textContent=quote.slice(0,idx);idx++;setTimeout(typeQ,22);}
+        }
+        typeQ();
+      });
+      card.addEventListener('mouseleave',()=>{
+        card.classList.remove('show-quote');
+        const q=card.querySelector('.lore-card-quote');if(q)q.remove();
+      });
+    });
+    // Holographic lines (simple SVG lines for demo)
+    const holoLines=document.querySelector('.lore-holo-lines');
+    holoLines.innerHTML='<svg width="100%" height="100%" style="position:absolute;top:0;left:0;" xmlns="http://www.w3.org/2000/svg"><polyline points="180,180 300,80 420,180" fill="none" stroke="#a855f7" stroke-width="3" opacity="0.22" filter="url(#glow)"/><defs><filter id="glow"><feGaussianBlur stdDeviation="4" result="coloredBlur"/><feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs></svg>';
+    // Neon ripple effect under each card on scroll
+    const loreRipples=document.querySelector('.lore-ripples');
+    function drawRipples(){loreRipples.innerHTML='';loreCards.forEach((card,i)=>{const ripple=document.createElement('div');ripple.style.position='absolute';ripple.style.left=`${card.offsetLeft+card.offsetWidth/2-40}px`;ripple.style.top=`${card.offsetTop+card.offsetHeight-10}px`;ripple.style.width='80px';ripple.style.height='18px';ripple.style.borderRadius='50%';ripple.style.background='radial-gradient(circle,#a855f7 0 40%,transparent 100%)';ripple.style.opacity='0.22';ripple.style.filter='blur(2px)';ripple.style.pointerEvents='none';ripple.style.transition='opacity .4s';loreRipples.appendChild(ripple);});}
+    window.addEventListener('scroll',drawRipples);window.addEventListener('resize',drawRipples);setTimeout(drawRipples,500);
+    // Carousel 3D effect and popup
+    const carouselCards=document.querySelectorAll('.carousel-card');
+    const popup=document.getElementById('carousel-popup');
+    const popupImg=document.getElementById('popup-img');
+    const popupTitle=document.getElementById('popup-title');
+    const popupLore=document.getElementById('popup-lore');
+    function closePopup(){popup.classList.remove('active');}
+    carouselCards.forEach(card=>{
+      card.addEventListener('click',()=>{
+        popupImg.src=card.dataset["360"]||card.dataset.img;
+        popupTitle.textContent=card.dataset.name;
+        popupLore.textContent=card.dataset.lore;
+        popup.classList.add('active');
+      });
+    });
+    // Close popup on click outside
+    popup.addEventListener('click',e=>{if(e.target===popup)closePopup();});
+    // Prophecy of Milk: decrypting text effect
+    const prophecyText = "In the barren and arid land, only those who drank the milk had the right to rewrite destiny...";
+    let prophecyIdx = 0;
+    function prophecyDecrypt() {
+      const el = document.getElementById('prophecy-text');
+      if (el && prophecyIdx <= prophecyText.length) {
+        el.textContent = prophecyText.slice(0, prophecyIdx) + (prophecyIdx % 2 === 0 ? '_' : '');
+        prophecyIdx++;
+        setTimeout(prophecyDecrypt, 38);
+      } else if (el) {
+        setTimeout(() => { prophecyIdx = 0; prophecyDecrypt(); }, 2200);
+      }
+    }
+    prophecyDecrypt();
+    // Timeline of the Dynasty
+    const timelineLore = [
+      "Sheikh Al-Laban was born under the neon desert sky, destined for greatness.",
+      "He rose to unite the tribes, wielding the power of milk and code.",
+      "Betrayed and exiled, he wandered the dunes, gathering secrets.",
+      "His return marked the dawn of a new dynasty, where milk rules all."
+    ];
+    const timelinePoints = document.querySelectorAll('.timeline-point');
+    const timelineLoreDiv = document.getElementById('timeline-lore');
+    function showTimelineLore(idx) {
+      let i = 0, txt = timelineLore[idx], out = '';
+      if (!timelineLoreDiv) return;
+      timelineLoreDiv.textContent = '';
+      function decrypt() {
+        if (i <= txt.length) {
+          timelineLoreDiv.textContent = txt.slice(0, i) + (i % 2 === 0 ? '_' : '');
+          i++;
+          setTimeout(decrypt, 22);
+        }
+      }
+      decrypt();
+    }
+    timelinePoints.forEach((pt, idx) => {
+      pt.addEventListener('click', () => {
+        timelinePoints.forEach(p => p.classList.remove('active'));
+        pt.classList.add('active');
+        showTimelineLore(idx);
+      });
+    });
+    showTimelineLore(0);
+    // Milk Test (Quiz)
+    const milkChest = document.getElementById('milk-chest');
+    const milkQuiz = document.getElementById('milk-quiz');
+    const navLinks = document.querySelectorAll('.footer-links a, nav a');
+    const quizQuestions = [
+      {
+        q: "Who is the founder of the Milk Dynasty?",
+        options: ["Sheikh Al-Laban", "Prince of the Dunes", "Al-Chaayi"],
+        answer: 0
+      },
+      {
+        q: "What is the secret power in the desert?",
+        options: ["Gold", "Milk", "Spice"],
+        answer: 1
+      },
+      {
+        q: "Who is known for tea wisdom?",
+        options: ["Al-Chaayi", "The Gray Camel", "The Milk Queen"],
+        answer: 0
+      }
+    ];
+    let quizStep = 0, correct = 0;
+    function showQuiz() {
+      if (!milkQuiz) return;
+      milkQuiz.innerHTML = '';
+      if (quizStep < quizQuestions.length) {
+        const q = quizQuestions[quizStep];
+        const qDiv = document.createElement('div');
+        qDiv.className = 'milk-quiz-question';
+        qDiv.textContent = q.q;
+        const opts = document.createElement('div');
+        opts.className = 'milk-quiz-options';
+        q.options.forEach((opt, i) => {
+          const btn = document.createElement('button');
+          btn.className = 'milk-quiz-option';
+          btn.textContent = opt;
+          btn.onclick = () => {
+            if (i === q.answer) {
+              correct++;
+              quizStep++;
+              showQuiz();
+            } else {
+              milkQuiz.innerHTML = '<div class="milk-quiz-result milk-quiz-fail">Wrong answer. Try again!</div>';
+              setTimeout(showQuiz, 1200);
+            }
+          };
+          opts.appendChild(btn);
+        });
+        milkQuiz.appendChild(qDiv);
+        milkQuiz.appendChild(opts);
+      } else {
+        milkQuiz.innerHTML = '<div class="milk-quiz-result milk-quiz-success">You are worthy! Navigation unlocked.</div>';
+        navLinks.forEach(l => l.classList.remove('disabled'));
+      }
+    }
+    if (milkChest) {
+      milkChest.addEventListener('click', () => {
+        milkChest.classList.add('open');
+        showQuiz();
+      });
+    }
+    // Disable navigation until quiz is passed
+    navLinks.forEach(l => l.classList.add('disabled'));
+    // Home panel navigation scroll
+    function scrollToPanel(panelId) {
+      const el = document.getElementById(panelId);
+      if (el) {
+        el.scrollIntoView({behavior:'smooth', block:'start'});
+      }
+    }
+    // Show only one Home panel at a time
+    function showHomePanel(panelId) {
+      const panels = [
+        document.getElementById('hero-panel'),
+        document.getElementById('prophecy-panel'),
+        document.getElementById('timeline-panel'),
+        document.getElementById('milktest-panel')
+      ];
+      panels.forEach(p => { if(p) p.style.display = 'none'; });
+      const show = document.getElementById(panelId);
+      if(show) show.style.display = '';
+    }
+    // Always show hero panel on load
+    showHomePanel('hero-panel');
+    // Neon Timeline Modal Logic
+    const timelinePhases = [
+      {
+        title: 'Birth: The Milk That Started It All',
+        img: 'https://placehold.co/220x220?text=Birth',
+        story: `In the stillness of the desert night, a camel was born under the crescent moon. He wasn't like the others. While others suckled on tradition, he drank ambition—straight from a golden bottle of milk.`
+      },
+      {
+        title: 'Childhood: Sand Between His Hooves',
+        img: 'https://placehold.co/220x220?text=Childhood',
+        story: `He grew among shifting sands and whispering winds. The dunes were his playground, but so were the secrets buried beneath. He asked questions no camel dared ask. His eyes were curious, and his silence louder than roars.`
+      },
+      {
+        title: 'Youth: Betrayal & Brilliance',
+        img: 'https://placehold.co/220x220?text=Youth',
+        story: `As he matured, jealousy brewed in the herd. He built tools from bones, traded sand for tech, and whispered ideas to passing caravans. But envy brought betrayal, and betrayal made him disappear… for a time.`
+      },
+      {
+        title: 'Now: Power in Every Hump',
+        img: 'https://placehold.co/220x220?text=Present+Power',
+        story: `He returned with neon in his eyes and circuits in his saddle. He speaks in codes, deals in crypto, and rules in silence. They call him "Sheikh Al-Laban," a legend in motion. Not a memory — a movement.`
+      }
+    ];
+    document.querySelectorAll('.neon-phase').forEach((el, i) => {
+      el.addEventListener('click', () => openTimelineModal(i));
+      el.addEventListener('keydown', e => { if(e.key==='Enter'||e.key===' '){ openTimelineModal(i); }});
+    });
+    function openTimelineModal(idx) {
+      document.getElementById('timeline-modal-bg').style.display = 'flex';
+      document.getElementById('timeline-modal-img').src = timelinePhases[idx].img;
+      document.getElementById('timeline-modal-title').textContent = timelinePhases[idx].title;
+      document.getElementById('timeline-modal-story').textContent = timelinePhases[idx].story;
+      document.body.style.overflow = 'hidden';
+    }
+    function closeTimelineModal() {
+      document.getElementById('timeline-modal-bg').style.display = 'none';
+      document.body.style.overflow = 'hidden';
+    }
+    // Lore navigation logic
+    function showLoreChapter(id) {
+      // Hide all panels
+      document.querySelectorAll('.lore-chapter-panel').forEach(panel => panel.style.display = 'none');
+      document.querySelectorAll('.lore-prologue').forEach(panel => panel.classList.remove('active'));
+      document.querySelectorAll('.lore-season').forEach(season => season.style.display = 'none');
+      document.querySelectorAll('.lore-characters').forEach(char => char.style.display = 'none');
+      // Prologue
+      if(id === 'prologue') {
+        document.querySelector('.lore-prologue').classList.add('active');
+        return;
+      }
+      // Characters
+      if(id === 'character-scroll') {
+        document.getElementById('character-scroll').style.display = 'block';
+        return;
+      }
+      // Find and show the right panel
+      const panel = document.getElementById(id);
+      if(panel) {
+        // Find which season
+        if(id.startsWith('season1')) {
+          document.getElementById('season1').style.display = 'block';
+        } else if(id.startsWith('season2')) {
+          document.getElementById('season2').style.display = 'block';
+        } else if(id.startsWith('season3')) {
+          document.getElementById('season3').style.display = 'block';
+        }
+        panel.style.display = 'flex';
+      }
+    }
+    // Show prologue by default
+    showLoreChapter('prologue');
+    // اطلاعات کامل چپترها برای modal
+    const chapterDetails = {
+      'season1-0': {
+        img: 'https://placehold.co/600x340?text=Chapter+1',
+        title: 'Chapter 1: The Whisper',
+        story: 'Full cinematic story for Chapter 1...'
+      },
+      'season1-1': {
+        img: 'https://placehold.co/600x340?text=Chapter+2',
+        title: 'Chapter 2: The Golden Bottle',
+        story: 'Full cinematic story for Chapter 2...'
+      },
+      'season1-2': {
+        img: 'https://placehold.co/600x340?text=Chapter+3',
+        title: 'Chapter 3: The Neon Birth',
+        story: 'Full cinematic story for Chapter 3...'
+      },
+      'season1-3': {
+        img: 'https://placehold.co/600x340?text=Chapter+4',
+        title: 'Chapter 4: The First Betrayal',
+        story: 'Full cinematic story for Chapter 4...'
+      },
+      'season1-4': {
+        img: 'https://placehold.co/600x340?text=Chapter+5',
+        title: 'Chapter 5: The Milk Oath',
+        story: 'Full cinematic story for Chapter 5...'
+      },
+      'season2-0': {
+        img: 'https://placehold.co/600x340?text=Chapter+1',
+        title: 'Chapter 1: Shadows Over the Dunes',
+        story: 'Full dark story for Chapter 1...'
+      },
+      'season2-1': {
+        img: 'https://placehold.co/600x340?text=Chapter+2',
+        title: 'Chapter 2: The Enemy Emerges',
+        story: 'Full dark story for Chapter 2...'
+      },
+      'season2-2': {
+        img: 'https://placehold.co/600x340?text=Chapter+3',
+        title: 'Chapter 3: The Broken Crown',
+        story: 'Full dark story for Chapter 3...'
+      },
+      'season2-3': {
+        img: 'https://placehold.co/600x340?text=Chapter+4',
+        title: 'Chapter 4: Exile',
+        story: 'Full dark story for Chapter 4...'
+      },
+      'season2-4': {
+        img: 'https://placehold.co/600x340?text=Chapter+5',
+        title: 'Chapter 5: The Last Drop',
+        story: 'Full dark story for Chapter 5...'
+      },
+      'season3-0': {
+        img: 'https://placehold.co/600x340?text=Chapter+1',
+        title: 'Chapter 1: The Return',
+        story: 'Full epic/comic story for Chapter 1...'
+      },
+      'season3-1': {
+        img: 'https://placehold.co/600x340?text=Chapter+2',
+        title: 'Chapter 2: The Gathering',
+        story: 'Full epic/comic story for Chapter 2...'
+      },
+      'season3-2': {
+        img: 'https://placehold.co/600x340?text=Chapter+3',
+        title: 'Chapter 3: The Battle of the Dunes',
+        story: 'Full epic/comic story for Chapter 3...'
+      },
+      'season3-3': {
+        img: 'https://placehold.co/600x340?text=Chapter+4',
+        title: 'Chapter 4: The Laughing Camel',
+        story: 'Full epic/comic story for Chapter 4...'
+      },
+      'season3-4': {
+        img: 'https://placehold.co/600x340?text=Chapter+5',
+        title: 'Chapter 5: The New Dawn',
+        story: 'Full epic/comic story for Chapter 5...'
+      }
+    };
+    function openChapterModal(chapterId) {
+      const data = chapterDetails[chapterId];
+      if (!data) return;
+      document.getElementById('chapter-modal-img').src = data.img;
+      document.getElementById('chapter-modal-title').textContent = data.title;
+      document.getElementById('chapter-modal-story').textContent = data.story;
+      document.getElementById('chapter-modal-bg').style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+    }
+    function closeChapterModal() {
+      document.getElementById('chapter-modal-bg').style.display = 'none';
+      document.body.style.overflow = '';
+    }
+    // Optional: close modal on ESC key
+    window.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') closeChapterModal();
+    });
+    // Ensure openChapterModal is globally available
+    window.openChapterModal = openChapterModal;
+    // Fallback: add event delegation for .view-more-btn in case inline onclick fails
+    window.addEventListener('click', function(e) {
+      if (e.target && e.target.classList.contains('view-more-btn')) {
+        const chapterId = e.target.dataset.chapterId;
+        if (chapterId) {
+          openChapterModal(chapterId);
+          e.preventDefault();
+          e.stopPropagation();
+        }
+      }
+    });
+    // --- Season 1 Modal Logic ---
+    (function() {
+      // Open modal when any Season 1 'View More' button is clicked
+      document.addEventListener('click', function(e) {
+        var t = e.target;
+        if (t.classList.contains('view-more-btn') && t.closest('.lore-chapter-panel') && t.closest('.lore-season') && t.closest('.lore-season').id === 'season1') {
+          document.getElementById('season1-modal-bg').style.display = 'flex';
+          document.body.style.overflow = 'hidden';
+          // Animate fade-in
+          document.getElementById('season1-modal-bg').style.animation = 'fadeInBg .4s';
+          document.getElementById('season1-modal').style.animation = 'modalPop .5s cubic-bezier(.4,2,.2,1)';
+          e.preventDefault();
+          e.stopPropagation();
+        }
+      });
+      // Close modal logic
+      document.getElementById('season1-modal-close').onclick = function() {
+        document.getElementById('season1-modal-bg').style.display = 'none';
+        document.body.style.overflow = '';
+      };
+      // Close on ESC
+      window.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && document.getElementById('season1-modal-bg').style.display === 'flex') {
+          document.getElementById('season1-modal-bg').style.display = 'none';
+          document.body.style.overflow = '';
+        }
+      });
+      // Optional: click outside modal to close
+      document.getElementById('season1-modal-bg').addEventListener('click', function(e) {
+        if (e.target === this) {
+          this.style.display = 'none';
+          document.body.style.overflow = '';
+        }
+      });
+    })();
+  </script>
+  <!-- Move this script block to after all HTML -->
+  <script>
+  // --- Season 1 Modal Logic ---
+  (function() {
+    // Open modal when any Season 1 'View More' button is clicked
+    document.addEventListener('click', function(e) {
+      var t = e.target;
+      if (t.classList.contains('view-more-btn') && t.closest('.lore-chapter-panel') && t.closest('.lore-season') && t.closest('.lore-season').id === 'season1') {
+        document.getElementById('season1-modal-bg').style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+        // Animate fade-in
+        document.getElementById('season1-modal-bg').style.animation = 'fadeInBg .4s';
+        document.getElementById('season1-modal').style.animation = 'modalPop .5s cubic-bezier(.4,2,.2,1)';
+        e.preventDefault();
+        e.stopPropagation();
+      }
+    });
+    // Close modal logic
+    document.getElementById('season1-modal-close').onclick = function() {
+      document.getElementById('season1-modal-bg').style.display = 'none';
+      document.body.style.overflow = '';
+    };
+    // Close on ESC
+    window.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && document.getElementById('season1-modal-bg').style.display === 'flex') {
+        document.getElementById('season1-modal-bg').style.display = 'none';
+        document.body.style.overflow = '';
+      }
+    });
+    // Optional: click outside modal to close
+    document.getElementById('season1-modal-bg').addEventListener('click', function(e) {
+      if (e.target === this) {
+        this.style.display = 'none';
+        document.body.style.overflow = '';
+      }
+    });
+  })();
+  </script>
+  <script>
+  // --- Dynamic Chapter Modal Logic for All Seasons ---
+  const chapterModalData = {
+    // Season 1
+    'season1-0': {
+      images: ['https://placehold.co/600x340?text=Chapter+1'],
+      title: 'Chapter 1: Whisper in the Dunes',
+      story: `In the eternal hush of the desert, when even camels stop chewing out of respect, a whisper breaks the silence. The moon is full. An old camel, with a beard longer than your patience, mumbles something into the wind. "He will be born tonight. The one who smells of milk and fate."<br>The tribe, more skeptical than a merchant in a bazaar, rolls their eyes. But the winds… the winds do not lie.`
+    },
+    'season1-1': {
+      images: ['https://placehold.co/600x340?text=Chapter+2'],
+      title: 'Chapter 2: The Cradle and the Curse',
+      story: `Inside a weathered tent, a baby wrapped in cloth cries for the first time. His cry isn't normal—it echoes like a prophecy. His mother smiles, whispering lullabies of goat milk and golden dunes. But the elders gather outside, muttering about ancient stars blinking out of rhythm. One of them faints. Probably from the heat… probably.`
+    },
+    'season1-2': {
+      images: ['https://placehold.co/600x340?text=Chapter+3'],
+      title: 'Chapter 3: The Hum of Secrets',
+      story: `Days pass. On the baby's hump, strange markings appear. The tribe goes from "He's just a baby" to "He's the chosen one!" in under five seconds. A prophet-camel deciphers the symbols: "The Milk Sheikh shall rise." Nobody knows if that's good or bad, but it definitely sounds important.`
+    },
+    'season1-3': {
+      images: ['https://placehold.co/600x340?text=Chapter+4'],
+      title: 'Chapter 4: The First Sip of Milk',
+      story: `The sacred camel (yes, there's one of those too) offers its first drop of milk to the child. As the milk touches his lips, his eyes roll back and he faints. But in his dreams? Neon towers, flying carpets powered by AI, and robots trading dates for oil. Everyone gasps, but the baby just snores.`
+    },
+    'season1-4': {
+      images: ['https://placehold.co/600x340?text=Chapter+5'],
+      title: 'Chapter 5: Disappearance in the Sandstorm',
+      story: `A sandstorm comes uninvited, wild and furious. In the chaos, the baby vanishes. All that's left is a shawl smelling faintly of milk and a message in the sand: "He shall return… with milk and power."<br>No one sleeps that night. Not even the camels.`
+    },
+    // Season 2 (example content, update as needed)
+    'season2-0': {
+      images: ['https://placehold.co/600x340?text=Season2+Ch1'],
+      title: 'Chapter 1: Shadows Over the Dunes',
+      story: `A new darkness falls over the dunes. The tribe senses a threat lurking beyond the horizon. The camels grow restless.`
+    },
+    'season2-1': {
+      images: ['https://placehold.co/600x340?text=Season2+Ch2'],
+      title: 'Chapter 2: The Enemy Emerges',
+      story: `From the swirling sands, a rival appears. His eyes burn with envy, his words sharp as broken glass. The Milk Sheikh's destiny is challenged.`
+    },
+    'season2-2': {
+      images: ['https://placehold.co/600x340?text=Season2+Ch3'],
+      title: 'Chapter 3: The Broken Crown',
+      story: `The ancient crown is shattered. Hope flickers in the wind, but the tribe refuses to kneel. The legend must endure.`
+    },
+    'season2-3': {
+      images: ['https://placehold.co/600x340?text=Season2+Ch4'],
+      title: 'Chapter 4: Exile',
+      story: `Banished from the oasis, the chosen wanderer faces the desert alone. Every grain of sand whispers a warning.`
+    },
+    'season2-4': {
+      images: ['https://placehold.co/600x340?text=Season2+Ch5'],
+      title: 'Chapter 5: The Last Drop',
+      story: `The final drop of milk is spilled. The tribe mourns, but a new hope stirs beneath the surface.`
+    },
+    // Season 3 (example content, update as needed)
+    'season3-0': {
+      images: ['https://placehold.co/600x340?text=Season3+Ch1'],
+      title: 'Chapter 1: The Return',
+      story: `Against all odds, the Milk Sheikh returns. His presence electrifies the dunes. The legend is reborn.`
+    },
+    'season3-1': {
+      images: ['https://placehold.co/600x340?text=Season3+Ch2'],
+      title: 'Chapter 2: The Gathering',
+      story: `Allies gather from distant lands. The tribe unites, stronger than ever. The final battle looms.`
+    },
+    'season3-2': {
+      images: ['https://placehold.co/600x340?text=Season3+Ch3'],
+      title: 'Chapter 3: The Battle of the Dunes',
+      story: `The desert erupts in chaos. Swords clash, camels charge, and the fate of the dynasty hangs in the balance.`
+    },
+    'season3-3': {
+      images: ['https://placehold.co/600x340?text=Season3+Ch4'],
+      title: 'Chapter 4: The Laughing Camel',
+      story: `In the midst of battle, a mysterious camel laughs. Its echo inspires hope and confuses the enemy.`
+    },
+    'season3-4': {
+      images: ['https://placehold.co/600x340?text=Season3+Ch5'],
+      title: 'Chapter 5: The New Dawn',
+      story: `Victory is claimed. The sun rises on a new era. The Milk Sheikh's legend will never fade.`
+    }
+  };
+
+  function openChapterModalDynamic(chapterId) {
+    const data = chapterModalData[chapterId];
+    if (!data) return;
+    // Set images
+    const imgArea = document.getElementById('chapter-modal-image-area');
+    imgArea.innerHTML = '';
+    data.images.forEach(src => {
+      const img = document.createElement('img');
+      img.src = src;
+      img.alt = data.title;
+      img.style.maxWidth = '320px';
+      img.style.width = '100%';
+      img.style.borderRadius = '1.2em';
+      img.style.boxShadow = '0 0 24px #a855f7,0 0 16px #06b6d4';
+      img.style.marginBottom = '0.5em';
+      imgArea.appendChild(img);
+    });
+    // Set title and story
+    document.getElementById('chapter-modal-title').innerHTML = data.title;
+    document.getElementById('chapter-modal-story').innerHTML = data.story;
+    document.getElementById('chapter-modal-bg').style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+    document.getElementById('chapter-modal-bg').style.animation = 'fadeInBg .4s';
+    document.getElementById('chapter-modal').style.animation = 'modalPop .5s cubic-bezier(.4,2,.2,1)';
+  }
+  // Close modal logic
+  function closeChapterModalDynamic() {
+    document.getElementById('chapter-modal-bg').style.display = 'none';
+    document.body.style.overflow = '';
+  }
+  document.getElementById('chapter-modal-close').onclick = closeChapterModalDynamic;
+  window.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && document.getElementById('chapter-modal-bg').style.display === 'flex') {
+      closeChapterModalDynamic();
+    }
+  });
+  document.getElementById('chapter-modal-bg').addEventListener('click', function(e) {
+    if (e.target === this) {
+      closeChapterModalDynamic();
+    }
+  });
+  // Event delegation for all .view-more-btn
+  window.addEventListener('click', function(e) {
+    if (e.target && e.target.classList.contains('view-more-btn')) {
+      const chapterId = e.target.dataset.chapterId;
+      if (chapterId) {
+        openChapterModalDynamic(chapterId);
+        e.preventDefault();
+        e.stopPropagation();
+      }
+    }
+  });
+  // ... existing code ...
+  </script>
+</body>
+</html> 
