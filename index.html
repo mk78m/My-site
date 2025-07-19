@@ -8,6 +8,17 @@
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet">
   <style>
     html,body {height:100%;margin:0;padding:0;overflow:hidden;}
+    /* Mobile-specific body improvements */
+    @media (max-width:768px) {
+      html,body {
+        overflow-x: auto;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        touch-action: pan-x pan-y;
+        height: 100%;
+        width: 100%;
+      }
+    }
     body {
       font-family:'Orbitron',sans-serif;
       background: #000;
@@ -73,10 +84,412 @@
     .faq {text-align:left;max-width:420px;margin:0 auto;}
     .faq dt {font-weight:bold;margin-top:1em;}
     .faq dd {margin:0 0 1em 0.5em;}
-    @media (max-width:600px) {
-      .card {padding:1em 0.5em;width:98vw;}
-      .header-cinematic {font-size:1.5em;}
-      nav ul {gap:1vw;}
+    /* Mobile Responsiveness - Comprehensive Improvements */
+    @media (max-width:768px) {
+      /* Enable horizontal scrolling on mobile */
+      body {
+        overflow-x: auto;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        touch-action: pan-x pan-y;
+      }
+      
+      /* Navigation improvements */
+      nav {
+        padding: 0.5em 0;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 1000;
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        background: rgba(0,0,0,0.8);
+        border-bottom: 2px solid #3b82f6cc;
+      }
+      
+      nav ul {
+        gap: 0.5em;
+        padding: 0.5em 1em;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      
+      nav a {
+        font-size: 0.9em;
+        padding: 0.4em 0.8em;
+        white-space: nowrap;
+        border-radius: 1.5em;
+        background: rgba(58,0,128,0.3);
+        border: 1px solid #a855f7cc;
+      }
+      
+      nav a:hover {
+        background: rgba(58,0,128,0.6);
+        box-shadow: 0 0 16px #a855f7, 0 0 24px #06b6d4;
+      }
+      
+      /* Section improvements */
+      section {
+        min-height: 100vh;
+        padding: 1em 0.5em;
+        scroll-snap-align: start;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+      }
+      
+      /* Card improvements */
+      .card {
+        padding: 1.5em 1em;
+        width: 95vw;
+        max-width: 95vw;
+        margin: 1em auto;
+        border-radius: 1.5em;
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+      }
+      
+      .header-cinematic {
+        font-size: 1.8em;
+        text-align: center;
+        line-height: 1.2;
+        margin-bottom: 0.8em;
+      }
+      
+      /* Button improvements */
+      .btn {
+        padding: 0.8em 1.5em;
+        font-size: 0.95em;
+        border-radius: 1.5em;
+        white-space: nowrap;
+        min-width: 120px;
+        text-align: center;
+      }
+      
+      /* Hero section improvements */
+      .hero-title {
+        font-size: 1.8em;
+        text-align: center;
+        line-height: 1.2;
+        margin-bottom: 0.5em;
+      }
+      
+      .hero-img {
+        width: 140px;
+        height: 140px;
+        border-radius: 50%;
+      }
+      
+      .hero-img-wrap {
+        margin-top: 5vh;
+        padding: 1em;
+      }
+      
+      .hero-typewriter {
+        font-size: 1em;
+        text-align: center;
+        min-height: 2em;
+        padding: 0 0.5em;
+      }
+      
+      .hero-cta {
+        font-size: 1em;
+        padding: 0.8em 1.8em;
+        margin-bottom: 1em;
+      }
+      
+      /* About section improvements */
+      .about-card {
+        padding: 1.5em 1em;
+        max-width: 95vw;
+        margin: 1em auto;
+        border-radius: 1.5em;
+      }
+      
+      .about-title {
+        font-size: 1.4em;
+        text-align: center;
+        margin-bottom: 0.8em;
+      }
+      
+      .about-text {
+        font-size: 1em;
+        line-height: 1.6;
+        text-align: justify;
+      }
+      
+      /* Lore section improvements */
+      .lore-content {
+        padding: 1.5em 1em;
+        max-width: 95vw;
+        margin: 1em auto;
+        border-radius: 1.5em;
+      }
+      
+      .lore-content h2 {
+        font-size: 1.3em;
+        text-align: center;
+        margin-bottom: 0.8em;
+      }
+      
+      .lore-content p {
+        font-size: 1em;
+        line-height: 1.6;
+        text-align: justify;
+      }
+      
+      /* Gallery improvements */
+      .gallery-filters {
+        gap: 0.5em;
+        margin-bottom: 1em;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      
+      .gallery-filter {
+        padding: 0.6em 1.2em;
+        font-size: 0.9em;
+        border-radius: 1.5em;
+      }
+      
+      .gallery-grid {
+        gap: 1em;
+        padding: 1em 0.5em 2em 0.5em;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+      }
+      
+      .gallery-card {
+        min-width: 180px;
+        max-width: 180px;
+        min-height: 240px;
+        border-radius: 1.2em;
+        scroll-snap-align: center;
+      }
+      
+      /* Market improvements */
+      .market-filters {
+        gap: 0.5em;
+        margin-bottom: 1em;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      
+      .market-filter {
+        padding: 0.6em 1.2em;
+        font-size: 0.9em;
+        border-radius: 1.5em;
+      }
+      
+      .market-grid {
+        gap: 1em;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      }
+      
+      .market-card {
+        border-radius: 1.2em;
+        min-width: 180px;
+      }
+      
+      .market-price {
+        font-size: 1em;
+        padding: 0.6em 1.2em;
+        border-radius: 1em;
+      }
+      
+      .market-buy {
+        font-size: 0.9em;
+        padding: 0.7em 1.5em;
+        border-radius: 1.5em;
+      }
+      
+      /* Roadmap improvements */
+      .roadmap-timeline {
+        gap: 1.5em;
+        margin-top: 6vh;
+        margin-bottom: 3vh;
+      }
+      
+      .roadmap-phase {
+        padding: 1em 1.5em;
+        min-width: 200px;
+        max-width: 95vw;
+        border-radius: 1.2em;
+      }
+      
+      .roadmap-icon {
+        font-size: 1.8em;
+        margin-bottom: 0.5em;
+      }
+      
+      .roadmap-desc {
+        font-size: 1em;
+        line-height: 1.4;
+      }
+      
+      /* Join section improvements */
+      .join-card {
+        padding: 1.5em 1em;
+        max-width: 95vw;
+        margin: 1em auto;
+        border-radius: 1.5em;
+      }
+      
+      .discord-btn {
+        font-size: 1em;
+        padding: 0.8em 1.8em;
+        margin-bottom: 1.2em;
+      }
+      
+      .join-form {
+        gap: 0.5em;
+        margin-bottom: 1em;
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      .join-email {
+        width: 100%;
+        max-width: 280px;
+        padding: 0.7em 1em;
+        border-radius: 1.5em;
+        font-size: 0.95em;
+      }
+      
+      .join-btn {
+        padding: 0.7em 1.5em;
+        border-radius: 1.5em;
+        font-size: 0.95em;
+        min-width: 120px;
+      }
+      
+      /* FAQ improvements */
+      .faq-accordion {
+        max-width: 95vw;
+        margin: 0 auto;
+        gap: 1em;
+      }
+      
+      .faq-question {
+        font-size: 1em;
+        padding: 1em 1.2em;
+        border-radius: 1em;
+      }
+      
+      /* Modal improvements */
+      .neon-modal {
+        padding: 1.5em 1em;
+        width: 95vw;
+        max-width: 95vw;
+        max-height: 85vh;
+        border-radius: 1.5em;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+      }
+      
+      .neon-modal img {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+      }
+      
+      .neon-modal-title {
+        font-size: 1.2em;
+        margin-bottom: 0.8em;
+      }
+      
+      .neon-modal-story {
+        font-size: 1em;
+        line-height: 1.6;
+        text-align: justify;
+      }
+      
+      /* Prevent horizontal scrolling issues */
+      .gallery-grid,
+      .market-grid,
+      .roadmap-timeline {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+      }
+      
+      .gallery-grid::-webkit-scrollbar,
+      .market-grid::-webkit-scrollbar,
+      .roadmap-timeline::-webkit-scrollbar {
+        display: none;
+      }
+      
+      /* Touch-friendly interactions */
+      .gallery-card,
+      .market-card,
+      .roadmap-phase,
+      .faq-question,
+      .btn,
+      .gallery-filter,
+      .market-filter {
+        min-height: 44px;
+        touch-action: manipulation;
+      }
+      
+      /* Smooth scrolling for mobile */
+      html {
+        scroll-behavior: smooth;
+        -webkit-overflow-scrolling: touch;
+      }
+      
+      /* Prevent zoom on input focus */
+      input, textarea, select {
+        font-size: 16px;
+      }
+      
+      /* Improve text readability */
+      body {
+        text-size-adjust: 100%;
+        -webkit-text-size-adjust: 100%;
+        -ms-text-size-adjust: 100%;
+      }
+    }
+    
+    /* Extra small devices */
+    @media (max-width:480px) {
+      .header-cinematic {
+        font-size: 1.5em;
+      }
+      
+      .hero-title {
+        font-size: 1.5em;
+      }
+      
+      .hero-img {
+        width: 120px;
+        height: 120px;
+      }
+      
+      .card {
+        padding: 1.2em 0.8em;
+        width: 98vw;
+      }
+      
+      .about-card,
+      .lore-content,
+      .join-card {
+        padding: 1.2em 0.8em;
+        width: 98vw;
+      }
+      
+      nav a {
+        font-size: 0.8em;
+        padding: 0.3em 0.6em;
+      }
+      
+      .btn {
+        font-size: 0.9em;
+        padding: 0.7em 1.3em;
+      }
     }
     ::-webkit-scrollbar {width:0;background:transparent;}
     html {scroll-behavior:smooth;}
@@ -111,10 +524,7 @@
     .scroll-indicator {position:absolute;bottom:4vh;left:50%;transform:translateX(-50%);z-index:3;}
     .scroll-indicator span {display:block;width:32px;height:32px;border-bottom:4px solid #a855f7;border-right:4px solid #06b6d4;transform:rotate(45deg);margin:0 auto;animation:scrollArrow 1.2s infinite alternate;box-shadow:0 0 12px #a855f7,0 0 16px #06b6d4;}
     @keyframes scrollArrow {0%{transform:translateY(0) rotate(45deg);}100%{transform:translateY(12px) rotate(45deg);}}
-    @media (max-width:600px) {
-      .hero-title {font-size:1.3em;}
-      .hero-img {width:120px;height:120px;}
-    }
+    /* Legacy mobile styles - now handled by comprehensive mobile CSS above */
     .arabic-calligraphy {
       position:absolute;bottom:12vh;left:50%;transform:translateX(-50%);font-size:4em;opacity:0.13;letter-spacing:0.2em;
       color:#a855f7;text-shadow:0 0 32px #06b6d4,0 0 64px #a855f7;
@@ -179,10 +589,7 @@
       60%{transform:translateX(-50%) translateY(0) scaleY(1.1);opacity:1;}
       100%{transform:translateX(-50%) translateY(-18px) scaleY(0.9);opacity:0.7;}
     }
-    @media (max-width:600px) {
-      .about-card {padding:1.2em 0.5em;max-width:98vw;}
-      .about-title {font-size:1.1em;}
-    }
+    /* Legacy mobile styles - now handled by comprehensive mobile CSS above */
     .lore-panels {
       position:relative;width:100vw;min-height:100vh;overflow:hidden;z-index:2;display:flex;flex-direction:column;align-items:stretch;scroll-snap-type:y mandatory;
     }
@@ -211,10 +618,7 @@
       position:relative;z-index:2;background:rgba(20,20,30,0.55);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-radius:1.5em;padding:2em 2.5em;box-shadow:0 0 32px #a855f7cc,0 0 8px #06b6d4cc inset;text-align:center;max-width:420px;margin:0 auto;}
     .lore-content h2 {font-size:1.5em;margin-bottom:0.7em;text-shadow:0 0 16px #a855f7,0 0 24px #06b6d4;}
     .lore-content p {font-size:1.1em;opacity:0.92;line-height:1.7;}
-    @media (max-width:600px) {
-      .lore-content {padding:1.2em 0.5em;max-width:98vw;}
-      .lore-content h2 {font-size:1.1em;}
-    }
+    /* Legacy mobile styles - now handled by comprehensive mobile CSS above */
     .gallery-filters {
       display:flex;gap:1em;justify-content:center;margin-bottom:1.5em;z-index:3;position:relative;
     }
@@ -255,10 +659,7 @@
     @keyframes legendGlow {0%{box-shadow:0 0 32px #fff,0 0 32px #a855f7cc inset,0 0 24px #06b6d4cc;}100%{box-shadow:0 0 64px #a855f7,0 0 48px #06b6d4;}}
     .gallery-title {font-size:1.2em;font-weight:bold;margin-bottom:0.5em;}
     .gallery-desc {font-size:1em;opacity:0.92;}
-    @media (max-width:600px) {
-      .gallery-grid {gap:1em;padding:1em 0.5em 2em 0.5em;}
-      .gallery-card {min-width:160px;max-width:160px;}
-    }
+    /* Legacy mobile styles - now handled by comprehensive mobile CSS above */
     .market-bg {
       position:absolute;top:0;left:0;width:100vw;height:100vh;z-index:0;overflow:hidden;pointer-events:none;display:flex;align-items:center;justify-content:center;
     }
@@ -304,10 +705,7 @@
       margin:1.2em 0 1em 0;display:inline-block;background:linear-gradient(90deg,#a855f7,#06b6d4 80%);color:#fff;padding:0.8em 2em;border-radius:2em;font-size:1em;box-shadow:0 0 16px #06b6d4cc;cursor:pointer;text-decoration:none;transition:transform .2s,box-shadow .2s;
     }
     .market-buy:hover {transform:scale(1.07);box-shadow:0 0 32px #a855f7,0 0 24px #06b6d4;}
-    @media (max-width:600px) {
-      .market-grid {gap:1em;}
-      .market-card {min-width:160px;max-width:98vw;}
-    }
+    /* Legacy mobile styles - now handled by comprehensive mobile CSS above */
     .roadmap-bg {
       position:absolute;top:0;left:0;width:100vw;height:100vh;z-index:0;overflow:hidden;pointer-events:none;
     }
@@ -356,10 +754,7 @@
       position:absolute;top:50%;left:50%;width:32px;height:8px;background:linear-gradient(90deg,#fff,#a855f7,#06b6d4,transparent);opacity:0.18;transform:translate(-50%,-50%) skewX(20deg);animation: glitchAnim 0.4s infinite alternate;
     }
     @keyframes glitchAnim {0%{left:48%;opacity:0.18;}100%{left:52%;opacity:0.32;}}
-    @media (max-width:600px) {
-      .roadmap-timeline {gap:1.2em;}
-      .roadmap-phase {padding:0.7em 0.5em;min-width:120px;}
-    }
+    /* Legacy mobile styles - now handled by comprehensive mobile CSS above */
     .join-bg {
       position:absolute;top:0;left:0;width:100vw;height:100vh;z-index:0;overflow:hidden;pointer-events:none;background:linear-gradient(180deg,#0a0a1a 80%,#3b82f6 100%);
     }
@@ -552,11 +947,7 @@
     .neon-modal img {width:180px;height:180px;object-fit:cover;border-radius:50%;margin-bottom:1.2em;box-shadow:0 0 32px #a855f7,0 0 24px #06b6d4;}
     .neon-modal-title {font-size:1.3em;color:#fff;text-shadow:0 0 16px #a855f7,0 0 24px #06b6d4;margin-bottom:0.7em;}
     .neon-modal-story {font-size:1.1em;color:#fff;opacity:0.93;text-shadow:0 0 8px #a855f7,0 0 16px #06b6d4;line-height:1.6;}
-    @media (max-width:600px) {
-      .neon-modal {padding:1.2em 0.5em;width:98vw;}
-      .neon-modal img {width:110px;height:110px;}
-      .neon-modal-title {font-size:1em;}
-    }
+    /* Legacy mobile styles - now handled by comprehensive mobile CSS above */
     .spark-timeline-container {
       width:100vw;max-width:900px;margin:0 auto;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;
     }
@@ -783,10 +1174,57 @@
       max-width: 1100px;
       padding: 2.5em 4em 2.5em 4em;
     }
+    /* Remove global scroll for Home, only allow scroll in each panel */
+    #home.section-scroll {
+      overflow: hidden !important;
+      height: 100vh;
+      width: 100vw;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+    }
+    .home-panel.card-style {
+      overflow-y: auto !important;
+      max-height: 90vh;
+      min-height: 80vh;
+      width: 100vw;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .join-social-icons .social-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: rgba(20,20,30,0.55);
+      box-shadow: 0 0 16px #a855f7cc, 0 0 8px #06b6d4cc inset;
+      transition: box-shadow .2s, background .2s, transform .2s;
+      margin: 0 0.2em;
+      text-decoration: none;
+    }
+    .join-social-icons .social-icon:hover {
+      background: linear-gradient(90deg,#a855f7,#06b6d4 80%);
+      box-shadow: 0 0 32px #a855f7, 0 0 24px #06b6d4;
+      transform: scale(1.12);
+    }
+    .join-social-icons .social-icon svg {
+      display: block;
+      width: 32px;
+      height: 32px;
+    }
   </style>
 </head>
 <body>
   <div class="bg-grad"></div>
+  <div class="hero-bg">
+    <img src="https://i.ibb.co/HD7G53Vd/n.webp" alt="background" class="hero-bg-img" style="position:fixed;top:50%;left:50%;width:1200px;max-width:90vw;height:auto;transform:translate(-50%,-50%);z-index:0;opacity:0.28;pointer-events:none;mix-blend-mode:lighten;animation: homeParallax 18s infinite alternate;" />
+    <canvas class="hero-gradient"></canvas>
+    <canvas class="sand-particles"></canvas>
+  </div>
   <canvas class="particles"></canvas>
   <nav>
     <ul>
@@ -802,83 +1240,76 @@
   </nav>
   <main style="position:relative;z-index:2;height:100vh;width:100vw;overflow:hidden;">
     <section id="home" class="section-scroll">
-      <div class="hero-bg">
-        <canvas class="hero-gradient"></canvas>
-        <canvas class="sand-particles"></canvas>
-      </div>
-      <div class="hero-center home-panel" id="hero-panel">
-        <div class="hero-img-wrap">
-          <img src="1.jpg" alt="Sheikh Al-Laban" class="hero-img" />
-        </div>
-        <div class="hero-title neon-flicker">Sheikh Al-Laban: The Milk Dynasty Begins</div>
-        <div class="hero-typewriter" id="hero-typewriter"></div>
-        <button class="btn hero-cta" onclick="showHomePanel('prophecy-panel')">Explore The Dynasty</button>
-        <div class="scroll-indicator"><span></span></div>
-      </div>
-      <!-- Prophecy of Milk Panel -->
-      <div class="home-panel prophecy-panel fullscreen-bg" id="prophecy-panel" style="display:none">
-        <button class="btn back-btn" onclick="showHomePanel('hero-panel')">Back</button>
-        <div class="prophecy-bg tarot-bg">
-          <img class="prophecy-bg-img" src="2.jpg" alt="Desert Fortune Teller" />
-          <div class="prophecy-content">
-            <div class="prophecy-card">
-              <div class="prophecy-text" id="prophecy-text">
-                The sands spoke, and I listened.<br>
-                A camel shall rise not for water, but for power.<br>
-                Born of milk, hardened by betrayal,<br>
-                His humps will carry the weight of a forgotten kingdom.<br>
-                When the neon winds blow,<br>
-                And the dunes light up like cities in the sky,<br>
-                He shall return — not as a beast… but as a king
-              </div>
-            </div>
-            <div class="prophecy-seer">
-              <img src="2.jpg" alt="The Camel Seer" />
-            </div>
+      <div class="hero-center home-panel" id="hero-panel" style="overflow-y:auto;">
+        <div class="hero-content-flex">
+          <div class="hero-text-block">
+            <h1 class="hero-title neon-flicker" style="font-size:3.2em;font-weight:900;letter-spacing:0.04em;line-height:1.1;">THEY SAID CAMELS CAN'T WHISPER SECRETS</h1>
+            <p class="hero-lead">They lied.<br>Somewhere in the sands, a prophecy has awakened.<br>A forgotten legend, a milk-drinking sheikh, and an NFT collection that remembers more than it should.<br>Not every NFT is art. Some are encrypted memories from the desert.</p>
+            <button class="btn hero-cta" onclick="showHomePanel('panel-prophecy')">Read the Prophecy</button>
           </div>
         </div>
-        <button class="btn hero-cta next-btn" onclick="showHomePanel('timeline-panel')">Next</button>
       </div>
-      <!-- Timeline of the Dynasty Panel -->
-      <div class="home-panel timeline-panel fullscreen-bg" id="timeline-panel" style="display:none">
-        <button class="btn back-btn" onclick="showHomePanel('prophecy-panel')">Back</button>
-        <div class="spark-timeline-container">
-          <h2 class="timeline-main-title">Timeline of the Dynasty</h2>
-          <div class="spark-timeline">
-            <div class="spark-timeline-item">
-              <div class="spark-timeline-img"><img src="https://placehold.co/120x120?text=Birth" alt="Birth" /></div>
-              <div class="spark-timeline-title">Birth: The Milk That Started It All</div>
-              <div class="spark-timeline-text">In the stillness of the desert night, a camel was born under the crescent moon. He wasn't like the others. While others suckled on tradition, he drank ambition—straight from a golden bottle of milk.</div>
-            </div>
-            <div class="spark-timeline-item">
-              <div class="spark-timeline-img"><img src="https://placehold.co/120x120?text=Childhood" alt="Childhood" /></div>
-              <div class="spark-timeline-title">Childhood: Sand Between His Hooves</div>
-              <div class="spark-timeline-text">He grew among shifting sands and whispering winds. The dunes were his playground, but so were the secrets buried beneath. He asked questions no camel dared ask. His eyes were curious, and his silence louder than roars.</div>
-            </div>
-            <div class="spark-timeline-item">
-              <div class="spark-timeline-img"><img src="https://placehold.co/120x120?text=Youth" alt="Youth" /></div>
-              <div class="spark-timeline-title">Youth: Betrayal & Brilliance</div>
-              <div class="spark-timeline-text">As he matured, jealousy brewed in the herd. He built tools from bones, traded sand for tech, and whispered ideas to passing caravans. But envy brought betrayal, and betrayal made him disappear… for a time.</div>
-            </div>
-            <div class="spark-timeline-item">
-              <div class="spark-timeline-img"><img src="https://placehold.co/120x120?text=Now" alt="Now" /></div>
-              <div class="spark-timeline-title">Now: Power in Every Hump</div>
-              <div class="spark-timeline-text">He returned with neon in his eyes and circuits in his saddle. He speaks in codes, deals in crypto, and rules in silence. They call him "Sheikh Al-Laban," a legend in motion. Not a memory — a movement.</div>
-            </div>
-          </div>
+      <!-- New Card Panels for Home -->
+      <div class="home-panel card-style" id="panel-prophecy" style="display:none;overflow-y:auto;">
+        <div class="card-image"><img src="https://i.ibb.co/Mxv0t0X6/photo-2025-07-18-22-11-30.jpg" alt="Prophecy" style="width:220px;border-radius:1.5em;box-shadow:0 0 32px #a855f7,0 0 24px #06b6d4;" /></div>
+        <div class="card-content">
+          <h2 class="card-title neon-flicker">A Prophecy Awakens</h2>
+          <p>Long ago, a prophecy echoed through the sands. Few believed it. Fewer survived it. But now… it's happening again.</p>
+          <button class="btn next-btn" onclick="showHomePanel('panel-lore')">Next</button>
+          <button class="btn back-btn" onclick="showHomePanel('hero-panel')">Back</button>
         </div>
-        <button class="btn hero-cta next-btn" onclick="showHomePanel('milktest-panel')">Next</button>
       </div>
-      <!-- Milk Test Panel -->
-      <div class="home-panel milktest-panel fullscreen-bg" id="milktest-panel" style="display:none">
-        <button class="btn back-btn" onclick="showHomePanel('timeline-panel')">Back</button>
-        <div class="milk-chest-wrap">
-          <div class="milk-chest" id="milk-chest">
-            <div class="chest-lid"></div>
-            <div class="chest-body"></div>
-            <div class="chest-text">Only the Worthy May Enter...</div>
+      <div class="home-panel card-style" id="panel-lore" style="display:none;overflow-y:auto;">
+        <div class="card-image"><img src="https://i.ibb.co/Dn2VR1t/1.jpg" alt="Lore" style="width:220px;border-radius:1.5em;box-shadow:0 0 32px #a855f7,0 0 24px #06b6d4;" /></div>
+        <div class="card-content">
+          <h2 class="card-title">🧭 Explore the Lore</h2>
+          <p>Own more than a token. Own a legacy carved in sand and silence.<br>Handpicked by fate. Blessed by the Third Eye.<br>Click… and wealth may whisper your name.</p>
+          <button class="btn next-btn" onclick="showHomePanel('panel-collection')">Next</button>
+          <button class="btn back-btn" onclick="showHomePanel('panel-prophecy')">Back</button>
+          <button class="btn cta-btn" onclick="window.location.hash='#lore'">Explore Lore</button>
+        </div>
+      </div>
+      <div class="home-panel card-style" id="panel-collection" style="display:none;overflow-y:auto;">
+        <div class="card-image"><img src="https://i.ibb.co/v9FQcq2/3.jpg" alt="NFT Collection" style="width:220px;border-radius:1.5em;box-shadow:0 0 32px #a855f7,0 0 24px #06b6d4;" /></div>
+        <div class="card-content">
+          <h2 class="card-title">🎨 View NFT Collection</h2>
+          <p>Every camel has a secret. Some are warriors, some are liars. All are part of the storm.</p>
+          <button class="btn next-btn" onclick="showHomePanel('panel-characters')">Next</button>
+          <button class="btn back-btn" onclick="showHomePanel('panel-lore')">Back</button>
+          <button class="btn cta-btn" onclick="window.location.hash='#market'">View Collection</button>
+        </div>
+      </div>
+      <div class="home-panel card-style" id="panel-characters" style="display:none;overflow-y:auto;">
+        <div class="card-image"><img src="https://i.ibb.co/BKNwLxt1/4.jpg" alt="Characters" style="width:220px;border-radius:1.5em;box-shadow:0 0 32px #a855f7,0 0 24px #06b6d4;" /></div>
+        <div class="card-content">
+          <h2 class="card-title">🐫 Meet the Characters</h2>
+          <p>The caravan moves at midnight. Only the wise ride along.<br>Will you find your seat before the sun returns?</p>
+          <button class="btn next-btn" onclick="showHomePanel('panel-join')">Next</button>
+          <button class="btn back-btn" onclick="showHomePanel('panel-collection')">Back</button>
+          <button class="btn cta-btn" onclick="window.location.hash='#gallery'">Meet the Characters</button>
+        </div>
+      </div>
+      <div class="home-panel card-style" id="panel-join" style="display:none;overflow-y:auto;">
+        <div class="card-image"><img src="https://i.ibb.co/ksYxdPfG/6.jpg" alt="Join the Caravan" style="width:220px;border-radius:1.5em;box-shadow:0 0 32px #a855f7,0 0 24px #06b6d4;" /></div>
+        <div class="card-content">
+          <h2 class="card-title">🏕️ Join the Caravan</h2>
+          <p>Join us on Discord and become part of the legend. The journey is just beginning.</p>
+          <div class="join-social-icons" style="display:flex;gap:1.2em;justify-content:center;margin:1.5em 0;">
+            <a href="https://www.instagram.com/thecamelverse/?hl=en" target="_blank" rel="noopener noreferrer" class="social-icon instagram" title="Instagram">
+              <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg" alt="Instagram" style="width:32px;height:32px;" />
+            </a>
+            <a href="https://x.com/TheCamelVerse" target="_blank" rel="noopener noreferrer" class="social-icon x" title="X (Twitter)">
+              <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/x.svg" alt="X" style="width:32px;height:32px;" />
+            </a>
+            <a href="https://opensea.io/0xbfd6162b82bb38fb800a40989e86ca3a558deef1" target="_blank" rel="noopener noreferrer" class="social-icon opensea" title="OpenSea">
+              <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/opensea.svg" alt="OpenSea" style="width:32px;height:32px;" />
+            </a>
+            <a href="https://rarible.com/the-camelverse" target="_blank" rel="noopener noreferrer" class="social-icon rarible" title="Rarible">
+              <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/rarible.svg" alt="Rarible" style="width:32px;height:32px;" />
+            </a>
           </div>
-          <div class="milk-quiz" id="milk-quiz"></div>
+          <a class="btn cta-btn" href="https://discord.com/" target="_blank" rel="noopener noreferrer">Join Discord</a>
+          <button class="btn back-btn" onclick="showHomePanel('panel-characters')">Back</button>
         </div>
       </div>
     </section>
@@ -1184,7 +1615,7 @@
         <div class="lore-holo-lines"></div>
         <div class="lore-cards">
           <div class="lore-card" data-quote=""The desert is my kingdom, and milk is my crown."" data-audio="">
-            <img src="1.jpg" alt="Sheikh Al-Laban" />
+            <img src="https://drive.google.com/uc?export=view&id=1lMgkQw_79rlYTH5v8JpqsPK9SUT5w_zY" alt="Sheikh Al-Laban" />
             <div class="lore-card-name">Sheikh Al-Laban</div>
           </div>
           <div class="lore-card" data-quote="The dunes remember every secret."" data-audio="">
@@ -1202,8 +1633,8 @@
     <section id="featured-nfts" class="section-scroll">
       <div class="carousel-container">
         <div class="carousel-track">
-          <div class="carousel-card" data-name="Sheikh Al-Laban" data-img="1.jpg" data-lore="The enigmatic founder of the Milk Dynasty." data-360="1.jpg">
-            <img src="1.jpg" alt="Sheikh Al-Laban" />
+          <div class="carousel-card" data-name="Sheikh Al-Laban" data-img="https://drive.google.com/uc?export=view&id=1lMgkQw_79rlYTH5v8JpqsPK9SUT5w_zY" data-lore="The enigmatic founder of the Milk Dynasty." data-360="https://drive.google.com/uc?export=view&id=1lMgkQw_79rlYTH5v8JpqsPK9SUT5w_zY">
+            <img src="https://drive.google.com/uc?export=view&id=1lMgkQw_79rlYTH5v8JpqsPK9SUT5w_zY" alt="Sheikh Al-Laban" />
             <div class="carousel-card-title">Sheikh Al-Laban</div>
           </div>
           <div class="carousel-card" data-name="Prince of the Dunes" data-img="https://placehold.co/180x180/ff8800/fff?text=Prince+of+the+Dunes" data-lore="Heir to the shifting sands." data-360="https://placehold.co/180x180/ff8800/fff?text=Prince+of+the+Dunes">
@@ -1761,14 +2192,19 @@
     // Show only one Home panel at a time
     function showHomePanel(panelId) {
       const panels = [
-        document.getElementById('hero-panel'),
-        document.getElementById('prophecy-panel'),
-        document.getElementById('timeline-panel'),
-        document.getElementById('milktest-panel')
+        'hero-panel',
+        'panel-prophecy',
+        'panel-lore',
+        'panel-collection',
+        'panel-characters',
+        'panel-join'
       ];
-      panels.forEach(p => { if(p) p.style.display = 'none'; });
+      panels.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.style.display = 'none';
+      });
       const show = document.getElementById(panelId);
-      if(show) show.style.display = '';
+      if (show) show.style.display = 'flex';
     }
     // Always show hero panel on load
     showHomePanel('hero-panel');
@@ -2161,6 +2597,153 @@
     }
   });
   // ... existing code ...
+  </script>
+  
+  <!-- Mobile-specific JavaScript improvements -->
+  <script>
+    // Mobile responsiveness enhancements
+    (function() {
+      // Detect mobile device
+      const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+      
+      if (isMobile) {
+        // Prevent zoom on double tap
+        let lastTouchEnd = 0;
+        document.addEventListener('touchend', function (event) {
+          const now = (new Date()).getTime();
+          if (now - lastTouchEnd <= 300) {
+            event.preventDefault();
+          }
+          lastTouchEnd = now;
+        }, false);
+        
+        // Improve touch scrolling
+        document.addEventListener('touchstart', function() {}, {passive: true});
+        document.addEventListener('touchmove', function() {}, {passive: true});
+        
+        // Prevent horizontal scrolling on body
+        document.body.addEventListener('touchmove', function(e) {
+          if (e.touches.length > 1) {
+            e.preventDefault();
+          }
+        }, { passive: false });
+        
+        // Add mobile-specific classes
+        document.body.classList.add('mobile-device');
+        
+        // Improve modal touch interactions
+        const modals = document.querySelectorAll('.neon-modal-bg');
+        modals.forEach(modal => {
+          modal.addEventListener('touchstart', function(e) {
+            if (e.target === this) {
+              e.preventDefault();
+            }
+          }, { passive: false });
+        });
+        
+        // Improve button touch targets
+        const buttons = document.querySelectorAll('.btn, .gallery-filter, .market-filter, .faq-question');
+        buttons.forEach(btn => {
+          btn.style.minHeight = '44px';
+          btn.style.touchAction = 'manipulation';
+        });
+        
+        // Smooth scrolling for anchor links
+        const anchorLinks = document.querySelectorAll('a[href^="#"]');
+        anchorLinks.forEach(link => {
+          link.addEventListener('click', function(e) {
+            const targetId = this.getAttribute('href').substring(1);
+            const targetElement = document.getElementById(targetId);
+            if (targetElement) {
+              e.preventDefault();
+              targetElement.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+              });
+            }
+          });
+        });
+        
+        // Improve navigation touch experience
+        const navLinks = document.querySelectorAll('nav a');
+        navLinks.forEach(link => {
+          link.addEventListener('touchstart', function() {
+            this.style.transform = 'scale(0.95)';
+          });
+          link.addEventListener('touchend', function() {
+            this.style.transform = 'scale(1)';
+          });
+        });
+        
+        // Prevent unwanted zoom on input focus
+        const inputs = document.querySelectorAll('input, textarea, select');
+        inputs.forEach(input => {
+          input.addEventListener('focus', function() {
+            this.style.fontSize = '16px';
+          });
+        });
+        
+        // Improve gallery scrolling on mobile
+        const galleryGrids = document.querySelectorAll('.gallery-grid');
+        galleryGrids.forEach(grid => {
+          let isScrolling = false;
+          let startX = 0;
+          let scrollLeft = 0;
+          
+          grid.addEventListener('touchstart', function(e) {
+            isScrolling = true;
+            startX = e.touches[0].pageX - grid.offsetLeft;
+            scrollLeft = grid.scrollLeft;
+          });
+          
+          grid.addEventListener('touchmove', function(e) {
+            if (!isScrolling) return;
+            e.preventDefault();
+            const x = e.touches[0].pageX - grid.offsetLeft;
+            const walk = (x - startX) * 2;
+            grid.scrollLeft = scrollLeft - walk;
+          });
+          
+          grid.addEventListener('touchend', function() {
+            isScrolling = false;
+          });
+        });
+        
+        // Add mobile-specific CSS classes
+        document.documentElement.classList.add('mobile-view');
+      }
+      
+      // Handle orientation change
+      window.addEventListener('orientationchange', function() {
+        setTimeout(function() {
+          window.scrollTo(0, 0);
+        }, 100);
+      });
+      
+      // Improve performance on mobile
+      if (isMobile) {
+        // Reduce animation complexity on mobile
+        const animatedElements = document.querySelectorAll('.bg-grad, .particles, .sand-particles');
+        animatedElements.forEach(el => {
+          el.style.animationDuration = '8s';
+        });
+        
+        // Optimize scroll performance
+        let ticking = false;
+        function updateScroll() {
+          ticking = false;
+        }
+        
+        function requestTick() {
+          if (!ticking) {
+            requestAnimationFrame(updateScroll);
+            ticking = true;
+          }
+        }
+        
+        window.addEventListener('scroll', requestTick, { passive: true });
+      }
+    })();
   </script>
 </body>
 </html> 
