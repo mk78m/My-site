@@ -1222,6 +1222,515 @@
       width: 32px;
       height: 32px;
     }
+    #gallery {
+      padding: 60px 0 40px 0;
+      background: #181818;
+    }
+    .gallery-title {
+      color: #ffe082;
+      text-align: center;
+      font-size: 2.5rem;
+      margin-bottom: 32px;
+      font-family: 'Orbitron', sans-serif;
+      letter-spacing: 2px;
+      text-shadow: 0 0 8px #ffd70099;
+    }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 32px;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 16px;
+    }
+    .nft-card {
+      background: #1e1e1e;
+      border-radius: 8px;
+      box-shadow: 0 4px 24px 0 #000a, 0 0 0 2px #ffd70033;
+      overflow: hidden;
+      transition: transform 0.25s cubic-bezier(.4,2,.6,1), box-shadow 0.25s;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+    }
+    .nft-card:hover {
+      transform: scale(1.045);
+      box-shadow: 0 0 32px 4px #ffd700cc, 0 4px 24px 0 #000a;
+      z-index: 2;
+    }
+    .nft-image {
+      width: 100%;
+      height: auto;
+      aspect-ratio: 1/1;
+      object-fit: cover;
+      border-bottom: 1px solid #222;
+      background: #222;
+      transition: filter 0.2s;
+    }
+    .nft-card:hover .nft-image {
+      filter: brightness(1.1) drop-shadow(0 0 12px #ffd70088);
+    }
+    .nft-info {
+      padding: 20px 16px 24px 16px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .nft-name {
+      color: #fffbe7;
+      font-size: 1.2rem;
+      margin: 0 0 10px 0;
+      font-family: 'Orbitron', sans-serif;
+      letter-spacing: 1px;
+      text-align: center;
+    }
+    .nft-status {
+      font-size: 0.95rem;
+      margin-bottom: 14px;
+      padding: 2px 14px;
+      border-radius: 12px;
+      font-weight: bold;
+      letter-spacing: 1px;
+      background: #232323;
+      color: #ffe082;
+      border: 1px solid #ffd70055;
+      box-shadow: 0 0 8px #ffd70022;
+    }
+    .nft-status.sold {
+      color: #ff5252;
+      background: #232323;
+      border: 1px solid #ff5252aa;
+      box-shadow: 0 0 8px #ff525222;
+    }
+    .nft-btn {
+      background: linear-gradient(90deg, #ffd700 0%, #ffb300 100%);
+      color: #181818;
+      border: none;
+      border-radius: 6px;
+      padding: 10px 28px;
+      font-size: 1rem;
+      font-family: 'Orbitron', sans-serif;
+      font-weight: bold;
+      letter-spacing: 1px;
+      margin-top: 8px;
+      cursor: pointer;
+      box-shadow: 0 2px 8px #ffd70044;
+      transition: background 0.2s, color 0.2s, transform 0.18s;
+    }
+    .nft-btn:hover {
+      background: linear-gradient(90deg, #fffbe7 0%, #ffd700 100%);
+      color: #1e1e1e;
+      transform: translateY(-2px) scale(1.05);
+      box-shadow: 0 0 16px #ffd70099;
+    }
+    @media (max-width: 700px) {
+      .gallery-title {
+        font-size: 1.5rem;
+      }
+      .gallery-grid {
+        gap: 18px;
+      }
+      .nft-info {
+        padding: 14px 6px 18px 6px;
+      }
+      .nft-name {
+        font-size: 1rem;
+      }
+      .nft-btn {
+        font-size: 0.95rem;
+        padding: 8px 16px;
+      }
+    }
+    .gallery-anim-bg {
+      position: absolute;
+      top: 0; left: 0; width: 100vw; height: 100%;
+      z-index: 2;
+      pointer-events: none;
+    }
+    .nft-modal-bg {
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      background: rgba(10,10,26,0.92);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: fadeInBg .4s;
+    }
+    @keyframes fadeInBg {from{opacity:0;}to{opacity:1;}}
+    .nft-modal {
+      background: rgba(20,20,30,0.92);
+      border-radius: 2em;
+      box-shadow: 0 0 48px #ffd700, 0 0 32px #3b82f6, 0 0 24px #fff8;
+      padding: 2.5em 2em 2em 2em;
+      max-width: 90vw;
+      width: 380px;
+      text-align: center;
+      position: relative;
+      animation: modalPop .5s cubic-bezier(.4,2,.2,1);
+      border: 2.5px solid #ffd700cc;
+    }
+    @keyframes modalPop {from{transform:scale(0.8);opacity:0;}to{transform:scale(1);opacity:1;}}
+    .nft-modal-close {
+      position: absolute;
+      top: 1.2em;
+      right: 1.2em;
+      background: none;
+      border: none;
+      color: #fff;
+      font-size: 2em;
+      cursor: pointer;
+      z-index: 2;
+      text-shadow: 0 0 16px #ffd700, 0 0 24px #3b82f6;
+      transition: color .2s;
+    }
+    .nft-modal-close:hover {color: #ffd700;}
+    .nft-modal-img {
+      width: 180px;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 50%;
+      margin-bottom: 1.2em;
+      box-shadow: 0 0 32px #ffd700, 0 0 24px #3b82f6;
+    }
+    .nft-modal-title {
+      font-size: 1.3em;
+      color: #fff;
+      text-shadow: 0 0 16px #ffd700, 0 0 24px #3b82f6;
+      margin-bottom: 0.7em;
+      font-family: 'Orbitron', 'Audiowide', Arial, sans-serif;
+    }
+    .nft-modal-desc {
+      font-size: 1.1em;
+      color: #fff;
+      opacity: 0.93;
+      text-shadow: 0 0 8px #ffd700, 0 0 16px #3b82f6;
+      line-height: 1.6;
+      margin-bottom: 1.2em;
+    }
+    .nft-modal-links {
+      display: flex;
+      flex-direction: column;
+      gap: 0.7em;
+      align-items: center;
+    }
+    .nft-modal-links a {
+      background: linear-gradient(90deg, #ffd700 0%, #3b82f6 100%);
+      color: #181818;
+      border: none;
+      border-radius: 8px;
+      padding: 10px 28px;
+      font-size: 1rem;
+      font-family: 'Orbitron', 'Audiowide', Arial, sans-serif;
+      font-weight: bold;
+      letter-spacing: 1px;
+      cursor: pointer;
+      box-shadow: 0 2px 8px #ffd70044;
+      text-decoration: none;
+      transition: background 0.2s, color 0.2s, transform 0.18s;
+    }
+    .nft-modal-links a:hover {
+      background: linear-gradient(90deg, #fffbe7 0%, #ffd700 100%);
+      color: #1e1e1e;
+      transform: translateY(-2px) scale(1.05);
+      box-shadow: 0 0 16px #ffd70099;
+    }
+    .visually-hidden { position:absolute !important; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); border:0; }
+    .gallery-tab:focus, .nft-card:focus, #gallery-search:focus, #gallery-search-clear:focus {
+      outline: 3px solid #ffd700;
+      outline-offset: 2px;
+      box-shadow: 0 0 0 3px #3b82f6cc;
+      z-index: 10;
+    }
+    #gallery-search-clear {
+      background: none;
+      border: none;
+      color: #ffd700;
+      font-size: 1.2em;
+      margin-left: -2em;
+      cursor: pointer;
+      transition: color 0.2s;
+      z-index: 3;
+    }
+    #gallery-search-clear:hover { color: #ff5252; }
+    .gallery-main-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      margin: 0 auto;
+      max-width: 900px;
+      width: 100%;
+      padding-bottom: 40px;
+      gap: 22px;
+      position: relative;
+      z-index: 3;
+    }
+    .gallery-category-card {
+      background: rgba(30,30,40,0.82);
+      border-radius: 1.2em;
+      box-shadow: 0 0 32px #ffd70022, 0 0 12px #3b82f6cc inset, 0 0 16px #fff8;
+      border: 1.5px solid #ffd70022;
+      margin: 0 auto 0 auto;
+      width: 100%;
+      max-width: 420px;
+      padding: 1.1em 0.7em 0.5em 0.7em;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      transition: box-shadow 0.3s, border 0.3s;
+      animation: fadeInUp 1.1s cubic-bezier(.4,2,.6,1) both;
+    }
+    .category-card-header {
+      width: 100%;
+      text-align: left;
+      margin-bottom: 0.7em;
+    }
+    .category-card-header h3 {
+      font-family: 'Orbitron', 'Audiowide', Arial, sans-serif;
+      font-size: 1.05em;
+      color: #ffe082;
+      letter-spacing: 1px;
+      text-shadow: 0 0 6px #ffd70066, 0 0 12px #3b82f6cc;
+      margin: 0 0 0.1em 0;
+    }
+    .category-nft-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+      gap: 10px;
+      width: 100%;
+      justify-items: center;
+      align-items: stretch;
+      margin: 0 auto;
+    }
+    .nft-card {
+      background: rgba(30,30,40,0.92);
+      border-radius: 0.7em;
+      box-shadow: 0 2px 8px 0 #000a, 0 0 0 1px #ffd70022;
+      overflow: hidden;
+      transition: transform 0.18s cubic-bezier(.4,2,.6,1), box-shadow 0.18s, filter 0.15s;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      min-width: 100px;
+      max-width: 140px;
+      width: 100%;
+      margin: 0 auto;
+      padding-bottom: 0.2em;
+      filter: blur(0.1px) opacity(0.99);
+    }
+    .nft-card:hover {
+      transform: scale(1.06) translateY(-4px);
+      box-shadow: 0 0 18px 4px #ffd70099, 0 2px 12px 0 #000a;
+      filter: brightness(1.08) blur(0);
+      z-index: 2;
+    }
+    .nft-image {
+      width: 100%;
+      height: auto;
+      aspect-ratio: 1/1;
+      object-fit: cover;
+      border-bottom: 1px solid #222;
+      background: #222;
+      transition: filter 0.15s;
+      max-width: 100px;
+    }
+    .nft-card:hover .nft-image {
+      filter: brightness(1.13) drop-shadow(0 0 8px #ffd70066);
+    }
+    .nft-info {
+      padding: 8px 4px 10px 4px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .nft-name {
+      color: #fffbe7;
+      font-size: 0.78rem;
+      margin: 0 0 4px 0;
+      font-family: 'Orbitron', 'Audiowide', Arial, sans-serif;
+      letter-spacing: 0.5px;
+      text-align: center;
+      text-shadow: 0 0 4px #ffd70033, 0 0 8px #3b82f6cc;
+    }
+    .nft-status {
+      font-size: 0.68rem;
+      margin-bottom: 6px;
+      padding: 1px 7px;
+      border-radius: 8px;
+      font-weight: bold;
+      letter-spacing: 0.5px;
+      background: #232323cc;
+      color: #ffe082;
+      border: 1px solid #ffd70033;
+      box-shadow: 0 0 4px #ffd70011;
+      text-shadow: 0 0 3px #ffd70022;
+    }
+    .nft-status.sold {
+      color: #ff5252;
+      background: #232323cc;
+      border: 1px solid #ff525288;
+      box-shadow: 0 0 4px #ff525211;
+      text-shadow: 0 0 3px #ff525222;
+    }
+    .nft-btn {
+      background: linear-gradient(90deg, #ffd700 0%, #3b82f6 100%);
+      color: #181818;
+      border: none;
+      border-radius: 5px;
+      padding: 5px 10px;
+      font-size: 0.7rem;
+      font-family: 'Orbitron', 'Audiowide', Arial, sans-serif;
+      font-weight: bold;
+      letter-spacing: 0.5px;
+      margin-top: 3px;
+      cursor: pointer;
+      box-shadow: 0 1px 4px #ffd70022;
+      transition: background 0.15s, color 0.15s, transform 0.12s;
+      animation: btnBounce 0.5s cubic-bezier(.4,2,.6,1);
+    }
+    .nft-btn:hover {
+      background: linear-gradient(90deg, #fffbe7 0%, #ffd700 100%);
+      color: #1e1e1e;
+      transform: translateY(-1px) scale(1.07);
+      box-shadow: 0 0 10px #ffd70066;
+    }
+    @media (max-width: 900px) {
+      .gallery-main-content { max-width: 99vw; }
+      .gallery-category-card { max-width: 99vw; padding: 0.7em 0.2em 0.3em 0.2em; }
+    }
+    @media (max-width: 700px) {
+      .gallery-main-content { gap: 10px; }
+      .gallery-category-card { padding: 0.4em 0.1em 0.2em 0.1em; }
+      .category-card-header h3 { font-size: 0.9em; }
+      .category-nft-grid { gap: 4px; }
+      .nft-card { min-width: 70px; max-width: 90vw; }
+      .nft-info { padding: 4px 2px 4px 2px; }
+      .nft-name { font-size: 0.65rem; }
+      .nft-btn { font-size: 0.6rem; padding: 4px 7px; }
+    }
+    @media (max-width: 1024px) and (min-width: 768px) {
+      .category-nft-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+      }
+    }
+    @media (max-width: 767px) {
+      .gallery-header {
+        margin-top: 32px !important;
+      }
+      .gallery-search-bar {
+        width: 90vw;
+        max-width: 90vw;
+        margin: 0 auto 18px auto;
+        justify-content: center;
+        align-items: center;
+        display: flex;
+      }
+      #gallery-search {
+        width: 80%;
+        min-width: 0;
+        font-size: 1em;
+        padding: 0.7em 1.2em;
+      }
+      #gallery-search-clear {
+        font-size: 1.5em;
+        margin-left: -1.5em;
+        padding: 0.2em 0.5em;
+      }
+      .search-icon {
+        font-size: 1.5em;
+        margin-left: -1.2em;
+      }
+      .gallery-categories {
+        overflow-x: auto;
+        flex-wrap: nowrap;
+        gap: 1.2em !important;
+        padding-bottom: 0.5em;
+        margin-bottom: 1.2em;
+        scrollbar-width: thin;
+        -webkit-overflow-scrolling: touch;
+      }
+      .gallery-tab {
+        min-width: 90px;
+        font-size: 1em;
+        padding: 0.7em 1.5em;
+        border-radius: 1.5em;
+        margin: 0 0.2em;
+        white-space: nowrap;
+        touch-action: manipulation;
+      }
+      .gallery-main-content {
+        gap: 12px;
+        padding-bottom: 24px;
+      }
+      .gallery-category-card {
+        max-width: 99vw;
+        padding: 0.5em 0.1em 0.2em 0.1em;
+        border-radius: 0.7em;
+      }
+      .category-card-header h3 {
+        font-size: 0.9em;
+        margin-bottom: 0.2em;
+      }
+      .category-nft-grid {
+        grid-template-columns: 1fr !important;
+        gap: 8px;
+        width: 100%;
+        justify-items: center;
+        align-items: stretch;
+        margin: 0 auto;
+      }
+      .nft-card {
+        min-width: 90vw;
+        max-width: 90vw;
+        width: 90vw;
+        margin: 0 auto 8px auto;
+        border-radius: 0.7em;
+        box-shadow: 0 2px 8px 0 #000a, 0 0 0 1px #ffd70022;
+        padding-bottom: 0.1em;
+      }
+      .nft-image {
+        max-width: 100%;
+        aspect-ratio: 1/1;
+        object-fit: cover;
+        border-bottom: 1px solid #222;
+        background: #222;
+      }
+      .nft-info {
+        padding: 6px 2px 8px 2px;
+      }
+      .nft-name {
+        font-size: 0.7rem;
+        margin-bottom: 2px;
+      }
+      .nft-status {
+        font-size: 0.6rem;
+        margin-bottom: 4px;
+        padding: 1px 6px;
+      }
+      .nft-btn {
+        font-size: 0.6rem;
+        padding: 4px 8px;
+        margin-top: 2px;
+        border-radius: 1em;
+      }
+      .nft-btn:active, .nft-card:active {
+        background: linear-gradient(90deg, #ffd700 0%, #3b82f6 100%) !important;
+        color: #1e1e1e !important;
+        box-shadow: 0 0 10px #ffd70066 !important;
+        outline: none;
+      }
+      @keyframes fadeInUp {
+        0% { opacity: 0; transform: translateY(30px) scale(0.97); filter: blur(6px); }
+        60% { opacity: 1; filter: blur(0.3px); }
+        100% { opacity: 1; transform: translateY(0) scale(1.01); filter: blur(0); }
+      }
+    }
   </style>
 </head>
 <body>
@@ -1683,38 +2192,120 @@
         camel NFT, funny camel NFT, camel NFT collection, camelverse NFT project, crypto camels, desert NFT art, nft with lore, nft storytelling, nft with backstory, animated camel NFT, middle eastern NFT, arabian NFT character, magic camel NFT, prophet camel NFT, sheikh of the desert NFT, comedy NFT project, funny desert NFT, nft animal characters, unique camel NFT, nft character lore, desert mythology NFT, nft with story, fantasy camel NFT, interactive camelverse, ai-generated camel art, web3 desert project, tribal camel NFT, nft with emotion, nft driven by lore, camel NFT with powers, arabian nights NFT, gold camel NFT, nft oracle character, sacred camels NFT, humorous NFT collection, mystical desert NFT, nft with fantasy twist, satirical NFT project, talking camel NFT, desert explorer NFT, legendary camel NFT, nft with prophecy, rare NFT animals, fictional NFT characters, dark humor NFT, desert tribe NFT, nft storytelling platform, epic NFT camels, camel NFT universe, meme-based camel NFT, nft collection with chapters, nft project with characters, funny animals nft, camel art nft, nft with comedy twist, nft with character lore, animated nft camels, camel prophet nft, nft desert tribe, nft treasure hunting, nft story collection, nft comic animals, fantasy nft camels, interactive nft camels, nft sandbox style, rare desert animals nft, nft middle east project, ai-generated nft collection, funny digital camels, digital camel kingdom, cryptocurrency camel nft, magic desert nft, nft with unique universe, nft driven by story, nft prophecy character, desert creature nft, nft camels with names, legendary nft camels, crypto desert nft, ai powered nft camels, nft with emotional depth, camels with backstory, humor-based nft series, ancient desert nft, ai generated funny camels, silly nft camels, powerful nft camel king, desert gods nft, character driven nft, intelligent nft character, nft camels with powers, fable-based nft, arabian camel nft, 3d desert animal nft, nft story universe, magic-infused nft, arabian fable nft, web3 desert mythology, sarcastic nft collection, nft driven by emotion, animated web3 animals, talking nft prophets, nft of desert kings, futuristic camel nft, digital camel prophecy, funny arabic nft, dark themed nft camels, comedy meets crypto, fantasy nft collection 2025, web3 animal avatars, arabian nft metaverse, dark magic nft camels, nft with illustrated lore, funny cursed nft, comedy fantasy nft, satirical nft series, nft folklore universe, sandbox nft camels, prophecy-driven nft, nft based on legend, nft campaign storytelling, golden camel universe, sacred camels nft, holy desert nft tribe, humor-infused web3, desert mystic nft, nft myth building, sarcastic desert nft, collectible camel warriors, funny web3 heroes, lore-focused nft, tribal lore nft, desert relic nft, web3 prophecy saga, virtual camel kingdom, nft with storyline, nft camel characters, arabian nft, camel with gold nft, weird nft art, nft with animals, animal-based nft, nft with power and magic, nft with humor, 3d camel nft, mystery nft collection, camel nft drops, nft minting 2025, nft with cultural themes, middle east nft, arab desert nft, camel warriors nft, sheikh nft, arabic nft character, nft with ai lore, nft storytelling project, web3 camel nft, comedy-based nft, funny nft project 2025, artistic nft camel, sandbox nft camel, playable camel nft, nft campaign with camels, epic camelverse, interactive nft character, animated desert camel nft, fantasy humor web3, camelverse, Camel verse, Camel nft, Camel art
       </footer>
     </footer>
-    <section id="gallery" class="section-scroll">
-      <div class="gallery-filters">
-        <button class="gallery-filter active" data-filter="all">All</button>
-        <button class="gallery-filter" data-filter="leaders">Leaders</button>
-        <button class="gallery-filter" data-filter="traders">Traders</button>
-        <button class="gallery-filter" data-filter="legends">Legends</button>
-        <button class="gallery-filter" data-filter="workers">Workers</button>
+    <!-- NFT Gallery Section - Enhanced Card Layout -->
+    <section id="gallery" class="nft-gallery-section" style="overflow-y:auto;max-height:100vh;scroll-behavior:smooth;" aria-label="NFT Gallery">
+      <div class="gallery-bg">
+        <img src="desert-night-hologram.jpg" alt="Cyber Desert Night" class="gallery-bg-img" />
+        <div class="gallery-bg-overlay"></div>
+        <canvas id="gallery-anim-bg" class="gallery-anim-bg"></canvas>
       </div>
-      <div class="gallery-grid">
-        <div class="gallery-card legend" data-type="leaders legends">
-          <img src="https://placehold.co/180x180/3b82f6/fff?text=Sheikh+Al-Laban" alt="Sheikh Al-Laban" />
-          <div class="gallery-overlay"><div class="gallery-title">Sheikh Al-Laban</div><div class="gallery-desc">The enigmatic leader who united the tribes with milk and code.</div></div>
+      <div class="gallery-header" style="margin-top: 60px;">
+        <h2 class="gallery-title" id="gallery-title">NFT Gallery</h2>
+        <div class="gallery-search-bar" role="search" aria-label="Search NFTs">
+          <input type="text" id="gallery-search" placeholder="Search NFTs by name or trait..." aria-label="Search NFTs by name or trait" aria-describedby="gallery-search-desc" autocomplete="off" />
+          <button id="gallery-search-clear" aria-label="Clear search" tabindex="0" style="display:none;">✕</button>
+          <span class="search-icon" aria-hidden="true">🔍</span>
         </div>
-        <div class="gallery-card" data-type="traders">
-          <img src="https://placehold.co/180x180/06b6d4/fff?text=The+Sand+Coder" alt="The Sand Coder" />
-          <div class="gallery-overlay"><div class="gallery-title">The Sand Coder</div><div class="gallery-desc">A mysterious trader, master of desert algorithms and secret deals.</div></div>
+        <span id="gallery-search-desc" class="visually-hidden">Type to filter NFTs. Press Escape to clear.</span>
+        <div class="gallery-categories" role="tablist" aria-label="NFT Categories">
+          <button class="gallery-tab active" data-category="all" role="tab" aria-selected="true" id="tab-all" tabindex="0">All</button>
+          <button class="gallery-tab" data-category="prophets" role="tab" aria-selected="false" id="tab-prophets" tabindex="-1">Prophets</button>
+          <button class="gallery-tab" data-category="warriors" role="tab" aria-selected="false" id="tab-warriors" tabindex="-1">Warriors</button>
+          <button class="gallery-tab" data-category="traders" role="tab" aria-selected="false" id="tab-traders" tabindex="-1">Traders</button>
+          <button class="gallery-tab" data-category="mystics" role="tab" aria-selected="false" id="tab-mystics" tabindex="-1">Mystics</button>
+          <button class="gallery-tab" data-category="legendary" role="tab" aria-selected="false" id="tab-legendary" tabindex="-1">Legendary Camels</button>
         </div>
-        <div class="gallery-card legend" data-type="legends leaders">
-          <img src="https://placehold.co/180x180/a855f7/fff?text=The+Milk+Queen" alt="The Milk Queen" />
-          <div class="gallery-overlay"><div class="gallery-title">The Milk Queen</div><div class="gallery-desc">Her milk is legend, her power eternal. She rules the oasis of secrets.</div></div>
+        <div id="gallery-live" class="visually-hidden" aria-live="polite" aria-atomic="true"></div>
+      </div>
+      <div class="gallery-loader" id="gallery-loader" style="display:none;">
+        <div class="camel-loader">
+          <img src="https://i.ibb.co/6b6Qw8d/camel-walk.gif" alt="Loading..." />
+          <span>Loading NFTs...</span>
         </div>
-        <div class="gallery-card" data-type="workers">
-          <img src="https://placehold.co/180x180/222/fff?text=The+Dune+Hauler" alt="The Dune Hauler" />
-          <div class="gallery-overlay"><div class="gallery-title">The Dune Hauler</div><div class="gallery-desc">A tireless worker, carrying the weight of the Syndicate across the sands.</div></div>
+      </div>
+      <div class="gallery-main-content">
+        <div class="gallery-category-card" id="category-prophets">
+          <div class="category-card-header"><h3>Prophets</h3></div>
+          <div class="gallery-grid category-nft-grid">
+            <div class="nft-card fade-in" data-category="prophets" tabindex="0" aria-label="The Blind Seer, Available" aria-describedby="desc-blindseer" data-nft='{"name":"The Blind Seer","img":"https://via.placeholder.com/320x320?text=Blind+Seer","desc":"A mysterious prophet who sees the future in the shifting sands. Own this NFT to unlock secret lore.","status":"Available","buyLinks":[{"name":"OpenSea","url":"https://opensea.io/BlindSeer"},{"name":"Rarible","url":"https://rarible.com/BlindSeer"}]}' >
+              <img src="https://via.placeholder.com/320x320?text=Blind+Seer" alt="The Blind Seer" class="nft-image" />
+              <div class="nft-info">
+                <h3 class="nft-name">The Blind Seer</h3>
+                <span class="nft-status available" id="desc-blindseer">Available</span>
+                <button class="nft-btn" aria-label="View Lore for The Blind Seer">View Lore</button>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="gallery-card" data-type="traders">
-          <img src="https://placehold.co/180x180/06b6d4/fff?text=The+Spice+Broker" alt="The Spice Broker" />
-          <div class="gallery-overlay"><div class="gallery-title">The Spice Broker</div><div class="gallery-desc">Knows every grain of spice and every secret deal in the desert.</div></div>
+        <div class="gallery-category-card" id="category-legendary">
+          <div class="category-card-header"><h3>Legendary Camels</h3></div>
+          <div class="gallery-grid category-nft-grid">
+            <div class="nft-card fade-in" data-category="legendary" tabindex="0" aria-label="The Golden Mirage, Sold" aria-describedby="desc-goldenmirage" data-nft='{"name":"The Golden Mirage","img":"https://via.placeholder.com/320x320?text=Golden+Mirage","desc":"A legendary camel said to appear only to the worthy. This NFT grants access to exclusive events.","status":"Sold","buyLinks":[{"name":"OpenSea","url":"https://opensea.io/GoldenMirage"},{"name":"Rarible","url":"https://rarible.com/GoldenMirage"}]}' >
+              <img src="https://via.placeholder.com/320x320?text=Golden+Mirage" alt="The Golden Mirage" class="nft-image" />
+              <div class="nft-info">
+                <h3 class="nft-name">The Golden Mirage</h3>
+                <span class="nft-status sold" id="desc-goldenmirage">Sold</span>
+                <button class="nft-btn" aria-label="Explore The Golden Mirage">Explore</button>
+              </div>
+            </div>
+            <div class="nft-card fade-in" data-category="legendary" tabindex="0" aria-label="The Eternal Dune, Sold" aria-describedby="desc-eternaldune" data-nft='{"name":"The Eternal Dune","img":"https://via.placeholder.com/320x320?text=Eternal+Dune","desc":"The oldest and wisest camel, keeper of the desert's deepest secrets. NFT grants lifetime membership.","status":"Sold","buyLinks":[{"name":"OpenSea","url":"https://opensea.io/EternalDune"}]}' >
+              <img src="https://via.placeholder.com/320x320?text=Eternal+Dune" alt="The Eternal Dune" class="nft-image" />
+              <div class="nft-info">
+                <h3 class="nft-name">The Eternal Dune</h3>
+                <span class="nft-status sold" id="desc-eternaldune">Sold</span>
+                <button class="nft-btn" aria-label="Explore The Eternal Dune">Explore</button>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="gallery-card legend" data-type="legends">
-          <img src="https://placehold.co/180x180/fff/3b82f6?text=The+Gray+Camel" alt="The Gray Camel" />
-          <div class="gallery-overlay"><div class="gallery-title">The Gray Camel</div><div class="gallery-desc">A legendary figure, shrouded in myth and feared by all.</div></div>
+        <div class="gallery-category-card" id="category-warriors">
+          <div class="category-card-header"><h3>Warriors</h3></div>
+          <div class="gallery-grid category-nft-grid">
+            <div class="nft-card fade-in" data-category="warriors" tabindex="0" aria-label="The Sand Oracle, Available" aria-describedby="desc-sandoracle" data-nft='{"name":"The Sand Oracle","img":"https://via.placeholder.com/320x320?text=Sand+Oracle","desc":"A battle-hardened oracle who guides the tribe through storms. NFT holders get voting rights in the DAO.","status":"Available","buyLinks":[{"name":"OpenSea","url":"https://opensea.io/SandOracle"}]}' >
+              <img src="https://via.placeholder.com/320x320?text=Sand+Oracle" alt="The Sand Oracle" class="nft-image" />
+              <div class="nft-info">
+                <h3 class="nft-name">The Sand Oracle</h3>
+                <span class="nft-status available" id="desc-sandoracle">Available</span>
+                <button class="nft-btn" aria-label="View Lore for The Sand Oracle">View Lore</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="gallery-category-card" id="category-traders">
+          <div class="category-card-header"><h3>Traders</h3></div>
+          <div class="gallery-grid category-nft-grid">
+            <div class="nft-card fade-in" data-category="traders" tabindex="0" aria-label="The Night Wanderer, Sold" aria-describedby="desc-nightwanderer" data-nft='{"name":"The Night Wanderer","img":"https://via.placeholder.com/320x320?text=Night+Wanderer","desc":"A trader who walks the dunes at night, dealing in secrets and rare goods. Unlocks special trading perks.","status":"Sold","buyLinks":[{"name":"OpenSea","url":"https://opensea.io/NightWanderer"}]}' >
+              <img src="https://via.placeholder.com/320x320?text=Night+Wanderer" alt="The Night Wanderer" class="nft-image" />
+              <div class="nft-info">
+                <h3 class="nft-name">The Night Wanderer</h3>
+                <span class="nft-status sold" id="desc-nightwanderer">Sold</span>
+                <button class="nft-btn" aria-label="Explore The Night Wanderer">Explore</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="gallery-category-card" id="category-mystics">
+          <div class="category-card-header"><h3>Mystics</h3></div>
+          <div class="gallery-grid category-nft-grid">
+            <div class="nft-card fade-in" data-category="mystics" tabindex="0" aria-label="The Moonlit Scribe, Available" aria-describedby="desc-moonlitscribe" data-nft='{"name":"The Moonlit Scribe","img":"https://via.placeholder.com/320x320?text=Moonlit+Scribe","desc":"A mystic who writes the future in the stars. NFT unlocks access to secret lore drops.","status":"Available","buyLinks":[{"name":"OpenSea","url":"https://opensea.io/MoonlitScribe"}]}' >
+              <img src="https://via.placeholder.com/320x320?text=Moonlit+Scribe" alt="The Moonlit Scribe" class="nft-image" />
+              <div class="nft-info">
+                <h3 class="nft-name">The Moonlit Scribe</h3>
+                <span class="nft-status available" id="desc-moonlitscribe">Available</span>
+                <button class="nft-btn" aria-label="View Lore for The Moonlit Scribe">View Lore</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- NFT Modal (unchanged) -->
+      <div class="nft-modal-bg" id="nft-modal-bg" style="display:none;" aria-modal="true" role="dialog" aria-labelledby="nft-modal-title" aria-describedby="nft-modal-desc">
+        <div class="nft-modal">
+          <button class="nft-modal-close" id="nft-modal-close" aria-label="Close NFT details">&times;</button>
+          <img id="nft-modal-img" src="" alt="NFT" class="nft-modal-img" />
+          <div class="nft-modal-title" id="nft-modal-title"></div>
+          <div class="nft-modal-desc" id="nft-modal-desc"></div>
+          <div class="nft-modal-links" id="nft-modal-links"></div>
         </div>
       </div>
     </section>
@@ -2754,6 +3345,130 @@
         window.addEventListener('scroll', requestTick, { passive: true });
       }
     })();
+  </script>
+  <script>
+  // Gallery filter, search, modal, and animated background logic
+  document.addEventListener('DOMContentLoaded', function() {
+    const tabs = document.querySelectorAll('.gallery-tab');
+    const cards = document.querySelectorAll('.nft-card');
+    const search = document.getElementById('gallery-search');
+    const loader = document.getElementById('gallery-loader');
+    const grid = document.getElementById('gallery-grid');
+    const modalBg = document.getElementById('nft-modal-bg');
+    const modalClose = document.getElementById('nft-modal-close');
+    const modalImg = document.getElementById('nft-modal-img');
+    const modalTitle = document.getElementById('nft-modal-title');
+    const modalDesc = document.getElementById('nft-modal-desc');
+    const modalLinks = document.getElementById('nft-modal-links');
+    let filterTimeout;
+
+    tabs.forEach(tab => {
+      tab.addEventListener('click', function() {
+        tabs.forEach(t => t.classList.remove('active'));
+        this.classList.add('active');
+        loader.style.display = 'flex';
+        grid.style.opacity = '0.3';
+        clearTimeout(filterTimeout);
+        filterTimeout = setTimeout(() => {
+          const cat = this.getAttribute('data-category');
+          cards.forEach(card => {
+            if (cat === 'all' || card.getAttribute('data-category') === cat) {
+              card.style.display = '';
+            } else {
+              card.style.display = 'none';
+            }
+          });
+          loader.style.display = 'none';
+          grid.style.opacity = '1';
+        }, 900);
+      });
+    });
+    search.addEventListener('input', function() {
+      const val = this.value.toLowerCase();
+      cards.forEach(card => {
+        const name = card.querySelector('.nft-name').textContent.toLowerCase();
+        card.style.display = name.includes(val) ? '' : 'none';
+      });
+    });
+    // Modal logic
+    cards.forEach(card => {
+      card.addEventListener('click', function(e) {
+        if(e.target.classList.contains('nft-btn') || e.target === card) {
+          const data = JSON.parse(card.getAttribute('data-nft'));
+          modalImg.src = data.img;
+          modalTitle.textContent = data.name;
+          modalDesc.textContent = data.desc;
+          modalLinks.innerHTML = '';
+          data.buyLinks.forEach(link => {
+            const a = document.createElement('a');
+            a.href = link.url;
+            a.target = '_blank';
+            a.rel = 'noopener noreferrer';
+            a.textContent = 'Buy on ' + link.name;
+            modalLinks.appendChild(a);
+          });
+          modalBg.style.display = 'flex';
+          setTimeout(()=>{modalBg.focus && modalBg.focus();}, 10);
+        }
+      });
+      card.addEventListener('keypress', function(e) {
+        if(e.key === 'Enter' || e.key === ' ') card.click();
+      });
+    });
+    modalClose.addEventListener('click', function() {
+      modalBg.style.display = 'none';
+    });
+    modalBg.addEventListener('click', function(e) {
+      if(e.target === modalBg) modalBg.style.display = 'none';
+    });
+    document.addEventListener('keydown', function(e) {
+      if(e.key === 'Escape') modalBg.style.display = 'none';
+    });
+    // Animated background: stars and hologram lines
+    const canvas = document.getElementById('gallery-anim-bg');
+    if(canvas) {
+      const ctx = canvas.getContext('2d');
+      let w = canvas.width = window.innerWidth;
+      let h = canvas.height = document.getElementById('gallery').offsetHeight;
+      let stars = Array.from({length: 80}, () => ({x: Math.random()*w, y: Math.random()*h, r: Math.random()*1.2+0.3, s: Math.random()*0.7+0.2, o: Math.random()*0.5+0.5}));
+      let lines = Array.from({length: 6}, (_,i) => ({y: h/7*(i+1), t: Math.random()*100}));
+      function draw() {
+        ctx.clearRect(0,0,w,h);
+        // Stars
+        for(const star of stars) {
+          ctx.globalAlpha = star.o;
+          ctx.beginPath();
+          ctx.arc(star.x, star.y, star.r, 0, 2*Math.PI);
+          ctx.fillStyle = '#ffe082';
+          ctx.shadowColor = '#ffd700';
+          ctx.shadowBlur = 8;
+          ctx.fill();
+          ctx.shadowBlur = 0;
+        }
+        ctx.globalAlpha = 1;
+        // Hologram lines
+        for(const line of lines) {
+          ctx.save();
+          ctx.globalAlpha = 0.13 + 0.07*Math.sin(Date.now()/900+line.t);
+          ctx.beginPath();
+          ctx.moveTo(0, line.y+8*Math.sin(Date.now()/1200+line.t));
+          ctx.lineTo(w, line.y+8*Math.sin(Date.now()/1200+line.t+1));
+          ctx.lineWidth = 2.5;
+          ctx.strokeStyle = 'rgba(59,130,246,0.7)';
+          ctx.shadowColor = '#3b82f6';
+          ctx.shadowBlur = 16;
+          ctx.stroke();
+          ctx.restore();
+        }
+        requestAnimationFrame(draw);
+      }
+      draw();
+      window.addEventListener('resize', ()=>{
+        w = canvas.width = window.innerWidth;
+        h = canvas.height = document.getElementById('gallery').offsetHeight;
+      });
+    }
+  });
   </script>
 </body>
 </html> 
